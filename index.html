@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kilinjada Village</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-green-50 text-gray-800">
+  
+  <!-- 🍔 Header -->
+  <header class="flex items-center justify-between p-4 bg-green-500 shadow-md top-0 w-full z-50">
+    <button id="menuToggle" class="text-3xl text-green-700 font-bold">&#9776;</button>
+    <h1 class="text-3xl font-extrabold bg-gradient-to-r from-black-500 via-black-900 to-red-500 bg-clip-text text-transparent text-center flex-grow">
+      Kilinjada Village
+    </h1>
+  </header>
+
+  <!-- 🌐 Side Menu -->
+  <aside id="sideMenu" class="fixed top-0 left-0 h-full w-64 bg-white shadow transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+    <div class="flex justify-between items-center p-4 bg-green-500 text-white">
+      <h2 class="text-lg font-semibold">Menu</h2>
+      <button id="menuClose" class="text-xl">&times;</button>
+    </div>
+    <div class="p-4 space-y-4">
+      <div id="weatherWidget" class="p-4 bg-white rounded shadow-md text-gray-800"></div>
+
+      <div id="announcementBox" class="p-4">
+        <h3 class="font-bold">📢 Announcements</h3>
+        <ul id="announcements" class="list-disc list-inside text-sm"></ul>
+      </div>
+
+      <div id="busTimings" class="p-4 bg-yellow-50 border-l-4 border-yellow-400">
+        <h3 class="font-bold text-yellow-800">🚌 Bus Timings</h3>
+        <ul class="text-sm text-gray-700 mt-2 space-y-1">
+          <li>To Town: 7:30 AM, 1:00 PM, 6:00 PM</li>
+          <li>From Town: 8:15 AM, 2:00 PM, 7:00 PM</li>
+        </ul>
+      </div>
+
+      <!-- 📝 Public Villager Form -->
+      <section>
+        <h2 class="text-md font-bold text-green-700">Submit Your Details</h2>
+        <form id="addVillagerPublicForm" class="bg-white p-4 rounded shadow space-y-2">
+          <input id="publicVillagerName" type="text" placeholder="Name" class="input" required />
+          <input id="publicVillagerAge" type="number" placeholder="Age" class="input" required />
+          <input id="publicVillagerDoor" type="text" placeholder="Door Number" class="input" required />
+          <input id="publicVillagerWork" type="text" placeholder="Work" class="input" required />
+          <input id="publicVillagerPhone" type="tel" placeholder="Phone Number" class="input" required />
+          <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Submit</button>
+        </form>
+      </section>
+
+      <div id="visitor-count" class="text-sm text-gray-600 mt-4"></div>
+    </div>
+  </aside>
+
+  <!-- 🧠 Main Content -->
+  <main class="pt-24 px-4 space-y-16" id="mainContent">
+
+    <!-- 🏡 Welcome Section -->
+    <section class="text-center">
+      <img src="fruits-vegetables-images/village.jpg" alt="Kilinjada Village" class="mx-auto rounded-xl shadow-lg max-w-sm w-full" />
+      <h2 class="text-3xl text-center font-extrabold bg-gradient-to-r from-green-600 via-lime-400 to-yellow-400 bg-clip-text text-transparent mt-4">
+        Welcome to Kilinjada
+      </h2>
+      <p class="text-sm sm:text-base font-large mt-2 sm:mt-0 text-black90">Welcome to our vibrant and peaceful village</p>
+    </section>
+
+    <!-- 📍 Location -->
+    <section class="p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+      <h3 class="font-bold text-blue-800">📍 Our Location</h3>
+      <iframe src="https://www.google.com/maps/embed?pb=!4v1749147230841!6m8!1m7!1sV3NFWxMwbh-taWeW1ruShA!2m2!1d11.31457441127603!2d76.7373465401174!3f199.62907!4f0!5f0.7820865974627469"
+        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+        class="mt-2 rounded shadow"></iframe>
+    </section>
+
+    <!-- ℹ️ About Section -->
+    <section class="bg-white p-4 rounded shadow">
+      <h2 class="text-xl font-bold text-green-700 mb-2">About Kilinjada</h2>
+      <p class="text-sm text-gray-700">Kilinjada is a serene village known for its lush greenery, vibrant festivals, and close-knit community. Surrounded by farms and rivers, it is a perfect blend of tradition and nature.</p>
+    </section>
+
+    <!-- 🍉 Fruits & Vegetables -->
+    <section class="mt-8 px-4">
+      <h2 class="text-xl font-bold mb-4 text-green-700 text-center">Seasonal Fruits & Vegetables</h2>
+      <div id="seasonalItems" class="grid grid-cols-2 gap-4 max-w-4xl mx-auto">
+
+        <div class="text-center bg-white rounded-lg shadow p-2">
+          <img src="fruits-vegetables-images/guava.jpg" alt="Guava" class="w-full h-32 object-cover rounded" loading="lazy" />
+          <p class="mt-2 text-sm font-medium text-gray-800">Guava</p>
+        </div>
+
+        <div class="text-center bg-white rounded-lg shadow p-2">
+          <img src="fruits-vegetables-images/carrot.jpg" alt="Carrot" class="w-full h-32 object-cover rounded" loading="lazy" />
+          <p class="mt-2 text-sm font-medium text-gray-800">Carrot</p>
+        </div>
+
+        <div class="text-center bg-white rounded-lg shadow p-2">
+          <img src="fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" class="w-full h-32 object-cover rounded" loading="lazy" />
+          <p class="mt-2 text-sm font-medium text-gray-800">Cauliflower</p>
+        </div>
+
+        <div class="text-center bg-white rounded-lg shadow p-2">
+          <img src="fruits-vegetables-images/beans.jpg" alt="Beans" class="w-full h-32 object-cover rounded" loading="lazy" />
+          <p class="mt-2 text-sm font-medium text-gray-800">Beans</p>
+        </div>
+
+        <div class="text-center bg-white rounded-lg shadow p-2">
+          <img src="fruits-vegetables-images/strawberry.jpg" alt="Strawberry" class="w-full h-32 object-cover rounded" loading="lazy" />
+          <p class="mt-2 text-sm font-medium text-gray-800">Strawberry</p>
+        </div>
+
+        <div class="text-center bg-white rounded-lg shadow p-2">
+          <img src="fruits-vegetables-images/plums.jpg" alt="Plums" class="w-full h-32 object-cover rounded" loading="lazy" />
+          <p class="mt-2 text-sm font-medium text-gray-800">Plums</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 💬 Feedback Section -->
+    <section class="px-4 mt-10 max-w-xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4 text-green-700">💬 Send Feedback</h2>
+      <form id="feedbackForm" class="bg-white p-6 rounded-2xl shadow-md space-y-4">
+        <textarea
+          id="feedbackMessage"
+          placeholder="Your Feedback"
+          class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400 min-h-[100px]"
+          required
+        ></textarea>
+        <input
+          id="feedbackName"
+          type="text"
+          placeholder="Your Name"
+          class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+          required
+        />
+        <button
+          type="submit"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded shadow transition duration-200"
+        >
+          📩 Send
+        </button>
+        <p id="feedbackSuccess" class="hidden text-green-600 font-medium text-center mt-2">
+          ✅ Thank you for your feedback!
+        </p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- 📎 Footer -->
+  <footer class="bg-green-700 text-white text-center py-4 mt-10">
+    &copy; 2025 Kilinjada Village. All rights reserved.
+  </footer>
+
+  <!-- 📜 Scripts -->
+  <script type="module" src="js/menu.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/weather.js"></script>
+  <script type="module" src="js/announcement.js"></script>
+  <script type="module" src="js/feedback.js"></script>
+
+</body>
+</html>

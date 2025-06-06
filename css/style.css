@@ -1,0 +1,89 @@
+/* === Global Styles === */
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  scroll-behavior: smooth;
+  color: #1f2937; /* Tailwind gray-800 */
+  background-color: #f9fafb; /* Tailwind gray-50 */
+}
+
+/* === Header/Menu === */
+header {
+  font-weight: 600;
+}
+#menuToggle,
+#menuClose {
+  cursor: pointer;
+}
+
+/* === Side Menu === */
+#sideMenu {
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+}
+#sideMenu::-webkit-scrollbar {
+  display: none;
+}
+#sideMenu {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* === Sections Animation === */
+section {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+section.animate {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* === Forms === */
+input,
+textarea {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* === Buttons === */
+button {
+  transition: background 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.95;
+}
+
+/* === Images === */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+/* === Feedback Message === */
+#feedbackSuccess,
+#villagerSuccess {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* === Typography === */
+h1, h2, h3 {
+  font-weight: 700;
+}
+
+/* === Footer (Responsive Font) === */
+footer {
+  font-size: 1rem;
+}
+@media (max-width: 640px) {
+  footer {
+    font-size: 0.875rem;
+  }
+}
