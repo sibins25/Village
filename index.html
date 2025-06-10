@@ -2,166 +2,242 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kilinjada Village</title>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Counter Animation -->
+
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: none;
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-b from-blue-50 to-green-50 text-gray-800">
-  
-  <!-- 🍔 Header -->
-  <header class="flex items-center justify-between p-4 bg-green-500 shadow-md top-0 w-full z-50">
-    <button id="menuToggle" class="text-3xl text-green-700 font-bold">&#9776;</button>
-    <h1 class="text-3xl font-extrabold bg-gradient-to-r from-black-500 via-black-900 to-red-500 bg-clip-text text-transparent text-center flex-grow">
-      Kilinjada Village
-    </h1>
-  </header>
+<body class="bg-gradient-to-br from-red-100 via-blue-100 to-green-100 text-gray-900">
 
-  <!-- 🌐 Side Menu -->
-  <aside id="sideMenu" class="fixed top-0 left-0 h-full w-64 bg-white shadow transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
-    <div class="flex justify-between items-center p-4 bg-green-500 text-white">
-      <h2 class="text-lg font-semibold">Menu</h2>
-      <button id="menuClose" class="text-xl">&times;</button>
+  <!-- 🔔 Announcement -->
+  <div class="bg-yellow-200 py-1 text-sm font-semibold text-center">
+    <div class="marquee">🌾 Welcome to Kilinjada Village - Pongal Festival on Jan 14 | Temple Celebration june 22 | Stay Tuned for Updates! 🌟</div>
+  </div>
+
+  <!-- 🌈 Navigation Bar -->
+  <nav class="bg-gradient-to-r from-red-400 via-orange-400 to-green-400 shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+      <a href="welcome.html" class="text-white font-bold text-xl hover:underline">Home</a>
+      <a href="#about" class="text-white font-bold hover:underline">About</a>
+      <a href="#location" class="text-white font-bold hover:underline">Location</a>
+      <a href="#weather" class="text-white font-bold hover:underline">Weather</a>
+      <span id="number" class="text-white font-semibold">👥 Visitors: 1321</span>
+      <select id="languageSwitcher" class="px-2 py-1 rounded text-sm">
+        <option value="en">English</option>
+        <option value="ta">தமிழ்</option>
+      </select>
     </div>
-    <div class="p-4 space-y-4">
-      <div id="weatherWidget" class="p-4 bg-white rounded shadow-md text-gray-800"></div>
+  </nav>
 
-      <div id="announcementBox" class="p-4">
-        <h3 class="font-bold">📢 Announcements</h3>
-        <ul id="announcements" class="list-disc list-inside text-sm"></ul>
-      </div>
+  <!-- 🙏 Welcome -->
+  <section id="welcome" class="text-center py-10">
+    <h2 class="text-4xl font-extrabold bg-gradient-to-r from-black-600 via-red-400 to-orange-500 bg-clip-text text-transparent mb-2">Welcome to Kilinjada</h2>
+    <p class="text-lg text-gray-700">A colorful glimpse into our vibrant village life.</p>
+  </section>
 
-      <div id="busTimings" class="p-4 bg-yellow-50 border-l-4 border-yellow-400">
-        <h3 class="font-bold text-yellow-800">🚌 Bus Timings</h3>
-        <ul class="text-sm text-gray-700 mt-2 space-y-1">
-          <li>To Town: 7:30 AM, 1:00 PM, 6:00 PM</li>
-          <li>From Town: 8:15 AM, 2:00 PM, 7:00 PM</li>
-        </ul>
-      </div>
+  <!-- 📜 About -->
+  <section id="about" class="text-center px-6 py-6">
+    <p class="max-w-4xl mx-auto text-lg text-gray-800">Kilinjada is a peaceful and picturesque village known for its lush fields, seasonal crops, festive spirit, and warm-hearted people. With a close-knit community and natural beauty, it's a true hidden gem in our region.</p>
+  </section>
 
-      <!-- 📝 Public Villager Form -->
-      <section>
-        <h2 class="text-md font-bold text-green-700">Submit Your Details</h2>
-        <form id="addVillagerPublicForm" class="bg-white p-4 rounded shadow space-y-2">
-          <input id="publicVillagerName" type="text" placeholder="Name" class="input" required />
-          <input id="publicVillagerAge" type="number" placeholder="Age" class="input" required />
-          <input id="publicVillagerDoor" type="text" placeholder="Door Number" class="input" required />
-          <input id="publicVillagerWork" type="text" placeholder="Work" class="input" required />
-          <input id="publicVillagerPhone" type="tel" placeholder="Phone Number" class="input" required />
-          <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Submit</button>
-        </form>
-      </section>
-
-      <div id="visitor-count" class="text-sm text-gray-600 mt-4"></div>
+  <!-- 📸 Village Photos -->
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+    <div class="bg-white rounded-lg shadow p-4 text-center">
+      <img src="images/village/village.webp" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Village 1">
     </div>
-  </aside>
+    <div class="bg-white rounded-lg shadow p-4 text-center">
+      <img src="images/village/village1.webp" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Village 2">
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 text-center">
+      <img src="images/village/village2.webp" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Village 3">
+    </div>
+  </div>
 
-  <!-- 🧠 Main Content -->
-  <main class="pt-24 px-4 space-y-16" id="mainContent">
-
-    <!-- 🏡 Welcome Section -->
-    <section class="text-center">
-      <img src="fruits-vegetables-images/village.jpg" alt="Kilinjada Village" class="mx-auto rounded-xl shadow-lg max-w-sm w-full" />
-      <h2 class="text-3xl text-center font-extrabold bg-gradient-to-r from-green-600 via-lime-400 to-yellow-400 bg-clip-text text-transparent mt-4">
-        Welcome to Kilinjada
-      </h2>
-      <p class="text-sm sm:text-base font-large mt-2 sm:mt-0 text-black90">Welcome to our vibrant and peaceful village</p>
-    </section>
-
-    <!-- 📍 Location -->
-    <section class="p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
-      <h3 class="font-bold text-blue-800">📍 Our Location</h3>
-      <iframe src="https://www.google.com/maps/embed?pb=!4v1749147230841!6m8!1m7!1sV3NFWxMwbh-taWeW1ruShA!2m2!1d11.31457441127603!2d76.7373465401174!3f199.62907!4f0!5f0.7820865974627469"
-        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-        class="mt-2 rounded shadow"></iframe>
-    </section>
-
-    <!-- ℹ️ About Section -->
-    <section class="bg-white p-4 rounded shadow">
-      <h2 class="text-xl font-bold text-green-700 mb-2">About Kilinjada</h2>
-      <p class="text-sm text-gray-700">Kilinjada is a serene village known for its lush greenery, vibrant festivals, and close-knit community. Surrounded by farms and rivers, it is a perfect blend of tradition and nature.</p>
-    </section>
-
-    <!-- 🍉 Fruits & Vegetables -->
-    <section class="mt-8 px-4">
-      <h2 class="text-xl font-bold mb-4 text-green-700 text-center">Seasonal Fruits & Vegetables</h2>
-      <div id="seasonalItems" class="grid grid-cols-2 gap-4 max-w-4xl mx-auto">
-
-        <div class="text-center bg-white rounded-lg shadow p-2">
-          <img src="fruits-vegetables-images/guava.jpg" alt="Guava" class="w-full h-32 object-cover rounded" loading="lazy" />
-          <p class="mt-2 text-sm font-medium text-gray-800">Guava</p>
-        </div>
-
-        <div class="text-center bg-white rounded-lg shadow p-2">
-          <img src="fruits-vegetables-images/carrot.jpg" alt="Carrot" class="w-full h-32 object-cover rounded" loading="lazy" />
-          <p class="mt-2 text-sm font-medium text-gray-800">Carrot</p>
-        </div>
-
-        <div class="text-center bg-white rounded-lg shadow p-2">
-          <img src="fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" class="w-full h-32 object-cover rounded" loading="lazy" />
-          <p class="mt-2 text-sm font-medium text-gray-800">Cauliflower</p>
-        </div>
-
-        <div class="text-center bg-white rounded-lg shadow p-2">
-          <img src="fruits-vegetables-images/beans.jpg" alt="Beans" class="w-full h-32 object-cover rounded" loading="lazy" />
-          <p class="mt-2 text-sm font-medium text-gray-800">Beans</p>
-        </div>
-
-        <div class="text-center bg-white rounded-lg shadow p-2">
-          <img src="fruits-vegetables-images/strawberry.jpg" alt="Strawberry" class="w-full h-32 object-cover rounded" loading="lazy" />
-          <p class="mt-2 text-sm font-medium text-gray-800">Strawberry</p>
-        </div>
-
-        <div class="text-center bg-white rounded-lg shadow p-2">
-          <img src="fruits-vegetables-images/plums.jpg" alt="Plums" class="w-full h-32 object-cover rounded" loading="lazy" />
-          <p class="mt-2 text-sm font-medium text-gray-800">Plums</p>
-        </div>
-
+  <!-- 📍 Location -->
+  <section id="location" class="py-12 px-4 bg-gradient-to-r from-green-100 via-blue-100 to-teal-100">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-6">📍 Locate Kilinjada Village</h2>
+      <p class="text-gray-700 text-lg mb-8">Click below to view Kilinjada on Google Maps.</p>
+      <div class="rounded-xl overflow-hidden shadow-lg border-4 border-green-300">
+        <img src="images/village/killinjada.PNG" alt="Map" loading="lazy">
       </div>
-    </section>
+      <div class="mt-6">
+        <a href="https://maps.app.goo.gl/tyzBPvPUJSt4t1Aa7" target="_blank" class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl shadow-md transition-all duration-300">
+          📍 View on Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <!-- 💬 Feedback Section -->
-    <section class="px-4 mt-10 max-w-xl mx-auto">
-      <h2 class="text-2xl font-bold mb-4 text-green-700">💬 Send Feedback</h2>
-      <form id="feedbackForm" class="bg-white p-6 rounded-2xl shadow-md space-y-4">
-        <textarea
-          id="feedbackMessage"
-          placeholder="Your Feedback"
-          class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400 min-h-[100px]"
-          required
-        ></textarea>
-        <input
-          id="feedbackName"
-          type="text"
-          placeholder="Your Name"
-          class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
-          required
-        />
-        <button
-          type="submit"
-          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded shadow transition duration-200"
-        >
-          📩 Send
-        </button>
-        <p id="feedbackSuccess" class="hidden text-green-600 font-medium text-center mt-2">
-          ✅ Thank you for your feedback!
-        </p>
-      </form>
-    </section>
+  <!-- 🍇 Seasonal Produce -->
+  <section id="fruits" class="px-6 py-10">
+    <h3 class="text-center text-2xl font-bold text-red-700 mb-6">🌽 Seasonal Produce</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <!-- Repeat this card block for each item -->
+      <div class="bg-white rounded-lg shadow p-4 text-center">
+        <img src="images/fruits-vegetables-images/guava.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Guava">
+        <p class="font-semibold">Guava</p>
+      </div>
+      <!-- Add more... -->
+      <div class="bg-white rounded-lg shadow p-4 text-center">
+        <img src="images/fruits-vegetables-images/carrot.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Carrot">
+        <p class="font-semibold">Carrot</p>
+      </div>
+      <div class="bg-white rounded-lg shadow p-4 text-center">
+        <img src="images/fruits-vegetables-images/beans.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Beans">
+        <p class="font-semibold">Beans</p>
+      </div>
+      <div class="bg-white rounded-lg shadow p-4 text-center">
+        <img src="images/fruits-vegetables-images/cauliflower.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Cauliflower">
+        <p class="font-semibold">Cauliflower</p>
+      </div>
+      <div class="bg-white rounded-lg shadow p-4 text-center">
+        <img src="images/fruits-vegetables-images/cabbage.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Cabbage">
+        <p class="font-semibold">Cabbage</p>
+      </div>
+      <div class="bg-white rounded-lg shadow p-4 text-center">
+        <img src="images/fruits-vegetables-images/potato.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Potato">
+        <p class="font-semibold">Potato</p>
+      </div>
+    </div>
+  </section>
+  <!-- 🚌 Bus Timings -->
+<section id="busTimings" class="bg-blue-50 py-10 px-4 rounded-2xl shadow-xl mx-auto max-w-5xl my-10">
+  <h3 class="text-3xl font-bold text-center text-blue-700 mb-6">🚌 Village Bus Timings</h3>
 
-  </main>
+  <div class="overflow-x-auto">
+    <table class="min-w-full border-collapse border border-blue-300 text-center animate-fade-in-up">
+      <thead>
+        <tr class="bg-gradient-to-r from-blue-400 to-blue-600 text-white">
+    
+          <th class="p-3 border border-blue-300">From</th>
+          <th class="p-3 border border-blue-300">To</th>
+          <th class="p-3 border border-blue-300">Departure</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr class="hover:bg-blue-100">
+          
+          <td class="p-3 border border-blue-300">coonoor</td>
+          <td class="p-3 border border-blue-300">kilinjada</td>
+          <td class="p-3 border border-blue-300">6:00 AM</td>
+        </tr>
+        <tr class="hover:bg-blue-100">
+          
+          <td class="p-3 border border-blue-300">Kilinjada</td>
+          <td class="p-3 border border-blue-300">coonoor</td>
+          <td class="p-3 border border-blue-300">8:00 AM</td>
+        </tr>
+        <tr class="hover:bg-blue-100">
+          
+          <td class="p-3 border border-blue-300">Kilinjada</td>
+          <td class="p-3 border border-blue-300">kattery</td>
+          <td class="p-3 border border-blue-300">9:30 PM</td>
+        </tr>
+        <tr class="hover:bg-blue-100">
+          
+          <td class="p-3 border border-blue-300">kattery</td>
+          <td class="p-3 border border-blue-300">kilinjada</td>
+          <td class="p-3 border border-blue-300">8:45 PM</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <!-- 🔢 Village Count -->
+  <section id="villageCount" class="bg-white py-10 px-6 text-center">
+    <h3 class="text-xl font-bold text-gray-800 mb-6">Our Village in Numbers</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div class="bg-gradient-to-r from-purple-400 to-pink-500 text-white p-6 rounded shadow-lg">
+        <p class="text-5xl font-extrabold" id="countPeople">400</p>
+        <p>Total People</p>
+      </div>
+      <div class="bg-gradient-to-r from-blue-400 to-green-500 text-white p-6 rounded shadow-lg">
+        <p class="text-5xl font-extrabold" id="countHouses">100</p>
+        <p>Total Houses</p>
+      </div>
+      <div class="bg-gradient-to-r from-orange-400 to-yellow-500 text-white p-6 rounded shadow-lg">
+        <p class="text-5xl font-extrabold" id="countShops">5</p>
+        <p>Total Shops</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💬 Feedback -->
+  <section class="py-10 px-6 text-center">
+    <h3 class="text-2xl font-bold text-green-800 mb-4">💬 Send Your Feedback</h3>
+    <form id="feedbackForm" class="max-w-xl mx-auto space-y-4">
+      <input id ="feedbackName" type="text" placeholder="Your Name" required class="w-full border px-4 py-2 rounded" />
+      <input id="feedbackEmail" type="email" placeholder="Your Email" required class="w-full border px-4 py-2 rounded" />
+      <textarea id ="feedbackMessage"placeholder="Your Feedback" rows="4" required class="w-full border px-4 py-2 rounded"></textarea>
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded">Submit</button>
+    </form>
+  </section>
+
+  <!-- 🌦 Weather -->
+  <section id="weather" class="py-6 px-6 text-center">
+    <h3 class="text-xl font-bold text-gray-800 mb-2">🌤 Current Weather</h3>
+    <div id="weatherWidget" class="inline-block">[Your Weather Widget Here]</div>
+  </section>
 
   <!-- 📎 Footer -->
-  <footer class="bg-green-700 text-white text-center py-4 mt-10">
-    &copy; 2025 Kilinjada Village. All rights reserved.
+  <footer class="bg-gradient-to-r from-green-700 via-blue-800 to-purple-700 text-white text-center py-6">
+    <p>📞 +(91 1000 1555) | ✉️ info@kilinjada.in</p>
+    <p class="mt-2">&copy; 2025 Kilinjada Village. All rights reserved.</p>
   </footer>
 
-  <!-- 📜 Scripts -->
-  <script type="module" src="js/menu.js"></script>
-  <script type="module" src="js/main.js"></script>
-  <script type="module" src="js/weather.js"></script>
-  <script type="module" src="js/announcement.js"></script>
-  <script type="module" src="js/feedback.js"></script>
+  <!-- 🔢 CountUp Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.3/countUp.min.js"></script>
+<script>
+  const counters = [
+    { id: "countPeople", endVal: 400 },
+    { id: "countHouses", endVal: 100 },
+    { id: "countShops", endVal: 5 }
+  ];
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        counters.forEach(counter => {
+          const count = new CountUp(counter.id, counter.endVal, {
+            duration: 2,
+            separator: ","
+          });
+          if (!count.error) count.start();
+        });
+        observer.disconnect();
+      }
+    });
+  });
+
+  observer.observe(document.getElementById("villageCount"));
+</script>
+
+  <!-- Other Scripts -->
+  <script src="js/weather.js" type="module"></script>
+  <script src="js/feedback.js" type="module"></script>
+  <script  src="js/main.js" type="module"></script>
 
 </body>
 </html>

@@ -1,89 +1,49 @@
-/* === Global Styles === */
-body {
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  scroll-behavior: smooth;
-  color: #1f2937; /* Tailwind gray-800 */
-  background-color: #f9fafb; /* Tailwind gray-50 */
+/* === Base Styling === */
+ body { font-family: system-ui, sans-serif;
+     background-color: #f0fdf4; 
+     color: #1a202c;
+      scroll-behavior: smooth;
+     }
+
+/* === Section Transitions === */
+section { transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; 
+    opacity: 0; 
+    transform: translateY(40px);
+ } section.visible { opacity: 1; transform: translateY(0); 
 }
 
-/* === Header/Menu === */
-header {
-  font-weight: 600;
-}
-#menuToggle,
-#menuClose {
-  cursor: pointer;
-}
-
-/* === Side Menu === */
-#sideMenu {
-  transition: transform 0.3s ease-in-out;
-  overflow-y: auto;
-}
-#sideMenu::-webkit-scrollbar {
-  display: none;
-}
-#sideMenu {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* === Sections Animation === */
-section {
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-section.animate {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-/* === Forms === */
-input,
-textarea {
-  font-size: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db; /* gray-300 */
-  border-radius: 0.5rem;
-  width: 100%;
-  box-sizing: border-box;
-  outline: none;
-}
+/* === Headings === */
+ h2, h3 { font-weight: 800;
+     text-align: center;
+      margin-bottom: 1rem;
+     }
 
 /* === Buttons === */
-button {
-  transition: background 0.3s ease;
-  font-weight: 500;
-  cursor: pointer;
-}
-button:hover {
-  opacity: 0.95;
-}
+button, .btn, a.button { 
+    background: linear-gradient(to right, #34d399, #3b82f6); 
+    color: white; 
+    font-weight: 600;
+     padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem; 
+      transition: transform 0.2s ease-in-out, background 0.3s;
+       display: inline-block; 
+       text-align: center; text-decoration: none;
+     } button:hover, .btn:hover, a.button:hover {
+        
+        transform: scale(1.05); background: linear-gradient(to right, #059669, #2563eb);
+     }
 
-/* === Images === */
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-  display: block;
-}
 
-/* === Feedback Message === */
-#feedbackSuccess,
-#villagerSuccess {
-  transition: opacity 0.3s ease-in-out;
-}
+/* === Image Styling === */ 
+img { 
+    display: block; 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 0.5rem; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
 
-/* === Typography === */
-h1, h2, h3 {
-  font-weight: 700;
-}
-
-/* === Footer (Responsive Font) === */
-footer {
-  font-size: 1rem;
-}
-@media (max-width: 640px) {
-  footer {
-    font-size: 0.875rem;
-  }
-}
+/* === Responsive Typography === */
+ @media screen and (max-width: 768px) {
+     h2 { font-size: 1.75rem; }
+      h3 { font-size: 1.25rem; } 
+      section { padding: 2rem 1rem; } }

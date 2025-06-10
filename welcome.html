@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kilinjada Village - Welcome</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Style & Animation -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Background Image Optimization */
+    .bg-image {
+      background-image: url('images/village/village1.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+
+<body class="h-screen w-screen bg-image">
+  <!-- Overlay -->
+  <div class="h-full w-full bg-black bg-opacity-70 flex items-center justify-center">
+    <div class="text-center text-white px-6 fade-in">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight drop-shadow">
+        🌾 Welcome to Kilinjada Village
+      </h1>
+      <p class="text-lg md:text-2xl mb-6 drop-shadow-md">
+        A peaceful land of greenery, culture, and community
+      </p>
+      <a href="index.html">
+        <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-2xl text-lg shadow-lg transition duration-300 transform hover:scale-105">
+          🔗 Visit Website
+        </button>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
