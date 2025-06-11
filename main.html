@@ -29,6 +29,7 @@
 </head>
 <body class="bg-gradient-to-br from-red-100 via-blue-100 to-green-100 text-gray-900">
 
+
   <!-- 🔔 Announcement -->
   <div class="bg-yellow-200 py-1 text-sm font-semibold text-center">
     <div class="marquee">🌾 Welcome to Kilinjada Village - Pongal Festival on Jan 14 | Temple Celebration june 22 | Stay Tuned for Updates! 🌟</div>
@@ -42,16 +43,70 @@
       <a href="#location" class="text-white font-bold hover:underline">Location</a>
       <a href="#weather" class="text-white font-bold hover:underline">Weather</a>
       <span id="number" class="text-white font-semibold">👥 Visitors: 1321</span>
+
+  
+<!-- 🌈 Enhanced NavBar: ☰ | Kilinjada (center) | 🌐 Switcher (right) -->
+<nav class="bg-gradient-to-r from-red-400 via-orange-400 to-green-400 shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 relative flex items-center justify-between">
+    
+    <!-- ☰ Menu Button (Left) -->
+    <button id="menuBtn" class="text-white text-2xl font-bold focus:outline-none hover:scale-110 transition z-10">
+      ☰
+    </button>
+
+    <!-- Center Title -->
+    <div class="absolute left-1/2 transform -translate-x-1/2">
+      <a href="main.html" class="text-white font-bold text-xl hover:underline">🏠 Kilinjada</a>
+    </div>
+
+    <!-- 🌐 Language Switcher (Right) -->
+    <div class="z-10">
+
       <select id="languageSwitcher" class="px-2 py-1 rounded text-sm">
         <option value="en">English</option>
         <option value="ta">தமிழ்</option>
       </select>
     </div>
+
   </nav>
 
   <!-- 🙏 Welcome -->
   <section id="home" class="text-center py-10">
     <h2 class="text-4xl font-extrabold bg-gradient-to-r from-purple-800 via-pink-600 to-yellow-400 bg-clip-text text-transparent mb-2">Welcome to Kilinjada</h2>
+
+  </div>
+</nav>
+
+<!-- 🔲 Mobile Menu Overlay + Side Panel -->
+<div id="menuOverlay" class="fixed inset-0 z-40 hidden bg-black bg-opacity-30"></div>
+
+<aside id="mobileMenu" class="fixed top-0 left-0 w-72 h-full bg-gradient-to-br from-yellow-200 via-pink-200 to-purple-200 z-50 transform -translate-x-full transition-transform duration-300 shadow-2xl">
+  <div class="flex justify-between items-center p-4 border-b border-gray-300">
+    <h2 class="text-xl font-bold text-gray-700">📖 Menu</h2>
+    <button id="closeMenu" class="text-gray-700 text-2xl font-bold hover:text-red-600">×</button>
+  </div>
+
+  <div class="p-4 space-y-4">
+    <!-- Navigation Links -->
+    <a href="#welcome" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-orange-400 to-red-500 px-4 py-2 rounded transition">🏡 Home</a>
+    <a href="#about" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-blue-400 to-green-500 px-4 py-2 rounded transition">📖 About</a>
+    <a href="#location" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-purple-400 to-pink-400 px-4 py-2 rounded transition">📍 Location</a>
+    <a href="#weather" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-indigo-400 to-cyan-400 px-4 py-2 rounded transition">🌦 Weather</a>
+    <a href="#fruits" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-green-400 to-lime-500 px-4 py-2 rounded transition">🍇 Produce</a>
+    <a href="#busTimings" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-2 rounded transition">🚌 Bus Timings</a>
+    <a href="#villageCount" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-pink-400 to-red-400 px-4 py-2 rounded transition">🔢 Stats</a>
+
+    <!-- 🔔 Announcement -->
+    <div class="bg-yellow-300 px-4 py-2 rounded font-semibold text-sm text-center">
+      🌾 Pongal Jan 14 | Temple Celebration June 22 | Stay Tuned! 🌟
+    </div>
+  </div>
+</aside>
+
+  <!-- 🙏 Welcome -->
+  <section id="welcome" class="text-center py-10">
+    <h2 class="text-4xl font-extrabold bg-gradient-to-r from-black-600 via-red-400 to-orange-500 bg-clip-text text-transparent mb-2">Welcome to Kilinjada</h2>
+
     <p class="text-lg text-gray-700">A colorful glimpse into our vibrant village life.</p>
   </section>
 
@@ -59,6 +114,7 @@
   <section id="about" class="text-center px-6 py-6">
     <p class="max-w-4xl mx-auto text-lg text-gray-800">Kilinjada is a peaceful and picturesque village known for its lush fields, seasonal crops, festive spirit, and warm-hearted people. With a close-knit community and natural beauty, it's a true hidden gem in our region.</p>
   </section>
+
 
   <!-- 📸 Village Photos -->
   <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -72,6 +128,34 @@
       <img src="images/village/village2.webp" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Village 3">
     </div>
   </div>
+
+<!-- 📸 Village Photos -->
+<section id="gallery" class="py-10 px-4">
+  <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">📸 Village Photos</h3>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+    <!-- Repeatable Card -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <img src="images/village/village.webp" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
+    </div>
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <img src="images/village/village1.webp" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
+    </div>
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <img src="images/village/village2.webp" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
+    </div>
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <img src="images/village/village3.webp" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
+    </div>
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <img src="images/village/village4.jpeg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
+    </div>
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <img src="images/village/village6.jpeg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
+    </div>
+  </div>
+</section>
+
 
   <!-- 📍 Location -->
   <section id="location" class="py-12 px-4 bg-gradient-to-r from-green-100 via-blue-100 to-teal-100">
@@ -232,12 +316,50 @@
   });
 
   observer.observe(document.getElementById("villageCount"));
+
 </script>
 
+
+  
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeMenu');
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('menuOverlay');
+    const menuLinks = menu.querySelectorAll("a");
+
+    const openMenu = () => {
+      menu.classList.remove('-translate-x-full');
+      menu.classList.add('translate-x-0');
+      overlay.classList.remove('hidden');
+    };
+
+    const closeMenu = () => {
+      menu.classList.add('-translate-x-full');
+      menu.classList.remove('translate-x-0');
+      overlay.classList.add('hidden');
+    };
+
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // ❗ Close menu when any link inside menu is clicked
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  });
+</script>
   <!-- Other Scripts -->
   <script src="js/weather.js" type="module"></script>
   <script src="js/feedback.js" type="module"></script>
   <script  src="js/main.js" type="module"></script>
 
 </body>
+
 </html>
+
+</html>
+
