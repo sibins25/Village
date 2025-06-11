@@ -18,7 +18,7 @@ document.querySelectorAll("section").forEach((section) => observer.observe(secti
 document.addEventListener("DOMContentLoaded", () => {
   const translations = {
     ta: {
-      Home: "முகப்பு",
+      home: "முகப்பு",
       about: "எங்களை பற்றி",
       location: "இடம்",
       weather: "வானிலை",
