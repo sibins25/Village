@@ -121,3 +121,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (shopsLabel) shopsLabel.innerText = t.shops;
   });
 });
+function toggleImage() {
+  const extra = document.getElementById("extraImage");
+  const btn = document.getElementById("showMoreBtn");
+
+  if (extra.classList.contains("hidden")) {
+    extra.classList.remove("hidden");
+    btn.innerText = "Show Less";
+  } else {
+    extra.classList.add("hidden");
+    btn.innerText = "Show More";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("showMoreBtn");
+  if (btn) {
+    btn.addEventListener("click", toggleImage);
+  }
+});
