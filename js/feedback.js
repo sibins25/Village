@@ -1,30 +1,43 @@
-// js/feedback.js
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-import app from "./firebase-config.js";
+// Backendless App credentials
+const APP_ID = "F8719370-DAAD-4155-89F8-F6E789F540B4";
+const API_KEY = "627E9F71-8359-4D70-83B5-F09FCDA8574E";
+const FEEDBACK_TABLE = "Feedback";
 
-const db = getFirestore(app);
+// Feedback form submission
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("feedbackForm");
+  const nameInput = document.getElementById("feedbackName");
+  const emailInput = document.getElementById("feedbackEmail");
+  const messageInput = document.getElementById("feedbackMessage");
 
-document.getElementById("feedbackForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  if (!form) return;
 
-  const name = document.getElementById("feedbackName").value.trim();
-  const message = document.getElementById("feedbackMessage").value.trim();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  if (!name || !message) {
-    alert("Please fill out both name and feedback message.");
-    return;
-  }
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
 
-  try {
-    await addDoc(collection(db, "feedback"), {
-      name,
-      message,
-      timestamp: new Date()
-    });
-    alert("Feedback submitted successfully!");
-    document.getElementById("feedbackForm").reset();
-  } catch (error) {
-    console.error("Error submitting feedback: ", error);
-    alert("An error occurred. Please try again.");
-  }
+    if (!name || !email || !message) {
+      alert("🙏 அனைத்து விவரங்களையும் பூர்த்தி செய்யவும்.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://api.backendless.com/${APP_ID}/${API_KEY}/data/${FEEDBACK_TABLE}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      if (!res.ok) throw new Error("Failed");
+
+      alert("🎉 உங்கள் கருத்துக்கு நன்றி!");
+      form.reset();
+    } catch (err) {
+      alert("😢 தவறு ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.");
+      console.error("Feedback error:", err);
+    }
+  });
 });

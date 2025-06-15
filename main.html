@@ -1,329 +1,442 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kilinjada Village</title>
-
-  <!-- Tailwind CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Permissions-Policy" content="accelerometer=(self),gyroscope=(self)">
+  <title data-key="site_title">கிளிஞ்சடா கிராமம்</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Counter Animation -->
-
-
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    html {
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
       scroll-behavior: smooth;
     }
-    .marquee {
-      overflow: hidden;
-      white-space: nowrap;
-      animation: none;
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #fef9c3;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
     }
-    @keyframes scroll-left {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+    section, .flex-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .menu-link:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s, color 0.3s;
+      color: #facc15;
+    }
+    .ticker { white-space: nowrap; overflow: hidden; display: inline-block;}
+    .ticker span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 15s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0);}
+      100% { transform: translateX(-100%);}
+    }
+  
+    /* Gallery Section */
+    #galleryImages {
+      display: flex;
+      overflow-x: auto;
+      gap: 1.5rem;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1rem;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #galleryImages img {
+      flex: 0 0 auto;
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 1rem;
+      scroll-snap-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      animation: fade-in-up 1s;
+      max-width: 95vw;
+    }
+    #galleryImages img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    /* Fruits Section - Vertical Scroll on Mobile */
+    #fruits .fruits-vertical-scroll {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      max-height: 1100px;
+      overflow-y: auto;
+      width: 100%;
+      scroll-snap-type: y mandatory;
+      padding-bottom: 1rem;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    #fruits .fruit-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      width: 100%;
+      max-width: 500px;
+      min-height: 220px;
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fade-in-up 0.7s;
+      box-sizing: border-box;
+    }
+    #fruits .fruit-card:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    #fruits .fruit-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 1.5rem 1.5rem 0 0;
+      max-width: 100vw;
+    }
+    #fruits .fruit-card p {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1f2937;
+      padding: 1rem 0 0.5rem 0;
+      margin: 0;
+    }
+    #fruits .fruits-vertical-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    #fruits .fruits-vertical-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Bus Timings Table */
+    #busTimings .overflow-x-auto {
+      width: 100%;
+      overflow-x: auto;
+      justify-content: center;
+      display: flex;
+      box-sizing: border-box;
+    }
+    #busTimings table {
+      width: 100%;
+      min-width: 0;
+      text-align: center;
+      border-collapse: collapse;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    #busTimings th, #busTimings td {
+      padding: 1rem;
+      border-bottom: 1px solid #facc15;
+      box-sizing: border-box;
+    }
+    /* Responsive: smaller cards and fewer visible at once on mobile */
+    @media (max-width: 1024px) {
+      #galleryImages img { width: 220px; height: 140px;}
+      #fruits .fruits-vertical-scroll { max-height: 700px; }
+      #fruits .fruit-card { max-width: 95vw; min-height: 180px;}
+      #fruits .fruit-card img { height: 120px;}
+      #fruits .fruit-card p { font-size: 1.1rem;}
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 2.2rem;}
+      h2, h3 { font-size: 1.5rem;}
+      #galleryImages img { width: 160px; height: 100px;}
+      .rounded-xl, .rounded-2xl, .rounded-lg { border-radius: 0.5rem;}
+      .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-xl {
+        max-width: 98vw !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+      section, .flex-center {
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100vw !important;
+        box-sizing: border-box;
+      }
+    }
+    @media (max-width: 640px) {
+      #galleryImages img {
+        width: 95vw !important;
+        min-width: 120px;
+        height: 180px !important;
+      }
+      #fruits .fruit-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100vw !important;
+        margin: 0 auto;
+      }
+      #busTimings table {
+        min-width: 0 !important;
+        width: 100% !important;
+        font-size: 0.9rem;
+      }
+      #busTimings th, #busTimings td {
+        padding: 0.4rem !important;
+        font-size: 0.9rem !important;
+      }
+      section, .flex-center {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+      h1 { font-size: 1.7rem !important; }
+      h2, h3 { font-size: 1.2rem !important; }
+    }
+    @media (max-width: 400px) {
+      #fruits .fruits-vertical-scroll { max-height: 220px;}
+      #fruits .fruit-card img { height: 60px;}
+    }
+    /* Accessibility */
+    button:focus, a:focus, input:focus, textarea:focus {
+      outline: 2px solid #f59e0b;
+      outline-offset: 2px;
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-red-100 via-blue-100 to-green-100 text-gray-900">
+<body class="bg-yellow-100 text-black overflow-x-hidden">
 
-  
-<!-- 🌈 Enhanced NavBar: ☰ | Kilinjada (center) | 🌐 Switcher (right) -->
-<nav class="bg-gradient-to-r from-red-400 via-orange-400 to-green-400 shadow sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 py-3 relative flex items-center justify-between">
-    
-    <!-- ☰ Menu Button (Left) -->
-    <button id="menuBtn" class="text-white text-2xl font-bold focus:outline-none hover:scale-110 transition z-10">
+  <!-- Top Controls -->
+  <div class="fixed top-4 left-4 z-50">
+    <button id="menuBtn"
+      class="w-12 h-12 bg-black text-yellow-400 rounded-full shadow-lg flex items-center justify-center text-2xl hover:scale-110 transition-transform duration-300"
+      aria-label="Open menu">
       ☰
     </button>
-
-    <!-- Center Title -->
-    <div class="absolute left-1/2 transform -translate-x-1/2">
-      <a href="index.html" class="text-white font-bold text-xl hover:underline">🏠 Kilinjada</a>
-    </div>
-
-    <!-- 🌐 Language Switcher (Right) -->
-    <div class="z-10">
-      <select id="languageSwitcher" class="px-2 py-1 rounded text-sm">
-        <option value="en">English</option>
-        <option value="ta">தமிழ்</option>
-      </select>
-    </div>
   </div>
-</nav>
-
-<!-- 🔲 Mobile Menu Overlay + Side Panel -->
-<div id="menuOverlay" class="fixed inset-0 z-40 hidden bg-black bg-opacity-30"></div>
-
-<aside id="mobileMenu" class="fixed top-0 left-0 w-72 h-full bg-gradient-to-br from-yellow-200 via-pink-200 to-purple-200 z-50 transform -translate-x-full transition-transform duration-300 shadow-2xl">
-  <div class="flex justify-between items-center p-4 border-b border-gray-300">
-    <h2 class="text-xl font-bold text-gray-700">📖 Menu</h2>
-    <button id="closeMenu" class="text-gray-700 text-2xl font-bold hover:text-red-600">×</button>
-  </div>
-
-  <div class="p-4 space-y-4">
-    <!-- Navigation Links -->
-    <a href="#welcome" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-orange-400 to-red-500 px-4 py-2 rounded transition">🏡 Home</a>
-    <a href="#about" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-blue-400 to-green-500 px-4 py-2 rounded transition">📖 About</a>
-    <a href="#location" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-purple-400 to-pink-400 px-4 py-2 rounded transition">📍 Location</a>
-    <a href="#weather" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-indigo-400 to-cyan-400 px-4 py-2 rounded transition">🌦 Weather</a>
-    <a href="#fruits" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-green-400 to-lime-500 px-4 py-2 rounded transition">🍇 Produce</a>
-    <a href="#busTimings" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-2 rounded transition">🚌 Bus Timings</a>
-    <a href="#villageCount" class="block text-lg font-semibold text-gray-800 hover:text-white hover:bg-gradient-to-r from-pink-400 to-red-400 px-4 py-2 rounded transition">🔢 Stats</a>
-
-    <!-- 🔔 Announcement -->
-    <div class="bg-yellow-300 px-4 py-2 rounded font-semibold text-sm text-center">
-      🌾 Pongal Jan 14 | Temple Celebration June 22 | Stay Tuned! 🌟
-    </div>
-  </div>
-</aside>
-
-  <!-- 🙏 Welcome -->
-  <section id="welcome" class="text-center py-10">
-    <h2 class="text-4xl font-extrabold bg-gradient-to-r from-black-600 via-red-400 to-orange-500 bg-clip-text text-transparent mb-2">Welcome to Kilinjada</h2>
-    <p class="text-lg text-gray-700">A colorful glimpse into our vibrant village life.</p>
-  </section>
-
-  <!-- 📜 About -->
-  <section id="about" class="text-center px-6 py-6">
-    <p class="max-w-4xl mx-auto text-lg text-gray-800">Kilinjada is a peaceful and picturesque village known for its lush fields, seasonal crops, festive spirit, and warm-hearted people. With a close-knit community and natural beauty, it's a true hidden gem in our region.</p>
-  </section>
-<!-- 📸 Village Photos -->
-<section id="gallery" class="py-10 px-4">
-  <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">📸 Village Photos</h3>
-
-  <!-- Grid container -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-    <!-- Always visible -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-      <img src="images/village/village.jpg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
-    </div>
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-      <img src="images/village/village1.jpg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
-    </div>
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-      <img src="images/village/village2.jpg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
-    </div>
-
-    <!-- Hidden extra cards -->
-    <div id="extraImage" class="hidden contents">
-      <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <img src="images/village/village3.jpg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
-      </div>
-      <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <img src="images/village/village4.jpg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
-      </div>
-      <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <img src="images/village/village6.jpg" alt="Village Photo" loading="lazy" class="w-full h-48 object-cover">
+  <div class="fixed top-4 right-4 z-50 flex gap-2 sm:gap-4">
+    <div class="relative group">
+      <button id="langBtn"
+        class="bg-black text-yellow-400 px-3 py-2 sm:px-4 sm:py-2 font-bold rounded-lg shadow-lg flex items-center gap-2 hover:scale-105 transition-transform duration-300"
+        aria-label="Change language">
+        <span id="langLabel" data-key="language_label">தமிழ்</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div id="langDropdown" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden z-50">
+        <button data-lang="ta" class="block w-full text-left px-4 py-2 hover:bg-yellow-200"
+          data-key="tamil_option">தமிழ்</button>
+        <button data-lang="en" class="block w-full text-left px-4 py-2 hover:bg-yellow-200"
+          data-key="english_option">English</button>
       </div>
     </div>
-  </div>
-
-  <!-- Show More / Less Button -->
-  <div class="text-center mt-6">
-    <button onclick="toggleImage()" id="showMoreBtn" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
-      Show More
-    </button>
-  </div>
-</section>
-
-  <!-- 📍 Location -->
-  <section id="location" class="py-12 px-4 bg-gradient-to-r from-green-100 via-blue-100 to-teal-100">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-6">📍 Locate Kilinjada Village</h2>
-      <p class="text-gray-700 text-lg mb-8">Click below to view Kilinjada on Google Maps.</p>
-      <div class="rounded-xl overflow-hidden shadow-lg border-4 border-green-300">
-        <img src="images/village/killinjada.PNG" alt="Map" loading="lazy">
-      </div>
-      <div class="mt-6">
-        <a href="https://maps.app.goo.gl/tyzBPvPUJSt4t1Aa7" target="_blank" class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl shadow-md transition-all duration-300">
-          📍 View on Google Maps
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 🍇 Seasonal Produce -->
-  <section id="fruits" class="px-6 py-10">
-    <h3 class="text-center text-2xl font-bold text-red-700 mb-6">🌽 Seasonal Produce</h3>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      <!-- Repeat this card block for each item -->
-      <div class="bg-white rounded-lg shadow p-4 text-center">
-        <img src="images/fruits-vegetables-images/guava.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Guava">
-        <p class="font-semibold">Guava</p>
-      </div>
-      <!-- Add more... -->
-      <div class="bg-white rounded-lg shadow p-4 text-center">
-        <img src="images/fruits-vegetables-images/carrot.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Carrot">
-        <p class="font-semibold">Carrot</p>
-      </div>
-      <div class="bg-white rounded-lg shadow p-4 text-center">
-        <img src="images/fruits-vegetables-images/beans.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Beans">
-        <p class="font-semibold">Beans</p>
-      </div>
-      <div class="bg-white rounded-lg shadow p-4 text-center">
-        <img src="images/fruits-vegetables-images/cauliflower.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Cauliflower">
-        <p class="font-semibold">Cauliflower</p>
-      </div>
-      <div class="bg-white rounded-lg shadow p-4 text-center">
-        <img src="images/fruits-vegetables-images/cabbage.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Cabbage">
-        <p class="font-semibold">Cabbage</p>
-      </div>
-      <div class="bg-white rounded-lg shadow p-4 text-center">
-        <img src="images/fruits-vegetables-images/potato.jpg" class="w-full h-32 object-cover rounded mb-2" loading="lazy" alt="Potato">
-        <p class="font-semibold">Potato</p>
-      </div>
-    </div>
-  </section>
-  <!-- 🚌 Bus Timings -->
-<section id="busTimings" class="bg-blue-50 py-10 px-4 rounded-2xl shadow-xl mx-auto max-w-5xl my-10">
-  <h3 class="text-3xl font-bold text-center text-blue-700 mb-6">🚌 Village Bus Timings</h3>
-
-  <div class="overflow-x-auto">
-    <table class="min-w-full border-collapse border border-blue-300 text-center animate-fade-in-up">
-      <thead>
-        <tr class="bg-gradient-to-r from-blue-400 to-blue-600 text-white">
     
-          <th class="p-3 border border-blue-300">From</th>
-          <th class="p-3 border border-blue-300">To</th>
-          <th class="p-3 border border-blue-300">Departure</th>
-        </tr>
-      </thead>
-      <tbody class="bg-white">
-        <tr class="hover:bg-blue-100">
-          
-          <td class="p-3 border border-blue-300">coonoor</td>
-          <td class="p-3 border border-blue-300">kilinjada</td>
-          <td class="p-3 border border-blue-300">6:00 AM</td>
-        </tr>
-        <tr class="hover:bg-blue-100">
-          
-          <td class="p-3 border border-blue-300">Kilinjada</td>
-          <td class="p-3 border border-blue-300">coonoor</td>
-          <td class="p-3 border border-blue-300">8:00 AM</td>
-        </tr>
-        <tr class="hover:bg-blue-100">
-          
-          <td class="p-3 border border-blue-300">Kilinjada</td>
-          <td class="p-3 border border-blue-300">kattery</td>
-          <td class="p-3 border border-blue-300">9:30 PM</td>
-        </tr>
-        <tr class="hover:bg-blue-100">
-          
-          <td class="p-3 border border-blue-300">kattery</td>
-          <td class="p-3 border border-blue-300">kilinjada</td>
-          <td class="p-3 border border-blue-300">8:45 PM</td>
-        </tr>
-      </tbody>
-    </table>
+  </div>
+
+  <!-- Side Menu -->
+  <aside id="sideMenu"
+    class="fixed top-0 left-0 h-full w-64 max-w-full bg-neutral-900 text-yellow-400 -translate-x-full z-40 shadow-xl transition-transform duration-500 sm:w-64 w-4/5">
+    <div class="flex justify-between items-center p-4 border-b border-yellow-500">
+      <h2 class="text-xl font-bold" data-key="menu_title">📖 மெனு</h2>
+      <button id="closeMenu" class="text-3xl hover:scale-125 transition-transform duration-300" aria-label="Close menu">&times;</button>
+    </div>
+    <nav class="flex flex-col p-4 gap-4 text-lg">
+      <a href="#welcome" class="menu-link" data-key="menu_home">🏠 முகப்பு</a>
+      <a href="#location" class="menu-link" data-key="menu_location">📍 இடம்</a>
+      <a href="#gallery" class="menu-link" data-key="menu_gallery">📸 புகைப்படங்கள்</a>
+      <a href="#fruits" class="menu-link" data-key="menu_crops">🌾 பயிர்கள்</a>
+      
+      <a href="#busTimings" class="menu-link" data-key="menu_bus">🚌 பஸ் நேரங்கள்</a>
+          <a href="#title" class="menu-link" data-key="title">🚌 📊 கிராம புள்ளிவிவரங்கள்
+</a>
+     
+      <a href="#weather" class="menu-link" data-key="menu_weather">🌦 வானிலை</a>
+      <a href="#feedback" class="menu-link" data-key="menu_feedback">💬 கருத்துகள்</a>
+    </nav>
+  </aside>
+  <div id="menuOverlay" class="fixed inset-0 bg-black/50 hidden z-30"></div>
+
+  <!-- Welcome Section -->
+  <section id="welcome" class="min-h-screen bg-neutral-900 text-yellow-400 flex flex-col justify-center items-center px-4 text-center py-16">
+    <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-6 animate-fade-in-up transition-all duration-700"
+      data-key="welcome_title">🌾 கிளிஞ்சடா கிராமத்திற்கு வரவேற்கிறோம்</h1>
+    <p class="text-xl sm:text-2xl md:text-3xl text-white animate-fade-in-up delay-300"
+      data-key="welcome_description">இது எங்கள் பாரம்பரியமும், இயற்கை அழகும் இணைந்த சிறிய கிராமம்.</p>
+  </section>
+
+
+
+  <!-- Location Section -->
+  <section id="location" class="py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto">
+    <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="location_title">📍 கிளிஞ்சடா இடம்</h3>
+    <div class="rounded-2xl overflow-hidden shadow-xl mb-6 sm:mb-8 w-full flex justify-center">
+      <iframe src="https://www.google.com/maps/embed?pb=!4v1749909160734!6m8!1m7!1stybikJdvtDm8s9d5PDDY2g!2m2!1d11.31443927743172!2d76.73724728914816!3f190.93584082365928!4f-9.765107696316363!5f0.7820865974627469"  width="100%" height="250" class="sm:h-[400px]" style="border:0;" allowfullscreen
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <a href="https://maps.app.goo.gl/tyzBPvPUJSt4t1Aa7" target="_blank"
+      class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 sm:py-4 sm:px-16 rounded-full shadow-xl text-base sm:text-2xl transition-all duration-300 hover:scale-105 mx-auto block"
+      data-key="location_button">🚗 கிளிஞ்சடா செல்லுங்கள்</a>
+  </section>
+
+  <!-- Gallery Section -->
+
+
+ <section id="gallery" class="py-10 sm:py-14 px-4 max-w-6xl mx-auto">
+  <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-8" data-key="gallery_title">
+    📸 கிராமத்துப் புகைப்படங்கள்
+  </h3>
+  <div id="galleryImages" class="flex overflow-x-auto space-x-4 snap-x scroll-smooth">
+    <img src="images/village/village.jpg" alt="Village" class="gallery-img" />
+    <img src="images/village/village1.jpg" alt="Village" class="gallery-img" />
+    <img src="images/village/village2.jpg" alt="Village" class="gallery-img" />
+    <img src="images/village/village3.jpg" alt="Village" class="gallery-img" />
+    <img src="images/village/village4.jpg" alt="Village" class="gallery-img" />
+    <img src="images/village/village5.jpg" alt="Village" class="gallery-img" />
+     <img src="images/village/village6.jpg" alt="Village" class="gallery-img" />
+      <img src="images/village/village.jpg" alt="Village" class="gallery-img" />
   </div>
 </section>
 
-  <!-- 🔢 Village Count -->
-  <section id="villageCount" class="bg-white py-10 px-6 text-center">
-    <h3 class="text-xl font-bold text-gray-800 mb-6">Our Village in Numbers</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      <div class="bg-gradient-to-r from-purple-400 to-pink-500 text-white p-6 rounded shadow-lg">
-        <p class="text-5xl font-extrabold" id="countPeople">400</p>
-        <p>Total People</p>
-      </div>
-      <div class="bg-gradient-to-r from-blue-400 to-green-500 text-white p-6 rounded shadow-lg">
-        <p class="text-5xl font-extrabold" id="countHouses">100</p>
-        <p>Total Houses</p>
-      </div>
-      <div class="bg-gradient-to-r from-orange-400 to-yellow-500 text-white p-6 rounded shadow-lg">
-        <p class="text-5xl font-extrabold" id="countShops">5</p>
-        <p>Total Shops</p>
+  <!-- Fruits Section -->
+  <section id="fruits" class="py-10 sm:py-12 px-2 sm:px-4 max-w-4xl mx-auto">
+  <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="crops_title">
+    🌽 பருவ பயிர்கள்
+  </h3>
+  <div class="fruits-scrollable">
+    <div class="fruit-card"loading="lazy">
+    <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" />
+      <p>Chow chow</p>
+    </div>
+    <div class="fruit-card" loading="lazy">
+      <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" />
+      <p>Guava</p>
+    </div>
+    <div class="fruit-card" loading="lazy">
+      <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" />
+      <p>Carrot</p>
+    </div>
+    <div class="fruit-card" loading="lazy">
+      <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" />
+      <p>Cabbage</p>
+    </div>
+    <div class="fruit-card" loading="lazy">
+      <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" />
+      <p>Cauliflower</p>
+    </div>
+   
+    <div class="fruit-card" loading="lazy">
+      <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" />
+      <p>Beans</p>
+    </div>
+     <div class="fruit-card"loading="lazy">
+      <img src="images/fruits-vegetables-images/plums.jpg" alt="plums" />
+      <p>plums</p>
+    </div>
+     <div class="fruit-card"loading="lazy">
+      <img src="images/fruits-vegetables-images/potato.jpg" alt="potato" />
+      <p>Potato</p>
+    </div>
+    <!-- Add more as needed -->
+  </div>
+</section>
+  <!-- Bus Timings Section -->
+  <section id="busTimings" class="py-10 sm:py-12 px-2 sm:px-4 max-w-4xl mx-auto">
+    <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="bus_title">🚌 பஸ் நேரங்கள்</h3>
+    <div class="overflow-x-auto rounded-xl shadow-lg bg-neutral-800 w-full flex justify-center">
+      <div class="overflow-y-auto max-h-56 sm:max-h-72 w-full">
+        <table class="min-w-[500px] w-full text-center mx-auto">
+          <thead class="bg-yellow-400 text-black text-base sm:text-lg">
+            <tr>
+              <th class="p-2 sm:p-3" data-key="bus_from">எங்கிருந்து</th>
+              <th class="p-2 sm:p-3" data-key="bus_to">எங்கே</th>
+              <th class="p-2 sm:p-3" data-key="bus_time">நேரம்</th>
+              <th class="p-2 sm:p-3" data-key="bus_route">வழி</th>
+            </tr>
+          </thead>
+          <tbody class="text-white divide-y divide-yellow-200">
+            <!-- Bus timings will be dynamically inserted here -->
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <!-- 💬 Feedback -->
-  <section class="py-10 px-6 text-center">
-    <h3 class="text-2xl font-bold text-green-800 mb-4">💬 Send Your Feedback</h3>
-    <form id="feedbackForm" class="max-w-xl mx-auto space-y-4">
-      <input id ="feedbackName" type="text" placeholder="Your Name" required class="w-full border px-4 py-2 rounded" />
-      <input id="feedbackEmail" type="email" placeholder="Your Email" required class="w-full border px-4 py-2 rounded" />
-      <textarea id ="feedbackMessage"placeholder="Your Feedback" rows="4" required class="w-full border px-4 py-2 rounded"></textarea>
-      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded">Submit</button>
+
+  
+
+ <!-- Announcement Ticker -->
+<div class="bg-black text-yellow-400 py-2 sm:px-4">
+  <div id="announcementticker" class="ticker font-bold">
+    <span data-key="announcement_ticker"></span>
+    <span data-key="announcement_ticker"></span>
+  </div>
+</div>
+
+  <!-- Village Stats Section -->
+ <section  id="title" class="py-6 sm:py-8 text-center bg-yellow-200 text-black">
+  <h2  class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto text-lg sm:text-xl">
+    <div data-key="people"class="bg-white p-4 sm:p-6 rounded-lg shadow font-bold hover:scale-105 transition-transform duration-300">
+      👨‍👩‍👧‍👦 மக்கள்: <span>400</span>
+    </div>
+    <div data-key="houses"class="bg-white p-4 sm:p-6 rounded-lg shadow font-bold hover:scale-105 transition-transform duration-300">
+      🏠 வீடுகள்: 
+      <span>100</span>
+    </div>
+    <div  data-key="shops"class="bg-white p-4 sm:p-6 rounded-lg shadow font-bold hover:scale-105 transition-transform duration-300">
+      🏪 கடைகள்:
+      <span>5</span>
+    </div>
+  </div>
+</section>
+
+  <!-- Weather Section -->
+ <section id="weather" class="py-10 sm:py-12 px-2 sm:px-4 max-w-3xl mx-auto">
+  <h2 class="text-2xl font-bold mb-4">
+    <span class="text-yellow-500">கிளிஞ்சடா கிராமம்</span> வானிலை
+  </h2>
+  <!-- Weather details here -->
+</section>
+ 
+  </section>
+  <section id="feedback" class="py-10 sm:py-14 px-2 sm:px-4 max-w-xxl mx-auto">
+    <h3 class="text-2xl sm:text-3xl font-extrabold text-center text-black-500 mb-6 sm:mb-8" data-key="feedback_title">💬 உங்கள் கருத்தை தெரிவியுங்கள்</h3>
+    <form id="feedbackForm" class="bg-neutral-800 rounded-xl shadow-xl p-4 sm:p-8 flex flex-col gap-3 sm:gap-4 items-center">
+      <input type="text" id="feedbackName" placeholder="பெயர்" required
+        class="px-4 sm:px-5 py-2 sm:py-3 rounded-xl border border-yellow-300 bg-white text-black text-base sm:text-lg w-full max-w-xs" data-key="feedback_name" />
+      <input type="email" id="feedbackEmail" placeholder="மின்னஞ்சல்" required
+        class="px-4 sm:px-5 py-2 sm:py-3 rounded-xl border border-yellow-300 bg-white text-black text-base sm:text-lg w-full max-w-xs" data-key="feedback_email" />
+      <textarea id="feedbackMessage" placeholder="உங்கள் கருத்து" rows="4" required
+        class="px-4 sm:px-5 py-2 sm:py-3 rounded-xl border border-yellow-300 bg-white text-black text-base sm:text-lg w-full max-w-xs" data-key="feedback_message"></textarea>
+      <button type="submit"
+        class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 sm:py-3 sm:px-8 rounded-xl text-base sm:text-xl mx-auto block mt-4"
+        data-key="feedback_button">✉️ கருத்தை அனுப்பவும்</button>
     </form>
   </section>
 
-  <!-- 🌦 Weather -->
-  <section id="weather" class="py-6 px-6 text-center">
-    <h3 class="text-xl font-bold text-gray-800 mb-2">🌤 Current Weather</h3>
-    <div id="weatherWidget" class="inline-block">[Your Weather Widget Here]</div>
-  </section>
-
-  <!-- 📎 Footer -->
-  <footer class="bg-gradient-to-r from-green-700 via-blue-800 to-purple-700 text-white text-center py-6">
-    <p>📞 +(91 1000 1555) | ✉️ info@kilinjada.in</p>
-    <p class="mt-2">&copy; 2025 Kilinjada Village. All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="bg-black text-yellow-400 py-4 sm:py-6 text-center text-base sm:text-lg mt-10 sm:mt-16">
+    <span data-key="footer">&copy; 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span>
   </footer>
 
-  <!-- 🔢 CountUp Script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.3/countUp.min.js"></script>
-<script>
-  const counters = [
-    { id: "countPeople", endVal: 400 },
-    { id: "countHouses", endVal: 100 },
-    { id: "countShops", endVal: 5 }
-  ];
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        counters.forEach(counter => {
-          const count = new CountUp(counter.id, counter.endVal, {
-            duration: 2,
-            separator: ","
-          });
-          if (!count.error) count.start();
-        });
-        observer.disconnect();
-      }
-    });
-  });
-
-  observer.observe(document.getElementById("villageCount"));
+  <!-- SCRIPTS -->
+   <script src="https://api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/weather.js"></script>
   
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuBtn = document.getElementById('menuBtn');
-    const closeBtn = document.getElementById('closeMenu');
-    const menu = document.getElementById('mobileMenu');
-    const overlay = document.getElementById('menuOverlay');
-    const menuLinks = menu.querySelectorAll("a");
 
-    const openMenu = () => {
-      menu.classList.remove('-translate-x-full');
-      menu.classList.add('translate-x-0');
-      overlay.classList.remove('hidden');
-    };
-
-    const closeMenu = () => {
-      menu.classList.add('-translate-x-full');
-      menu.classList.remove('translate-x-0');
-      overlay.classList.add('hidden');
-    };
-
-    menuBtn.addEventListener('click', openMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', closeMenu);
-
-    // ❗ Close menu when any link inside menu is clicked
-    menuLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
-  });
-</script>
-  <!-- Other Scripts -->
-  <script src="js/weather.js" type="module"></script>
-  <script src="js/feedback.js" type="module"></script>
-  <script  src="js/main.js" type="module"></script>
 
 </body>
 </html>

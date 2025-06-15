@@ -1,49 +1,395 @@
-/* === Base Styling === */
- body { font-family: system-ui, sans-serif;
-     background-color: #f0fdf4; 
-     color: #1a202c;
-      scroll-behavior: smooth;
-     }
-
-/* === Section Transitions === */
-section { transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; 
-    opacity: 0; 
-    transform: translateY(40px);
- } section.visible { opacity: 1; transform: translateY(0); 
+/* ==== Global Styles ==== */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* === Headings === */
- h2, h3 { font-weight: 800;
-     text-align: center;
-      margin-bottom: 1rem;
-     }
+body {
+  font-family: 'Manrope', sans-serif;
+  background-color: #fef9c3;
+  color: #1f2937;
+  margin: 0;
+  padding: 0;
+}
 
-/* === Buttons === */
-button, .btn, a.button { 
-    background: linear-gradient(to right, #34d399, #3b82f6); 
-    color: white; 
-    font-weight: 600;
-     padding: 0.6rem 1.2rem;
-      border-radius: 0.5rem; 
-      transition: transform 0.2s ease-in-out, background 0.3s;
-       display: inline-block; 
-       text-align: center; text-decoration: none;
-     } button:hover, .btn:hover, a.button:hover {
-        
-        transform: scale(1.05); background: linear-gradient(to right, #059669, #2563eb);
-     }
+section, .flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==== Animations ==== */
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(30px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+@keyframes fade-in {
+  0% { opacity: 0;}
+  100% { opacity: 1;}
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0);}
+  50% { transform: translateY(-10px);}
+}
+@keyframes ticker {
+  0% { transform: translateX(0);}
+  100% { transform: translateX(-100%);}
+}
+.animate-fade-in-up { animation: fade-in-up 1s ease;}
+.animate-fade-in { animation: fade-in 1s;}
+.animate-bounce { animation: bounce 1.2s infinite;}
+.ticker { white-space: nowrap; overflow: hidden; display: inline-block;}
+.ticker span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker 15s linear infinite;
+}
+
+/* ==== Top Controls ==== */
+#menuBtn, #langBtn, button {
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+#menuBtn:hover, #langBtn:hover, button:hover {
+  transform: scale(1.08);
+  background-color: #facc15;
+  color: #1f2937;
+}
+
+/* ==== Side Menu ==== */
+#sideMenu {
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+  z-index: 40;
+  background: #171717;
+}
+
+/* ==== Menu Links ==== */
+.menu-link {
+  transition: transform 0.3s, color 0.3s;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+}
+.menu-link:hover, .menu-link:focus {
+  transform: scale(1.05);
+  color: #facc15;
+  background: #222;
+  outline: none;
+}
+
+/* ==== Overlay ==== */
+#menuOverlay {
+  background: rgba(0,0,0,0.5);
+  z-index: 30;
+}
+
+/* ==== Welcome Section ==== */
+#welcome {
+  background-color: #0f172a;
+  color: #facc15;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+#welcome h1, #welcome p {
+  animation: fade-in-up 1s;
+}
+
+/* ==== Gallery ==== */
+#galleryImages {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+  gap: 1rem;
+  /* Show scrollbar */
+  scrollbar-width: thin;           /* For Firefox */
+  scrollbar-color: #5c5b59 #080807; /* Thumb and track colors */
+}
+
+#galleryImages::-webkit-scrollbar {
+  height: 8px;                     /* For Chrome, Safari, Edge */
+  background: #616156;
+}
+#galleryImages::-webkit-scrollbar-thumb {
+  background: #64530e;
+  border-radius: 4px;
+}
+#galleryImages::-webkit-scrollbar-thumb:hover {
+  background: #745703;
+}
+.gallery-img {
+  flex: 0 0 auto;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive: Smaller images on mobile */
+@media (max-width: 700px) {
+  .gallery-img {
+    width: 100px;
+    height: 180px;
+  }
+  #galleryImages {
+    min-height:190px;
+  }
+}
+
+/* ==== Fruits Section ==== */
+.fruits-scrollable {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  max-height: 340px; /* Show only 2 rows (4 cards) at a time */
+  overflow-y: auto;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: y mandatory;
+}
+
+.fruit-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fade-in-up 0.7s;
+  scroll-snap-align: start;
+}
+
+.fruit-card img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 1.2rem 1.2rem 0 0;
+}
+
+.fruit-card p {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1f2937;
+  padding: 0.7rem 0 0.4rem 0;
+  margin: 0;
+  text-align: center;
+  word-break: break-word;
+}
+
+.fruits-scrollable::-webkit-scrollbar { display: none; }
+.fruits-scrollable { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Responsive: Keep 2 columns even on mobile, just reduce card/image size */
+@media (max-width: 700px) {
+  .fruits-scrollable {
+    max-width: 98vw;
+    max-height: 220px;
+    gap: 0.8rem;
+  }
+  .fruit-card {
+    display:inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding:0;
+  }
+  .fruit-card img {
+    height: 60px;
+  }
+  .fruit-card p {
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
+  }
+}
+
+/* ==== Bus Timings Table ==== */
+#busTimings .overflow-x-auto {
+  width: 100%;
+  overflow-x: auto;
+  justify-content: center;
+  display: flex;
+  box-sizing: border-box;
+}
+#busTimings table {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+  border-collapse: collapse;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+#busTimings th, #busTimings td {
+  padding: 1rem;
+  border-bottom: 1px solid #facc15;
+  box-sizing: border-box;
+}
+#busTimings tbody tr {
+  transition: background 0.3s, transform 0.3s;
+}
+#busTimings tbody tr:hover, #busTimings tbody tr:focus {
+  background: #575003;
+  transform: scale(1.02);
+  outline: none;
+}
+#busTimings .overflow-x-auto::-webkit-scrollbar { display: none; }
+#busTimings .overflow-x-auto { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ==== Feedback Form ==== */
+#feedbackForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+#feedbackForm input,
+#feedbackForm textarea {
+  border: 2px solid #facc15;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.3s;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+#feedbackForm input:focus,
+#feedbackForm textarea:focus {
+  outline: none;
+  border-color: #f59e0b;
+}
+#feedbackForm button {
+  background: #f97316;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  animation: fade-in-up 1s;
+}
+#feedbackForm button:hover, #feedbackForm button:focus {
+  background: #ea580c;
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* ==== Village Stats ==== */
 
 
-/* === Image Styling === */ 
-img { 
-    display: block; 
-    max-width: 100%; 
-    height: auto; 
-    border-radius: 0.5rem; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
+/* ==== Weather Result ==== */
+.weather-card {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
 
-/* === Responsive Typography === */
- @media screen and (max-width: 768px) {
-     h2 { font-size: 1.75rem; }
-      h3 { font-size: 1.25rem; } 
-      section { padding: 2rem 1rem; } }
+.weather-card img {
+    width: 80px;
+    height: 80px;
+}
+
+.weather-card p {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* ==== Responsive Section Spacing ==== */
+@media (max-width: 1200px) {
+  .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-xl {
+    max-width: 98vw !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+@media (max-width: 1024px) {
+  #galleryImages img { width: 220px; height: 140px;}
+  #fruits .fruits-vertical-scroll { max-height: 700px; }
+  #fruits .fruit-card { max-width: 95vw; min-height: 180px;}
+  #fruits .fruit-card img { height: 120px;}
+  #fruits .fruit-card p { font-size: 1.1rem;}
+}
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem;}
+  h2, h3 { font-size: 1.5rem;}
+  #galleryImages img { width: 160px; height: 100px;}
+  .rounded-xl, .rounded-2xl, .rounded-lg { border-radius: 0.5rem;}
+  .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-xl {
+    max-width: 98vw !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  section, .flex-center {
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100vw !important;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 640px) {
+  #galleryImages img {
+    width: 95vw !important;
+    min-width: 120px;
+    height: 80px !important;
+  }
+  #fruits .fruit-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    margin: 0 auto;
+  }
+  #busTimings table {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 0.9rem;
+  }
+  #busTimings th, #busTimings td {
+    padding: 0.4rem !important;
+    font-size: 0.9rem !important;
+  }
+  section, .flex-center {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  h1 { font-size: 1.7rem !important; }
+  h2, h3 { font-size: 1.2rem !important; }
+}
+@media (max-width: 400px) {
+  #fruits .fruits-vertical-scroll { max-height: 220px;}
+  #fruits .fruit-card img { height: 60px;}
+}
+
+/* ==== Accessibility ==== */
+button:focus, a:focus, input:focus, textarea:focus {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}

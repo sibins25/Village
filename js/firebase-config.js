@@ -1,16 +1,3 @@
 // js/firebase-config.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDsvj-G2PY8FZtJ8rvYMClf17GnbNBdiJg",
-  authDomain: "kilinjada-village.firebaseapp.com",
-  projectId: "kilinjada-village",
-  storageBucket: "kilinjada-village.firebasestorage.app",
-  messagingSenderId: "145658439838",
-  appId: "1:145658439838:web:e455bb7561741c52fe738f",
-  measurementId: "G-MDK6VZTDHK"
-};
-
-const app = initializeApp(firebaseConfig);
-
-export default app;
+export const BackendlessAppId = 'F8719370-DAAD-4155-89F8-F6E789F540B4';
+export const BackendlessAPIKey = '627E9F71-8359-4D70-83B5-F09FCDA8574E';
