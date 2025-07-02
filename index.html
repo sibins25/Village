@@ -198,8 +198,8 @@
   text-align: center;
   /* Multiple backgrounds: top is scroll, bottom is fixed */
   background-image:
-    url('/images/village/village.jpg'),
-    url('/images/village/village2.jpg');
+    url('images/village/village.jpg'),
+    url('images/village/village2.jpg');
   background-position: center center, center center;
   background-repeat: no-repeat, no-repeat;
   background-size: cover, cover;
@@ -612,20 +612,22 @@
   </section>
 
   <!-- Weather Section -->
-  <section id="weather" class="py-10 sm:py-12 px-2 sm:px-4 max-w-3xl mx-auto">
-  <h2 class="text-2xl font-bold mb-4" data-key="weather_title">
-    <span class="text-yellow-500" data-key="weather_village">கிளிஞ்சடா கிராமம்</span>
-    <span data-key="weather_label">வானிலை</span>
-  </h2>
-  <div class="flex items-center gap-4">
-    <img id="weather_icon" src="" alt="Weather icon" class="w-20 h-20" />
-    <div>
-      <p id="weather_temp" class="text-3xl font-semibold"></p>
-      <p id="weather_condition" class="capitalize"></p>
-      <p id="weather_humidity"></p>
+<section id="weather" class="py-12 px-4 max-w-xl mx-auto">
+  <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
+    <h2 class="text-2xl sm:text-3xl font-bold text-yellow-500 mb-2 text-center" data-key="weather_title">
+      <span class="block" data-key="weather_village">கிளிஞ்சடா கிராமம்</span>
+      <span class="block text-black" data-key="weather_label">வானிலை</span>
+    </h2>
+    <div class="flex items-center gap-6">
+      <img id="weather_icon" src="" alt="Weather icon" class="w-24 h-24 drop-shadow" />
+      <div class="text-center">
+        <p id="weather_temp" class="text-4xl font-extrabold text-yellow-600"></p>
+        <p id="weather_condition" class="capitalize text-lg font-semibold text-gray-700"></p>
+        <p id="weather_humidity" class="text-sm text-gray-500"></p>
+      </div>
     </div>
+    <p id="weather_placeholder" class="mt-2 text-gray-600 text-center" data-key="weather_placeholder"></p>
   </div>
-  <p id="weather_placeholder" class="mt-4 text-gray-600" data-key="weather_placeholder"></p>
 </section>
 
 
