@@ -303,6 +303,7 @@ fetchWeather();
     }
 
     // Gallery/Crops Scroll Buttons
+    
 
 
     // Feedback Form

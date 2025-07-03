@@ -716,6 +716,20 @@ async function fetchLatestAnnouncement() {
 // Fetch latest announcement on page load
 fetchLatestAnnouncement();
 
+function scrollGallery(containerId, direction) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  // Find the width of one child (card/image)
+  const firstChild = container.querySelector(':scope > *');
+  const scrollAmount = firstChild ? firstChild.offsetWidth + 32 : 300; // 32px gap or fallback
+
+  // Scroll left or right
+  container.scrollBy({
+    left: direction * scrollAmount,
+    behavior: 'smooth'
+  });
+}
+
 
 
 </script>
