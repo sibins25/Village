@@ -6,245 +6,10 @@
   <title data-key="site_title">கிளிஞ்சடா கிராமம்</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylsheet"  href="css/style.css"> 
-  <style>
-    html, body { max-width: 100vw; overflow-x: hidden; scroll-behavior: smooth; }
-    body {
-      font-family: 'Manrope', sans-serif;
-      background-color: #fef9c3;
-      color: #1f2937;
-      margin: 0;
-      padding: 0;
-    }
-    .menu-link:hover {
-      transform: scale(1.05);
-      transition: transform 0.3s, color 0.3s;
-      color: #facc15;
-    }
-    .ticker { white-space: nowrap; overflow: hidden; display: inline-block;}
-    .ticker span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: ticker 15s linear infinite;
-    }
-    @keyframes ticker {
-      0% { transform: translateX(0);}
-      100% { transform: translateX(-100%);}
-    }
-    .scroll-snap-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 950px;
-      margin: 0 auto 2.5rem auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .scroll-snap-btn {
-      background: none;
-      border: none;
-      font-size: 2.5rem;
-      color: #1f2937;
-      cursor: pointer;
-      z-index: 2;
-      padding: 0 0.7rem;
-      transition: color 0.2s, transform 0.2s;
-      user-select: none;
-    }
-    .scroll-snap-btn:active,
-    .scroll-snap-btn:focus {
-      color: #f59e0b;
-      outline: none;
-      transform: scale(1.2);
-    }
-    .scroll-snap-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      gap: 2rem;
-      padding: 1rem 0;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      width: 100%;
-      scroll-snap-type: x mandatory;
-    }
-    .scroll-snap-container::-webkit-scrollbar { display: none; }
-    .gallery-img, .fruit-card {
-      scroll-snap-align: center;
-      flex-shrink: 0;
-    }
-    .gallery-img {
-      width: 350px;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 1.5rem;
-      background: #fff;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.09);
-      transition: transform 0.3s;
-    }
-    .gallery-img:hover {
-      transform: scale(1.04);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    }
-    .fruit-card {
-  background: #ffffff;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  width: 350px;
-  min-width: 220px;
-  min-height: 220px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-.fruit-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.12);
-}
-
-.fruit-card img {
-  width: 100%;
-  height: 210px;
-  object-fit: cover;
-  border-radius: 1.5rem 1.5rem 0 0;
-  max-width: 100vw;
-}
-
-.fruit-card p {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1f2937;
-  padding: 0.8rem 0 0.5rem 0;
-  margin: 0;
-  background: transparent;
-}
-
-/* Tablet */
-@media (max-width: 1024px) {
-  .fruit-card {
-    width: 200px;
-    height: 200px;
-  }
-  .fruit-card img {
-    height: 140px;
-  }
-  .fruit-card p {
-    font-size: 0.9rem;
-  }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .fruit-card {
-    width: 160px !important;
-    min-width: 140px;
-    height: 180px !important;
-  }
-  .fruit-card img {
-    height: 120px;
-  }
-  .fruit-card p {
-    font-size: 0.85rem;
-  }
-}
-
-/* Small Phones */
-@media (max-width: 480px) {
-  .fruit-card {
-    width: 140px !important;
-    height: 160px !important;
-  }
-  .fruit-card img {
-    height: 100px;
-  }
-  .fruit-card p {
-    font-size: 0.75rem;
-  }
-}
-
-    #sideMenu {
-      transition: transform 0.5s cubic-bezier(.4,2,.6,1);
-      transform: translateX(-100%);
-    }
-    #sideMenu.open {
-      transform: translateX(0);
-    }
-    #menuOverlay {
-      transition: opacity 0.3s;
-      opacity: 0;
-      pointer-events: none;
-    }
-    #menuOverlay.show {
-      opacity: 1;
-      pointer-events: all;
-    }
-    button:focus, a:focus, input:focus, textarea:focus {
-      outline: 2px solid #f59e0b;
-      outline-offset: 2px;
-    }
-    /* Welcome Section with Village BG */
-#welcome {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  /* Multiple backgrounds: top is scroll, bottom is fixed */
-  background-image:
-    url('images/village/village.jpg'),
-    url('images/village/village2.jpg');
-  background-position: center center, center center;
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, cover;
-  background-attachment: scroll, fixed;
-}
-#welcome::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 1;
-}
-#welcome > * {
-  position: relative;
-  z-index: 2;
-}
-
-
-    /* Feedback Centering */
-    #feedback {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 50vh;
-    }
-    #feedbackForm {
-      max-width: 400px;
-      width: 100%;
-      margin: 0 auto;
-    }
-    /* Footer */
-    footer {
-      background: #222;
-      color: #facc15;
-      text-align: center;
-      padding: 1.2rem 0 1rem 0;
-      font-size: 1.1rem;
-      letter-spacing: 0.02em;
-      width: 100%;
-      margin-top: 2rem;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-yellow-100 text-black overflow-x-hidden">
+
   <!-- Menu Button -->
   <div class="fixed top-4 left-4 z-50">
     <button id="menuBtn"
@@ -279,48 +44,170 @@
     </div>
     <nav class="flex flex-col p-4 gap-4 text-lg">
       <a href="#welcome" class="menu-link" data-key="menu_home">🏠 முகப்பு</a>
-      <a href="#location" class="menu-link" data-key="menu_location">📍 இடம்</a>
-      <a href="#gallery" class="menu-link" data-key="menu_gallery">📸 புகைப்படங்கள்</a>
-      <a href="#fruits" class="menu-link" data-key="menu_crops">🌾 பயிர்கள்</a>
+      <a href ="#about" class="menu-link" data-key="menu-home">📊பற்றி</a>
       <a href="#busTimings" class="menu-link" data-key="menu_bus">🚌 பஸ் நேரங்கள்</a>
+       <a href="#gallery" class="menu-link" data-key="menu_gallery">📸 புகைப்படங்கள்</a>
+      <a href="#fruits" class="menu-link" data-key="menu_crops">🌾 பயிர்கள்</a>
+      
+      <a href="#location" class="menu-link" data-key="menu_location">📍 இடம்</a>
+   
       <a href="#title" class="menu-link" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</a>
       <a href="#weather" class="menu-link" data-key="menu_weather">🌦 வானிலை</a>
       <a href="#feedback" class="menu-link" data-key="menu_feedback">💬 கருத்துகள்</a>
     </nav>
   </aside>
   <div id="menuOverlay" class="fixed inset-0 bg-black/50 hidden z-30"></div>
-<section id="welcome"
-  class="px-4 text-center py-16 min-h-[60vh] flex flex-col items-center justify-center relative"
-  style="background-image: url('images/village/village.jpg'); background-size: cover; background-position: center;">
-  <div class="absolute inset-0 bg-black/50 z-0"></div>
-  <div class="relative z-10">
-    <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-6 text-yellow-300 drop-shadow-lg" data-key="welcome_title">
-      🌾 கிளிஞ்சடா கிராமத்திற்கு வரவேற்கிறோம்
-    </h1>
-    <p class="text-xl sm:text-2xl md:text-3xl text-white drop-shadow-md" data-key="welcome_description">
-      இது எங்கள் பாரம்பரியமும், இயற்கை அழகும் இணைந்த சிறிய கிராமம்.
-    </p>
+
+  <!-- Welcome Section -->
+  <section id="welcome"
+    class="scroll-animate px-4 text-center py-16 min-h-[60vh] flex flex-col items-center justify-center relative"
+    style="background-image: url('images/village/village11.jpg'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+    <div class="relative z-10">
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-6 text-yellow-300 drop-shadow-lg" data-key="welcome_title">
+        🌾 கிளிஞ்சடா கிராமத்திற்கு வரவேற்கிறோம்
+      </h1>
+      <p class="text-xl sm:text-2xl md:text-3xl text-white drop-shadow-md" data-key="welcome_description">
+        இது எங்கள் பாரம்பரியமும், இயற்கை அழகும் இணைந்த சிறிய கிராமம்.
+      </p>
+    </div>
+  </section>
+  <!-- About Village Section -->
+<!-- About Section -->
+<section id="about" class="py-12 px-4 max-w-3xl mx-auto scroll-animate">
+  <h2 class="text-3xl font-bold text-center mb-6" data-key="about_title">கிளிஞ்சடா கிராமம் பற்றி</h2>
+  <div class="bg-white/90 rounded-2xl shadow-xl p-6 sm:p-10 text-lg sm:text-xl leading-relaxed text-gray-800" id="aboutText" data-key="about_text">
+    "கிளிஞ்சடா கிராமம் அமைதியும் பசுமையும் நிறைந்தது. பாரம்பரிய வேளாண்மை, பண்பாடு, நல்லவர்கள், இயற்கை அழகு, மகிழ்ச்சியான திருவிழாக்கள் புகழ்பெற்றது."
   </div>
 </section>
 
+<!-- Bus Timings Section -->
+<section id="busTimings" class="bus-table-section scroll-animate">
+  <div class="bus-table-title text-center text-2xl font-semibold mt-8 mb-4" data-key="bus_title">🚌 பஸ் நேரங்கள்</div>
 
-  <!-- Location Section -->
-  <section id="location" class="py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto">
-    <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="location_title">📍 கிளிஞ்சடா இடம்</h3>
-    <div class="rounded-2xl overflow-hidden shadow-xl mb-6 sm:mb-8 w-full flex justify-center">
-      <iframe src="https://www.google.com/maps/embed?pb=!4v1749909160734!6m8!1m7!1stybikJdvtDm8s9d5PDDY2g!2m2!1d11.31443927743172!2d76.73724728914816!3f190.93584082365928!4f-9.765107696316363!5f0.7820865974627469"
-        width="100%" height="250" class="sm:h-[400px]" style="border:0;" allowfullscreen
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div class="flex justify-center">
-      <a href="https://maps.app.goo.gl/tyzBPvPUJSt4t1Aa7" target="_blank"
-        class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-8 sm:py-4 sm:px-16 rounded-full shadow-xl text-base sm:text-2xl transition-all duration-300 hover:scale-105"
-        data-key="location_button">🚗 கிளிஞ்சடா செல்லுங்கள்</a>
-    </div>
-  </section>
+  <div class="bus-table-wrapper overflow-x-auto">
+    <table class="bus-table w-full max-w-5xl mx-auto border text-center bg-white shadow rounded">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="p-2" data-key="bus_from">எங்கிருந்து</th>
+          <th class="p-2" data-key="bus_to">எங்கே</th>
+          <th class="p-2" data-key="bus_time">நேரம்</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- At Coonoor -->
+        <tr>
+          <td data-key="from_4">குன்னூர்</td>
+          <td data-key="to_4">கொலைகாம்பை</td>
+          <td data-key="time_4">7:20 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_2">குன்னூர்</td>
+          <td data-key="to_2">கிளிஞ்சடா</td>
+          <td data-key="time_2">7:30 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3a">குன்னூர்</td>
+          <td data-key="to_3a">தூதூர்மட்டம்</td>
+          <td data-key="time_3a">7:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3b">குன்னூர்</td>
+          <td data-key="to_3b">தூதூர்மட்டம்</td>
+          <td data-key="time_3b">9:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_4b">குன்னூர்</td>
+          <td data-key="to_4b">கொலைகாம்பை</td>
+          <td data-key="time_4b">10:45 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_5a">குன்னூர்</td>
+          <td data-key="to_5a">கொலைகாம்பை</td>
+          <td data-key="time_5a">11:50 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_5b">குன்னூர்</td>
+          <td data-key="to_5b">தூதூர்மட்டம்</td>
+          <td data-key="time_5b">1:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_4c">குன்னூர்</td>
+          <td data-key="to_4c">கொலைகாம்பை</td>
+          <td data-key="time_4c">2:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_6">குன்னூர்</td>
+          <td data-key="to_6">கோட்டக்கல்</td>
+          <td data-key="time_6">12:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3d">குன்னூர்</td>
+          <td data-key="to_3d">சட்டன்</td>
+          <td data-key="time_3d">4:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3e">குன்னூர்</td>
+          <td data-key="to_3e">தூதூர்மட்டம்</td>
+          <td data-key="time_3e">5:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3f">குன்னூர்</td>
+          <td data-key="to_3f">தூதூர்மட்டம்</td>
+          <td data-key="time_3f">7:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3g">குன்னூர்</td>
+          <td data-key="to_3g">சட்டன்</td>
+          <td data-key="time_3g">8:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+        </tr>
+
+        <!-- At Kilinjada -->
+        <tr>
+          <td data-key="from_3h">தூதூர்மட்டம்</td>
+          <td data-key="to_3h">குன்னூர்</td>
+          <td data-key="time_3h">6:50 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3i">சட்டன்</td>
+          <td data-key="to_3i">குன்னூர்</td>
+          <td data-key="time_3i">7:00 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3j">கோட்டக்கல்</td>
+          <td data-key="to_3j">குன்னூர்</td>
+          <td data-key="time_3j">7:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_1">கிளிஞ்சடா</td>
+          <td data-key="to_1">குன்னூர்</td>
+          <td data-key="time_1">8:05 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3k">தூதூர்மட்டம்</td>
+          <td data-key="to_3k">குன்னூர்</td>
+          <td data-key="time_3k">10:40 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
+        <tr>
+          <td data-key="from_3l">கோட்டக்கல்</td>
+          <td data-key="to_3l">குன்னூர்</td>
+          <td data-key="time_3l">11:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Note -->
+  <p style="text-align:center; color:#1f2937; font-size:1em; margin-top:14px;">
+    <b data-key="note">குறிப்பு:</b>
+    <span data-key="exception">மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.</span>
+  </p>
+</section>
+
+
 
   <!-- Gallery Section -->
-  <section id="gallery" class="py-10">
+  <section id="gallery" class="py-10 scroll-animate">
     <h3 class="text-2xl font-bold text-center mb-6" data-key="gallery_title">📸 கிராமத்துப் புகைப்படங்கள்</h3>
     <div class="scroll-snap-wrapper">
       <button class="scroll-snap-btn" aria-label="Left" onclick="scrollGallery('galleryImages', -1)" data-key="gallery_left_btn">&lt;</button>
@@ -330,273 +217,71 @@
         <img src="images/village/village3.jpg" alt="Village 3" class="gallery-img" data-key="gallery_img3">
         <img src="images/village/village4.jpg" alt="Village 4" class="gallery-img" data-key="gallery_img4">
         <img src="images/village/village6.jpg" alt="Village 5" class="gallery-img" data-key="gallery_img5">
-            <img src="images/village/village9.jpg" alt="Village 5" class="gallery-img" data-key="gallery_img5">
-                <img src="images/village/village.jpg" alt="Village 5" class="gallery-img" data-key="gallery_img5">
-                    <img src="images/village/village12.jpg" alt="Village 5" class="gallery-img" data-key="gallery_img5">
+        <img src="images/village/village9.jpg" alt="Village 6" class="gallery-img" data-key="gallery_img6">
+        <img src="images/village/village.jpg" alt="Village 7" class="gallery-img" data-key="gallery_img7">
+        <img src="images/village/village12.jpg" alt="Village 8" class="gallery-img" data-key="gallery_img8">
       </div>
       <button class="scroll-snap-btn" aria-label="Right" onclick="scrollGallery('galleryImages', 1)" data-key="gallery_right_btn">&gt;</button>
     </div>
   </section>
 
   <!-- Fruits Section -->
-<section id="fruits" class="py-10 sm:py-12 px-2 sm:px-4 max-w-5xl mx-auto">
-  <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="season">🌽 பருவ பயிர்கள்</h3>
-  <div class="scroll-snap-wrapper">
-    <button class="scroll-snap-btn" aria-label="Left" onclick="scrollGallery('fruitsGallery', -1)">&lt;</button>
-    <div class="scroll-snap-container" id="fruitsGallery">
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" />
-        <p>Chow chow</p>
+  <section id="fruits" class="py-10 sm:py-12 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
+    <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="season">🌽 பருவ பயிர்கள்</h3>
+    <div class="scroll-snap-wrapper">
+      <button class="scroll-snap-btn" aria-label="Left" onclick="scrollGallery('fruitsGallery', -1)">&lt;</button>
+      <div class="scroll-snap-container" id="fruitsGallery">
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" />
+          <p>Chow chow</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" />
+          <p>Guava</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" />
+          <p>Carrot</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" />
+          <p>Cabbage</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" />
+          <p>Cauliflower</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" />
+          <p>Beans</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" />
+          <p>Plums</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" />
+          <p>Potato</p>
+        </div>
+        <div class="fruit-card">
+          <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" />
+          <p>Broccoli</p>
+        </div>
       </div>
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" />
-        <p>Guava</p>
-      </div>
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" />
-        <p>Carrot</p>
-      </div>
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" />
-        <p>Cabbage</p>
-      </div>
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" />
-        <p>Cauliflower</p>
-      </div>
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" />
-        <p>Beans</p>
-      </div>
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" />
-        <p>Plums</p>
-      </div>
-      <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" />
-        <p>Potato</p>
-      </div>
-         <div class="fruit-card">
-        <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Potato" />
-        <p>Brocolli</p>
-      </div>
+      <button class="scroll-snap-btn" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">&gt;</button>
     </div>
-    <button class="scroll-snap-btn" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">&gt;</button>
-  </div>
-</section>
-<style>
-    body {
-      font-family: sans-serif;
-      background: #fef9c3;
-      color: #1f2937;
-      margin: 0;
-      padding: 0;
-    }
-    .bus-table-section {
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 24px 8px;
-      background: #fffbe7;
-      border-radius: 1.5rem;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    }
-    .bus-table-title {
-      font-size: 2rem;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #222;
-    }
-    .bus-table-outer {
-      width: 100%;
-      overflow-x: auto;
-    }
-    .bus-table-wrapper {
-      max-height: 10.2em; /* 3 rows * row height (adjust as needed) */
-      overflow-y: auto;
-      width: 100%;
-    }
-    .bus-table {
-      width: 100%;
-      min-width: 500px;
-      border-collapse: collapse;
-      background: #222;
-    }
-    .bus-table th, .bus-table td {
-      padding: 12px 10px;
-      border: 1px solid #facc15;
-      text-align: center;
-      min-width: 120px;
-      background: #222;
-      color: #fff;
-      font-size: 1.08em;
-    }
-    .bus-table th {
-      position: sticky;
-      top: 0;
-      background-color: #facc15;
-      color: #222;
-      z-index: 2;
-      font-size: 1.1em;
-      font-weight: bold;
-      box-shadow: 0 2px 2px rgba(0,0,0,0.06);
-    }
-    .bus-table tbody tr:nth-child(odd) {
-      background: #333;
-    }
-    .bus-table tbody tr:nth-child(even) {
-      background: #222;
-    }
-    .bus-table tbody tr {
-      height: 3.2em; /* Adjust for your font size and padding */
-    }
-    /* Responsive: horizontal scroll on small screens */
-    @media (max-width: 600px) {
-      .bus-table th, .bus-table td {
-        min-width: 90px;
-        font-size: 0.95em;
-        padding: 8px 6px;
-      }
-      .bus-table-section {
-        padding: 8px 2px;
-      }
-    }
-  </style>
-
-<section id="busTimings" class="bus-table-section scroll-mt-24">
-  <section class="bus-table-section">
-  <div class="bus-table-title" data-key="bus_title">🚌 பஸ் நேரங்கள்</div>
-  <div class="bus-table-outer">
-    <div class="bus-table-wrapper">
-      <table class="bus-table">
-        <thead>
-          <tr>
-            <th data-key="bus_from">எங்கிருந்து</th>
-            <th data-key="bus_to">எங்கே</th>
-            <th data-key="bus_time">நேரம்</th>
-            <th data-key="bus_route">வழி</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-key="from_1">கிளிஞ்சடா</td>
-            <td data-key="to_1">குன்னூர்</td>
-            <td data-key="time_1">8:05 AM</td>
-            <td data-key="route_1">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_2">குன்னூர்</td>
-            <td data-key="to_2">கிளிஞ்சடா</td>
-            <td data-key="time_2">7:30 AM</td>
-            <td data-key="route_2">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_3">குன்னூர்</td>
-            <td data-key="to_3">கொலைகாம்பை</td>
-            <td data-key="time_3">07:20 PM</td>
-            <td data-key="route_3">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_4">குன்னூர்</td>
-            <td data-key="to_4">கொலைகாம்பை</td>
-            <td data-key="time_4">10:45 PM</td>
-            <td data-key="route_4">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_5">குன்னூர்</td>
-            <td data-key="to_5">கொலைகாம்பை</td>
-            <td data-key="time_5">11:50 PM</td>
-            <td data-key="route_5">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_6">குன்னூர்</td>
-            <td data-key="to_6">கோட்டக்கல்</td>
-            <td data-key="time_6">12:20 AM</td>
-            <td data-key="route_6">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_7">குன்னூர்</td>
-            <td data-key="to_7">கோட்டக்கல்</td>
-            <td data-key="time_7">9:00 AM</td>
-            <td data-key="route_7">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_8">குன்னூர்</td>
-            <td data-key="to_8">சட்டன்</td>
-            <td data-key="time_8">05:00 PM</td>
-            <td data-key="route_8">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_9">கோட்டக்கல்</td>
-            <td data-key="to_9">குன்னூர்</td>
-            <td data-key="time_9">07:10 AM</td>
-            <td data-key="route_9">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_10">கொலைகாம்பை</td>
-            <td data-key="to_10">குன்னூர்</td>
-            <td data-key="time_10">9:30AM</td>
-            <td data-key="route_10">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_11">சட்டன்</td>
-            <td data-key="to_11">குன்னூர்</td>
-            <td data-key="time_11">08:45 AM</td>
-            <td data-key="route_11">கிளிஞ்சடா</td>
-          </tr>
-          <tr>
-            <td data-key="from_12">துத்துர்மட்டம்</td>
-            <td data-key="to_12">குன்னூர்</td>
-            <td data-key="time_12">10:40 PM</td>
-            <td data-key="route_12">கிளிஞ்சடா</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-</section>
-
-
+  </section>
 
 
   <!-- Announcement Ticker -->
-<!-- Announcement Ticker Section -->
-<div class="bg-black text-yellow-400 py-4 px-4 mt-6 flex items-center justify-center min-h-[80px] rounded-xl shadow font-bold overflow-hidden">
-  <div class="ticker text-center text-xl w-full">
-    <span id="latestAnnouncement">Loading latest announcement...</span>
+  <div class="bg-black text-yellow-400 py-4 px-4 mt-6 flex items-center justify-center min-h-[80px] rounded-xl shadow font-bold overflow-hidden scroll-animate">
+    <div class="ticker text-center text-xl w-full">
+      <span id="latestAnnouncement">Loading latest announcement...</span>
+    </div>
   </div>
-</div>
-
-<style>
-.ticker {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  height: 2.5em;
-  display: flex;
-  align-items: center;
-}
-.ticker span {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 100%;
-  animation: ticker 8s linear infinite;
-}
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-</style>
-
-
-
-
-
-
 
   <!-- Village Stats Section -->
-  <section id="title" class="py-6 sm:py-8 text-center bg-yellow-200 text-black">
+  <section id="title" class="py-6 sm:py-8 text-center bg-yellow-200 text-black scroll-animate">
     <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto text-lg sm:text-xl">
       <div data-key="people" class="bg-white p-4 sm:p-6 rounded-lg shadow font-bold hover:scale-105 transition-transform duration-300">
@@ -610,133 +295,57 @@
       </div>
     </div>
   </section>
+  
+  <!-- Location Section -->
+  <section id="location" class="py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
+    <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="location_title">📍 கிளிஞ்சடா இடம்</h3>
+    <div class="rounded-2xl overflow-hidden shadow-xl mb-6 sm:mb-8 w-full flex justify-center">
+      <iframe src="https://www.google.com/maps/embed?pb=!4v1749909160734!6m8!1m7!1stybikJdvtDm8s9d5PDDY2g!2m2!1d11.31443927743172!2d76.73724728914816!3f190.93584082365928!4f-9.765107696316363!5f0.7820865974627469"
+        width="100%" height="250" class="sm:h-[400px]" style="border:0;" allowfullscreen
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="flex justify-center">
+      <a href="https://maps.app.goo.gl/tyzBPvPUJSt4t1Aa7" target="_blank"
+        class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-8 sm:py-4 sm:px-16 rounded-full shadow-xl text-base sm:text-2xl transition-all duration-300 hover:scale-105"
+        data-key="location_button">🚗 கிளிஞ்சடா செல்லுங்கள்</a>
+    </div>
+  </section>
 
   <!-- Weather Section -->
-<section id="weather" class="py-12 px-4 max-w-xl mx-auto">
-  <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
-    <h2 class="text-2xl sm:text-3xl font-bold text-yellow-500 mb-2 text-center" data-key="weather_title">
-      <span class="block" data-key="weather_village">கிளிஞ்சடா கிராமம்</span>
-      <span class="block text-black" data-key="weather_label">வானிலை</span>
-    </h2>
-    <div class="flex items-center gap-6">
-      <img id="weather_icon" src="" alt="Weather icon" class="w-24 h-24 drop-shadow" />
-      <div class="text-center">
-        <p id="weather_temp" class="text-4xl font-extrabold text-yellow-600"></p>
-        <p id="weather_condition" class="capitalize text-lg font-semibold text-gray-700"></p>
-        <p id="weather_humidity" class="text-sm text-gray-500"></p>
+  <section id="weather" class="py-12 px-4 max-w-xl mx-auto scroll-animate">
+    <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
+      <h2 class="text-2xl sm:text-3xl font-bold text-yellow-500 mb-2 text-center" data-key="weather_title">
+        <span class="block" data-key="weather_village">கிளிஞ்சடா கிராமம்</span>
+        <span class="block text-black" data-key="weather_label">வானிலை</span>
+      </h2>
+      <div class="flex items-center gap-6">
+        <img id="weather_icon" src="" alt="Weather icon" class="w-24 h-24 drop-shadow" />
+        <div class="text-center">
+          <p id="weather_temp" class="text-4xl font-extrabold text-yellow-600"></p>
+          <p id="weather_condition" class="capitalize text-lg font-semibold text-gray-700"></p>
+          <p id="weather_humidity" class="text-sm text-gray-500"></p>
+        </div>
       </div>
+      <p id="weather_placeholder" class="mt-2 text-gray-600 text-center" data-key="weather_placeholder"></p>
     </div>
-    <p id="weather_placeholder" class="mt-2 text-gray-600 text-center" data-key="weather_placeholder"></p>
-  </div>
-</section>
-
+  </section>
 
   <!-- Feedback Section -->
-   <section id="feedback" class="py-12 scroll-mt-24">
-<form id="feedbackForm" class="bg-neutral-800 rounded-xl p-6 flex flex-col gap-3 shadow-lg w-full max-w-md mx-auto">
-  <input type="text" id="name" class="rounded px-3 py-2" placeholder="பெயர்" required data-key="feedback_name_placeholder" />
-  <textarea id="message" class="rounded px-3 py-2" placeholder="உங்கள் கருத்து" rows="3" required data-key="feedback_message_placeholder"></textarea>
-  <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300" data-key="feedback_submit">அனுப்பு</button>
-</form>
-<p id="feedbackStatus" class="text-center mt-4" data-key="feedback_status"></p>
-</section>
+  <section id="feedback" class="py-12 scroll-mt-24 scroll-animate">
+    <form id="feedbackForm" class="bg-neutral-800 rounded-xl p-6 flex flex-col gap-3 shadow-lg w-full max-w-md mx-auto">
+      <input type="text" id="name" class="rounded px-3 py-2" placeholder="பெயர்" required data-key="feedback_name_placeholder" />
+      <textarea id="message" class="rounded px-3 py-2" placeholder="உங்கள் கருத்து" rows="3" required data-key="feedback_message_placeholder"></textarea>
+      <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300" data-key="feedback_submit">அனுப்பு</button>
+    </form>
+    <p id="feedbackStatus" class="text-center mt-4" data-key="feedback_status"></p>
+  </section>
 
   <!-- Footer -->
-  <footer>
-    © 2025 கிளிஞ்சடா கிராமம் | Designed by S.Sibin
+  <footer class="scroll-animate">
+    © 2025 கிளிஞ்சடா கிராமம் 
   </footer>
 
-<script>
-const APP_ID = "F8719370-DAAD-4155-89F8-F6E789F540B4";
-const API_KEY = "99384368-B200-4E07-9314-51301C9EA974";
-const TABLE_NAME = "feedback";
-
-document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById('name').value.trim();
-  const message = document.getElementById('message').value.trim();
-  const statusEl = document.getElementById('feedbackStatus');
-
-  if (!name || !message) {
-    statusEl.textContent = "Fill all fields.";
-    return;
-  }
-
-  const feedbackData = { name, message };
-  console.log("Sending to Backendless:", feedbackData);
-
-  try {
-    const response = await fetch(
-      `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${TABLE_NAME}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(feedbackData)
-      }
-    );
-
-    const result = await response.json();
-    console.log("Backendless response:", result);
-
-    if (!response.ok) {
-      throw new Error(result.message || "Failed to submit feedback");
-    }
-
-    statusEl.textContent = "Thank you! Feedback submitted.";
-    this.reset();
-  } catch (error) {
-    statusEl.textContent = "Sorry, could not submit feedback. Try again.";
-    console.error(error);
-  }
-});
-
-
-
-const ANNOUNCE_TABLE = "announcement"; // Use your exact table name
-
-async function fetchLatestAnnouncement() {
-  const displayEl = document.getElementById('latestAnnouncement');
-  try {
-    const response = await fetch(
-      `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${ANNOUNCE_TABLE}?pageSize=1&sortBy=created%20desc`
-    );
-    const data = await response.json();
-    if (Array.isArray(data) && data.length > 0) {
-      displayEl.textContent = data[0].message;
-    } else {
-      displayEl.textContent = "இப்போது அறிவிப்பு இல்லை.";
-    }
-  } catch (error) {
-    displayEl.textContent = "அறிவிப்பை பெற முடியவில்லை.";
-    console.error(error);
-  }
-}
-
-// Fetch latest announcement on page load
-fetchLatestAnnouncement();
-
-function scrollGallery(containerId, direction) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  // Find the width of one child (card/image)
-  const firstChild = container.querySelector(':scope > *');
-  const scrollAmount = firstChild ? firstChild.offsetWidth + 32 : 300; // 32px gap or fallback
-
-  // Scroll left or right
-  container.scrollBy({
-    left: direction * scrollAmount,
-    behavior: 'smooth'
-  });
-}
-
-
-
-</script>
-
-
-
-  <script type="module" src="js/main.js"></script>
-
+  <!-- Link to your JS -->
+  <script src="js/main.js"></script>
 </body>
 </html>
