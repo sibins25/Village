@@ -57,30 +57,31 @@ document.addEventListener("DOMContentLoaded", function() {
       language_label: "English",
       tamil_option: "Tamil",
       english_option: "English",
-      menu_home: "Home",
-      menu_location: "Location",
-      menu_gallery: "Gallery",
-      menu_crops: "Crops",
-      menu_bus: "Bus Timings",
-      title: "Village Stats",
-      menu_weather: "Weather",
-      menu_feedback: "Feedback",
-      welcome_title: "Welcome to Kilinjada Village",
+      menu_home: "🏠Home",
+      menu_location: "📍Location",
+      menu_gallery: "📸Gallery",
+      menu_crops: "🌾Crops",
+      menu_bus: "🚌Bus Timings",
+      title: "📊Village Stats",
+      menu_weather: "🌦Weather",
+      menu_feedback: "💬Feedback",
+      welcome_title: "🌾Welcome to Kilinjada Village",
       welcome_description: "A small village blending tradition and natural beauty.",
-      location_title: "Kilinjada Location",
+      location_title: "📍Kilinjada Location",
       location_button: "Go to Kilinjada",
-      gallery_title: "Village Photos",
-      season: "Seasonal Crops",
-      bus_title: "Bus Timings",
+      gallery_title: "📸Village Photos",
+      season: "🌾Seasonal Crops",
+      bus_title: "🚌Bus Timings",
       bus_from: "From",
       bus_to: "To",
       bus_time: "Time",
       note: "Note",
+      menu_home2:"📊About",
       exception: "All the above buses will pass through Kilinjada",
-      people: "People: <span>400</span>",
-      houses: "Houses: <span>100</span>",
-      shops: "Shops: <span>5</span>",
-      weather_title: "Kilinjada Village Weather",
+      people: " 👨‍👩People: <span>400</span>",
+      houses: " 🏠Houses: <span>100</span>",
+      shops: "🏪 Shops: <span>5</span>",
+      weather_title: "🌦Kilinjada Village Weather",
       weather_village: "Kilinjada Village",
       weather_label: "Weather",
       weather_placeholder: "Weather details can be added here.",
@@ -89,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
       feedback_submit: "Submit",
       about_title: "About Kilinjada Village",
           about_title: "About Kilinjada Village",
+          feedback:"💬feedback",
     about_text: "Kilinjada village is filled with peace and greenery. It is known for traditional farming, culture, kind people, natural beauty, and joyful festivals.",
 
     // Section titles
@@ -96,6 +98,9 @@ document.addEventListener("DOMContentLoaded", function() {
     bus_from: "From",
     bus_to: "To",
     bus_time: "Time",
+    kil:"🚌Kilinjada ➝ Coonoor",
+    coon:"🚌Coonoor ➝  Kilinjada",
+    show:"🔁All busses",
 
     // Notes
     note: "Note:",
@@ -121,7 +126,10 @@ document.addEventListener("DOMContentLoaded", function() {
     from_4: "Coonoor",        to_4: "Kolacambai",
     from_4b: "Coonoor",       to_4b: "Kolacambai",
     from_4c: "Coonoor",       to_4c: "Kolacambai",
-    from_5: "Coonoor",        to_5: "Kolacambai",
+    from_5: "Coonoor",         to_5a: "Kolacambai",
+                               to_5b: "Thudurmattam",
+     from_5b: "Coonoor",    
+     from_5a: "Coonoor",        to_5: "Kolacambai",
     from_6: "Coonoor",        to_6: "Kottakkal",
     about_text:`"Kilinjada Village is a peaceful, green place known for its traditional farming, vibrant culture, kind-hearted people, beautiful scenery, and joyful festivals celebrated together."`
     },
@@ -130,39 +138,41 @@ document.addEventListener("DOMContentLoaded", function() {
       language_label: "தமிழ்",
       tamil_option: "தமிழ்",
       english_option: "English",
-      menu_home: "முகப்பு",
-      menu_location: "இடம்",
-      menu_gallery: "புகைப்படங்கள்",
-      menu_crops: "பயிர்கள்",
-      menu_bus: "பஸ் நேரங்கள்",
-      title: "கிராம புள்ளிவிவரங்கள்",
-      menu_weather: "வானிலை",
-      menu_feedback: "கருத்துகள்",
-      welcome_title: "கிளிஞ்சடா கிராமத்திற்கு வரவேற்கிறோம்",
+      menu_home: "🏠முகப்பு",
+      menu_location: "📍இடம்",
+      menu_gallery: "📸புகைப்படங்கள்",
+      menu_crops: "🌾பயிர்கள்",
+      menu_bus: "🚌பஸ் நேரங்கள்",
+      title: "📊கிராம புள்ளிவிவரங்கள்",
+      menu_weather: "🌦வானிலை",
+      menu_feedback: "💬கருத்துகள்",
+      welcome_title: "🌾கிளிஞ்சடா கிராமத்திற்கு வரவேற்கிறோம்",
       welcome_description: "இது எங்கள் பாரம்பரியமும், இயற்கை அழகும் இணைந்த சிறிய கிராமம்.",
-      location_title: "கிளிஞ்சடா இடம்",
+      location_title: "📍கிளிஞ்சடா இடம்",
       location_button: "கிளிஞ்சடா செல்லுங்கள்",
-      gallery_title: "கிராமத்துப் புகைப்படங்கள்",
-      season: "பருவ பயிர்கள்",
-      bus_title: "பஸ் நேரங்கள்",
+      gallery_title: "📸கிராமத்துப் புகைப்படங்கள்",
+      season: "🌾பருவ பயிர்கள்",
+      bus_title: "🚌பஸ் நேரங்கள்",
       bus_from: "எங்கிருந்து",
       bus_to: "எங்கே",
       bus_time: "நேரம்",
       note: "குறிப்பு",
       exception: "மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.",
-      people: "மக்கள்: <span>400</span>",
-      houses: "வீடுகள்: <span>100</span>",
-      shops: "கடைகள்: <span>5</span>",
-      weather_title: "கிளிஞ்சடா கிராமம் வானிலை",
+      people: "👨‍👩‍👧‍👦மக்கள்: <span>400</span>",
+      houses: "🏠வீடுகள்: <span>100</span>",
+      shops: "🏪 கடைகள்: <span>5</span>",
+      weather_title: "🌦கிளிஞ்சடா கிராமம் வானிலை",
       weather_village: "கிளிஞ்சடா கிராமம்",
       weather_label: "வானிலை",
       weather_placeholder: "இங்கு வானிலை விவரங்கள் சேர்க்கலாம்.",
       feedback_name_placeholder: "பெயர்",
       feedback_message_placeholder: "உங்கள் கருத்து",
       feedback_submit: "அனுப்பு",
-      about_title: "கிளிஞ்சடா கிராமம் பற்றி",
+      about_title: "📊கிளிஞ்சடா கிராமம் பற்றி",
       at_kilinjada: "(கிளிஞ்சடாவில்)",
       at_coonoor: "(குன்னூரில்)",
+      feedback:"💬 கருத்துகள்",
+      menu_home2:"📊பற்றி",
 
     // Bus stops (From/To)
     from_1: "கிளிஞ்சடா",      to_1: "குன்னூர்",
@@ -182,8 +192,14 @@ document.addEventListener("DOMContentLoaded", function() {
     from_4: "குன்னூர்",        to_4: "கொலைகாம்பை",
     from_4b: "குன்னூர்",       to_4b: "கொலைகாம்பை",
     from_4c: "குன்னூர்",       to_4c: "கொலைகாம்பை",
-    from_5: "குன்னூர்",        to_5: "கொலைகாம்பை",
+    from_5: "குன்னூர்",
+     from_5b: "குன்னூர்",        to_5a: "கொலைகாம்பை",
+                               to_5b: "தூதூர்மட்டம்",
+     from_5a: "குன்னூர்",        to_5: "கொலைகாம்பை",
     from_6: "குன்னூர்",        to_6: "கோட்டக்கல்",
+    kil:"🚌 கிளிஞ்சடா ➝ குன்னூர்",
+    coon:"🚌 குன்னூர் ➝ கிளிஞ்சடா",
+    show:"🔁 எல்லா பேருந்துகளும்",
     about_text:"கிளிஞ்சடா கிராமம் அமைதியும் பசுமையும் நிறைந்தது. பாரம்பரிய வேளாண்மை, பண்பாடு, நல்லவர்கள், இயற்கை அழகு, மகிழ்ச்சியான திருவிழாக்கள் புகழ்பெற்றது."
      }
   };
@@ -328,3 +344,22 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(aboutSection);
   }
 });
+
+function filterBus(direction) {
+  const rows = document.querySelectorAll("#busTimings tbody tr");
+  rows.forEach(row => {
+    const note = row.querySelector(".bus-note")?.textContent || "";
+    let show = false;
+
+    if (direction === 'all') {
+      show = true;
+    } else if (direction === 'coonoorToKilinjada') {
+      show = note.includes("குன்னூரில்");
+    } else if (direction === 'kilinjadaToCoonoor') {
+      show = note.includes("கிளிஞ்சடாவில்");
+    }
+    row.style.display = show ? "" : "none";
+  });
+}
+
+
