@@ -345,21 +345,28 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-function filterBus(direction) {
-  const rows = document.querySelectorAll("#busTimings tbody tr");
-  rows.forEach(row => {
-    const note = row.querySelector(".bus-note")?.textContent || "";
-    let show = false;
+  function filterBus(direction) {
+    const rows = document.querySelectorAll("#busTimings tbody tr");
 
-    if (direction === 'all') {
-      show = true;
-    } else if (direction === 'coonoorToKilinjada') {
-      show = note.includes("குன்னூரில்");
-    } else if (direction === 'kilinjadaToCoonoor') {
-      show = note.includes("கிளிஞ்சடாவில்");
-    }
-    row.style.display = show ? "" : "none";
-  });
-}
+    rows.forEach(row => {
+      const note = row.querySelector(".bus-note");
+      const noteText = note ? note.textContent.trim() : "";
+
+      let showRow = false;
+
+      if (direction === 'all') {
+        showRow = true;
+      } else if (direction === 'coonoorToKilinjada') {
+        // Show only rows with note "(குன்னூரில்)"
+        showRow = noteText.includes("குன்னூரில்");
+      } else if (direction === 'kilinjadaToCoonoor') {
+        // Show only rows with note "(கிளிஞ்சடாவில்)"
+        showRow = noteText.includes("கிளிஞ்சடாவில்");
+      }
+
+      row.style.display = showRow ? "" : "none";
+    });
+  }
+
 
 
