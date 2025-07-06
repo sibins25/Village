@@ -9,6 +9,7 @@ body::-webkit-scrollbar, html::-webkit-scrollbar {
   display: none;
 }
 
+
 body {
   font-family: 'Manrope', sans-serif;
   background-color: #fef9c3;
@@ -16,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 
 /* Side Menu: smooth slide from left */
 #sideMenu {
@@ -45,6 +47,7 @@ body {
   pointer-events: all;
 }
 
+
 /* Menu link hover with shine */
 .menu-link {
   position: relative;
@@ -72,6 +75,7 @@ body {
   left: 120%;
 }
 
+
 /* Ticker styles */
 .ticker {
   white-space: nowrap;
@@ -94,6 +98,7 @@ body {
   0% { transform: translateX(0);}
   100% { transform: translateX(-100%);}
 }
+
 
 /* Scroll Snap Gallery */
 .scroll-snap-wrapper {
@@ -160,6 +165,7 @@ body {
   flex-shrink: 0;
 }
 
+
 /* Gallery Image: Holographic Card Effect */
 .gallery-img {
   width: 450px;
@@ -193,6 +199,7 @@ body {
 .gallery-img:hover::before, .gallery-img:focus::before {
   opacity: 1;
 }
+
 
 /* Fruit Card: Gradient Glow */
 .fruit-card {
@@ -237,6 +244,7 @@ body {
   letter-spacing: 0.02em;
 }
 
+
 /* Location Button: Liquid Morph & Shine */
 #location a,
 #location a:visited {
@@ -274,6 +282,7 @@ body {
   left: 120%;
 }
 
+
 /* Weather Card: Holographic Glow */
 #weather .bg-white\/80 {
   background: linear-gradient(120deg, #fffbe7 60%, #facc15 100%);
@@ -286,7 +295,7 @@ body {
   background: linear-gradient(120deg, #facc15 60%, #fde68a 100%);
   box-shadow: 0 8px 32px #f59e0b44, 0 4px 18px #1f293722, 0 0 24px #facc15;
   transform: scale(1.04) rotate(-2deg);
-  
+ 
 }
 #weather .bg-white\/80::before {
   content: "";
@@ -305,6 +314,7 @@ body {
 #weather .bg-white\/80:hover::before {
   opacity: 0.13;
 }
+
 
 /* Bus Table Section: Highlight on Hover */
 .bus-table-section {
@@ -381,21 +391,25 @@ body {
     padding: 0 0.5em;
   }
 
+
   .bus-table-wrapper {
     max-height: 19.2em;
     overflow-x: auto;
   }
+
 
   .bus-table {
     min-width: 100%;
     font-size: 0.92em;
   }
 
+
   .bus-table th, .bus-table td {
     font-size: 0.88em;
     padding: 0.4em 0.3em;
     word-break: break-word;
   }
+
 
   .bus-note {
     font-size: 0.75em;
@@ -405,6 +419,7 @@ body {
   }
 }
 /* Tablet */
+
 
 /* Responsive Gallery and Fruit Card */
 @media (max-width: 1024px) {
@@ -428,7 +443,7 @@ body {
     width: 160px !important;
     min-width: 140px;
     height: 180px !important;
-    
+   
   }
   .fruit-card img {
     height: 160px;
@@ -463,11 +478,13 @@ body {
 }  
 
 
+
 /* Focus outline for accessibility */
 button:focus, a:focus, input:focus, textarea:focus {
   outline: 2px solid #f59e0b;
   outline-offset: 2px;
 }
+
 
 /* Welcome Section with Village BG */
 #welcome {
@@ -498,6 +515,7 @@ button:focus, a:focus, input:focus, textarea:focus {
   z-index: 2;
 }
 
+
 /* Feedback Centering */
 #feedback {
   display: flex;
@@ -521,6 +539,7 @@ button:focus, a:focus, input:focus, textarea:focus {
   box-shadow: 0 2px 8px #facc1530;
 }
 
+
 /* Footer */
 footer {
   background: #222;
@@ -533,6 +552,7 @@ footer {
   margin-top: 2rem;
   box-shadow: 0 -2px 12px #facc1510;
 }
+
 
 /* ===================== */
 /* Fade-up Animation     */
@@ -562,7 +582,7 @@ footer {
 #about {
   opacity: 0;
   transform: translateY(40px) scale(0.98);
-  transition: 
+  transition:
     opacity 0.7s cubic-bezier(.4,2,.6,1),
     transform 0.7s cubic-bezier(.4,2,.6,1);
   will-change: opacity, transform;
@@ -573,6 +593,7 @@ footer {
   box-shadow: 0 8px 32px #facc15a0, 0 4px 18px #1f293744;
   background: linear-gradient(120deg, #fffbe7 60%, #facc15 100%);
 }
+
 
 /* Optional: animated gradient border for extra pop */
 #about .bg-white\/90 {
@@ -587,6 +608,7 @@ footer {
   box-shadow: 0 8px 32px #facc15a0, 0 4px 18px #1f293744;
   border-color: #f59e0b;
 }
+
 
 /* Responsive text for about */
 #aboutText {
@@ -612,6 +634,7 @@ footer {
   align-items: center;
 }
 
+
 .filter-btn-row {
   display: flex;
   flex-direction: row;
@@ -621,10 +644,12 @@ footer {
   margin-bottom: 0;
 }
 
+
 .filter-btn-row--single {
   margin-top: 1rem;
   justify-content: center;
 }
+
 
 .bus-btn {
   background: #fde68a;
@@ -644,11 +669,13 @@ footer {
   display: inline-block;
 }
 
+
 .bus-btn:hover, .bus-btn:focus {
   background: #facc15;
   color: #222;
   transform: scale(1.04);
 }
+
 
 @media (max-width: 600px) {
   .bus-filter-wrapper {
