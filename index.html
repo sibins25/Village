@@ -114,6 +114,7 @@
       <a href="#busTimings" class="menu-link" data-key="menu_bus">🚌 பஸ் நேரங்கள்</a>
       <a href="#gallery" class="menu-link" data-key="menu_gallery">📸 புகைப்படங்கள்</a>
       <a href="#fruits" class="menu-link" data-key="menu_crops">🌾 பயிர்கள்</a>
+       <a href="#calendar" class="menu-link" data-key="menu_calendar">📅 காலண்டர்</a>
       <a href="#title" class="menu-link" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</a>
       <a href="#location" class="menu-link" data-key="menu_location">📍 இடம்</a>
 
@@ -256,19 +257,30 @@
           <td data-key="to_3l">குன்னூர்</td>
           <td data-key="time_3l">11:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
         </tr>
+          <tr>
+          <td data-key="from_3l">கோட்டக்கல்</td>
+          <td data-key="to_3l">குன்னூர்</td>
+          <td data-key="time_3l">2:20 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
+          <tr>
+          <td data-key="from_3l">கோட்டக்கல்</td>
+          <td data-key="to_3l">குன்னூர்</td>
+          <td data-key="time_3l">6:30 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
         </tbody>
       </table>
     </div>
     <!-- Filter Buttons -->
 <div class="bus-filter-wrapper mt-4 px-4">
   <div class="filter-btn-row">
-    <button onclick="filterBus('kilinjadaToCoonoor')" class="bus-btn" data-key="kil">🚌 கிளிஞ்சடா ➝ குன்னூர்</button>
-    <button onclick="filterBus('coonoorToKilinjada')" class="bus-btn" data-key="coon">🚌 குன்னூர் ➝ கிளிஞ்சடா</button>
+    <button id="btnKilinjada" class="bus-btn" data-key="kil">🚌 கிளிஞ்சடா ➝ குன்னூர்</button>
+    <button id="btnCoonoor" class="bus-btn" data-key="coon">🚌 குன்னூர் ➝ கிளிஞ்சடா</button>
   </div>
   <div class="filter-btn-row filter-btn-row--single">
-    <button onclick="filterBus('all')" class="bus-btn" data-key="show">🔁 எல்லா பேருந்துகளும்</button>
+    <button id="btnAll" class="bus-btn" data-key="show">🔁 எல்லா பேருந்துகளும்</button>
   </div>
 </div>
+
 
     <p style="text-align:center; color:#1f2937; font-size:1em; margin-top:14px;">
       <b data-key="note">குறிப்பு:</b>
@@ -336,6 +348,39 @@
     </div>
   </div>
 
+
+
+<section id="calendar" class="bg-yellow-100 border-4 border-black py-8 px-6 rounded-3xl shadow-xl max-w-2xl mx-auto scroll-animate transition-opacity duration-1000 opacity-0">
+
+  <!-- Heading -->
+  <h2 class="text-3xl font-extrabold text-black text-center mb-6" data-key="calendar">
+    📅 காலண்டர்
+  </h2>
+
+  <!-- Month Controls -->
+  <div class="flex items-center justify-between mb-6">
+    <button id="prevMonth" class="w-10 h-10 bg-black text-yellow-100 rounded-full text-xl hover:scale-105 transition-transform duration-300 shadow-lg">
+      &lt;
+    </button>
+    <div id="calendarMonth" class="text-2xl font-bold text-black text-center flex-1">
+      மே
+    </div>
+    <button id="nextMonth" class="w-10 h-10 bg-black text-yellow-100 rounded-full text-xl hover:scale-105 transition-transform duration-300 shadow-lg">
+      &gt;
+    </button>
+  </div>
+
+  <!-- 📄 Display Box -->
+  <div id="calendarEvents" class="bg-white border-2 border-yellow-300 rounded-xl shadow-inner p-6 text-black text-center font-semibold min-h-[120px] text-xl leading-relaxed space-y-4">
+    🎉 நிகழ்வுகள் இங்கே காணப்படும்...
+  </div>
+
+</section>
+
+
+
+
+
   <!-- Village Stats Section -->
   <section id="title" class="py-6 sm:py-8 text-center bg-yellow-200 text-black scroll-animate">
     <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
@@ -366,6 +411,7 @@
         data-key="location_button">🚗 கிளிஞ்சடா செல்லுங்கள்</a>
     </div>
   </section>
+
 
   <!-- Weather Section -->
   <section id="weather" class="py-12 px-4 max-w-xl mx-auto scroll-animate">
@@ -398,10 +444,17 @@
     <p id="feedbackStatus" class="text-center mt-4" data-key="feedback_status"></p>
   </section>
 
-  <!-- Footer -->
-  <footer class="scroll-animate">
-    © 2025 கிளிஞ்சடா கிராமம் 
-  </footer>
+<!-- Footer -->
+<footer class="bg-black text-yellow-400 py-6 px-4 shadow-inner scroll-animate " >
+  <div id="footerContactInfo" class="flex flex-col sm:flex-row justify-between items-center gap-4 text-xl font-semibold animate-fade-in-up">
+    <!-- Phone & Email will be injected here -->
+  </div>
+
+  <div class="mt-4 text-center text-lg tracking-wide animate-fade-in-up " data-key="footer">
+    © 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
+  </div>
+</footer>
+
 
   <!-- Gallery Modal Enhancement -->
   <div id="galleryModal">
@@ -412,8 +465,7 @@
 
   <!-- Enhancement Script -->
   <script>
-  // --- Enhanced Modal Gallery ---
-  // Add data-full to each gallery image for modal (if not already present)
+
   document.querySelectorAll('#galleryImages img').forEach(img => {
     if(!img.dataset.full) img.dataset.full = img.src;
   });
@@ -479,6 +531,57 @@
     const el = document.getElementById(id);
     el.scrollBy({ left: dir * 220, behavior: 'smooth' });
   }
+  
+
+  document.addEventListener('DOMContentLoaded', function() {
+  const menuBtn = document.getElementById('menuBtn');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const closeMenuBtn = document.getElementById('closeMenu');
+  const menuLinks = document.querySelectorAll('#sideMenu a.menu-link');
+
+  function openMenu() {
+    sideMenu.classList.remove('-translate-x-full');
+    sideMenu.classList.add('translate-x-0');
+    menuOverlay.classList.remove('hidden');
+  }
+
+  function closeMenu() {
+    sideMenu.classList.add('-translate-x-full');
+    sideMenu.classList.remove('translate-x-0');
+    menuOverlay.classList.add('hidden');
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  closeMenuBtn.addEventListener('click', closeMenu);
+  menuOverlay.addEventListener('click', closeMenu);
+
+  // Close when any menu link is clicked
+  menuLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close when clicking/touching outside the menu
+  document.addEventListener('mousedown', function(event) {
+    if (
+      !sideMenu.contains(event.target) &&
+      !menuBtn.contains(event.target) &&
+      !sideMenu.classList.contains('-translate-x-full')
+    ) {
+      closeMenu();
+    }
+  });
+  document.addEventListener('touchstart', function(event) {
+    if (
+      !sideMenu.contains(event.target) &&
+      !menuBtn.contains(event.target) &&
+      !sideMenu.classList.contains('-translate-x-full')
+    ) {
+      closeMenu();
+    }
+  });
+});
+
   </script>
   <!-- Your existing JS -->
   <script src="js/main.js"></script>

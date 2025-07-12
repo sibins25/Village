@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
       menu_gallery: "📸Gallery",
       menu_crops: "🌾Crops",
       menu_bus: "🚌Bus Timings",
+      menu_calendar:"📅 Calendar",
       title: "📊Village Stats",
       menu_weather: "🌦Weather",
       menu_feedback: "💬Feedback",
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
       location_button: "Go to Kilinjada",
       gallery_title: "📸Village Photos",
       season: "🌾Seasonal Crops",
+      calendar:"📅 Calendar",
       bus_title: "🚌Bus Timings",
       bus_from: "From",
       bus_to: "To",
@@ -101,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
     kil:"🚌Kilinjada ➝ Coonoor",
     coon:"🚌Coonoor ➝  Kilinjada",
     show:"🔁All busses",
+    footer:"© 2025 Kilnjada Village. All rights are reserved ",
 
     // Notes
     note: "Note:",
@@ -141,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
       menu_home: "🏠முகப்பு",
       menu_location: "📍இடம்",
       menu_gallery: "📸புகைப்படங்கள்",
+      menu_calendar:"📅 காலண்டர்",
       menu_crops: "🌾பயிர்கள்",
       menu_bus: "🚌பஸ் நேரங்கள்",
       title: "📊கிராம புள்ளிவிவரங்கள்",
@@ -152,11 +156,13 @@ document.addEventListener("DOMContentLoaded", function() {
       location_button: "கிளிஞ்சடா செல்லுங்கள்",
       gallery_title: "📸கிராமத்துப் புகைப்படங்கள்",
       season: "🌾பருவ பயிர்கள்",
+           calendar:"📅 காலண்டர்",
       bus_title: "🚌பஸ் நேரங்கள்",
       bus_from: "எங்கிருந்து",
       bus_to: "எங்கே",
       bus_time: "நேரம்",
       note: "குறிப்பு",
+      footer:"© 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
       exception: "மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.",
       people: "👨‍👩‍👧‍👦மக்கள்: <span>400</span>",
       houses: "🏠வீடுகள்: <span>100</span>",
@@ -345,28 +351,139 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-  function filterBus(direction) {
-    const rows = document.querySelectorAll("#busTimings tbody tr");
+const CONTACT_TABLE = "contactinfo";
 
-    rows.forEach(row => {
-      const note = row.querySelector(".bus-note");
-      const noteText = note ? note.textContent.trim() : "";
+async function fetchContactInfoFooter() {
+  const footerEl = document.getElementById('footerContactInfo');
+  if (!footerEl) return;
 
-      let showRow = false;
+  try {
+    const response = await fetch(
+      `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${CONTACT_TABLE}?pageSize=1&sortBy=created%20desc`
+    );
+    const data = await response.json();
 
-      if (direction === 'all') {
-        showRow = true;
-      } else if (direction === 'coonoorToKilinjada') {
-        // Show only rows with note "(குன்னூரில்)"
-        showRow = noteText.includes("குன்னூரில்");
-      } else if (direction === 'kilinjadaToCoonoor') {
-        // Show only rows with note "(கிளிஞ்சடாவில்)"
-        showRow = noteText.includes("கிளிஞ்சடாவில்");
+    if (Array.isArray(data) && data.length > 0 && data[0].message) {
+      footerEl.innerHTML = `
+        <span class="text-yellow-400 text-lg sm:text-xl font-bold tracking-wide animate-pulse">
+          📞 ${data[0].message}
+        </span>
+        <span class="text-yellow-400 text-lg sm:text-xl font-bold tracking-wide animate-pulse">
+          📧 ${data[0].email || "மின்னஞ்சல் இல்லை"}
+        </span>
+      `;
+    } else {
+      footerEl.innerHTML = `<span class="text-yellow-400 text-lg font-semibold">தகவல் இல்லை</span>`;
+    }
+  } catch (error) {
+    console.error(error);
+    footerEl.innerHTML = `<span class="text-yellow-400 text-lg font-semibold">பிழை ஏற்பட்டது</span>`;
+  }
+}
+fetchContactInfoFooter();
+// 1. Bus Filter Logic
+function filterBus(direction) {
+  const rows = document.querySelectorAll("#busTimings tbody tr");
+
+  rows.forEach(row => {
+    const note = row.querySelector(".bus-note");
+    const noteText = note ? note.textContent.trim() : "";
+
+    let showRow = false;
+
+    if (direction === 'all') {
+      showRow = true;
+    } else if (direction === 'coonoorToKilinjada') {
+      showRow = noteText.includes("குன்னூரில்") || noteText.includes("(at Coonoor)");
+    } else if (direction === 'kilinjadaToCoonoor') {
+      showRow = noteText.includes("கிளிஞ்சடாவில்") || noteText.includes("(at Kilinjada)");
+    }
+
+    row.style.display = showRow ? "" : "none";
+  });
+
+  // Optional: highlight active button
+  document.querySelectorAll('.bus-btn').forEach(btn => btn.classList.remove('active'));
+  if (direction === 'all') {
+    document.getElementById("btnAll").classList.add("active");
+  } else if (direction === 'coonoorToKilinjada') {
+    document.getElementById("btnCoonoor").classList.add("active");
+  } else if (direction === 'kilinjadaToCoonoor') {
+    document.getElementById("btnKilinjada").classList.add("active");
+  }
+}
+
+// 2. Bind Filter Buttons (call this once on DOM load and after language change)
+function bindBusFilterButtons() {
+  const btnKil = document.getElementById("btnKilinjada");
+  const btnCoon = document.getElementById("btnCoonoor");
+  const btnAll = document.getElementById("btnAll");
+
+  if (btnKil) btnKil.onclick = () => filterBus("kilinjadaToCoonoor");
+  if (btnCoon) btnCoon.onclick = () => filterBus("coonoorToKilinjada");
+  if (btnAll) btnAll.onclick = () => filterBus("all");
+}
+
+// 3. Re-bind after DOM is ready
+document.addEventListener("DOMContentLoaded", function () {
+  bindBusFilterButtons();
+});
+
+// 4. Re-bind after language change
+// Add this line at the end of your `setLanguage(lang)` function:
+function setLanguage(lang) {
+  // ... your existing translation logic ...
+  bindBusFilterButtons(); // 🔁 rebind buttons after text changes
+}
+
+
+  //calendar
+document.addEventListener("DOMContentLoaded", function () {
+  const CALENDAR_TABLE = "calendar";
+
+  let monthsData = [];
+  let currentMonthIndex = 0;
+
+  async function fetchMonthsFromBackendless() {
+    try {
+      const response = await fetch(
+        `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${CALENDAR_TABLE}?sortBy=month%20asc`
+      );
+      const data = await response.json();
+      monthsData = data;
+
+      if (monthsData.length > 0) {
+        currentMonthIndex = 0;
+        renderCalendarMonth();
+      } else {
+        document.getElementById('calendarMonth').textContent = "No data";
+        document.getElementById('calendarEvents').textContent = "";
       }
-
-      row.style.display = showRow ? "" : "none";
-    });
+    } catch (error) {
+      document.getElementById('calendarMonth').textContent = "Error loading calendar";
+      document.getElementById('calendarEvents').textContent = "";
+      console.error("Calendar fetch error:", error);
+    }
   }
 
+  function renderCalendarMonth() {
+    const monthObj = monthsData[currentMonthIndex];
+    document.getElementById('calendarMonth').textContent = monthObj.month;
+    document.getElementById('calendarEvents').textContent = monthObj.events || "No events";
+  }
 
+  document.getElementById('prevMonth').onclick = function () {
+    if (monthsData.length === 0) return;
+    currentMonthIndex = (currentMonthIndex - 1 + monthsData.length) % monthsData.length;
+    renderCalendarMonth();
+  };
 
+  document.getElementById('nextMonth').onclick = function () {
+    if (monthsData.length === 0) return;
+    currentMonthIndex = (currentMonthIndex + 1) % monthsData.length;
+    renderCalendarMonth();
+  };
+
+  // ✅ CALL IT HERE directly
+  fetchMonthsFromBackendless();
+});
