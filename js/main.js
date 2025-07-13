@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
   label_temples: "Temples",
   btn_show_more: "Show More",
   btn_show_less: "Show Less",
+
     footer:"© 2025 Kilnjada Village. All rights are reserved ",
 
     // Notes
@@ -141,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
     from_3g: "Coonoor",       to_3g: "Sattan",
     from_3h: "Thudurmattam",  to_3h: "Coonoor",
     from_3i: "Sattan",        to_3i: "Coonoor",
-    from_3j: "Kottakkal",     to_3j: "Coonoor",
+    from_3j: "Palamara",     to_3j: "Coonoor",
     from_3k: "Thudurmattam",  to_3k: "Coonoor",
     from_3l: "Kottakkal",     to_3l: "Coonoor",
     from_4: "Coonoor",        to_4: "Kolacambai",
@@ -226,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
     from_3g: "குன்னூர்",       to_3g: "சட்டன்",
     from_3h: "தூதூர்மட்டம்",  to_3h: "குன்னூர்",
     from_3i: "சட்டன்",         to_3i: "குன்னூர்",
-    from_3j: "கோட்டக்கல்",     to_3j: "குன்னூர்",
+    from_3j: "பால்மாரா",     to_3j: "குன்னூர்",
     from_3k: "தூதூர்மட்டம்",  to_3k: "குன்னூர்",
     from_3l: "கோட்டக்கல்",     to_3l: "குன்னூர்",
     from_4: "குன்னூர்",        to_4: "கொலைகாம்பை",
