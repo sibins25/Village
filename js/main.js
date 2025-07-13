@@ -75,6 +75,15 @@ document.addEventListener("DOMContentLoaded", function() {
       calendar:"📅 Calendar",
       bus_title: "🚌Bus Timings",
       bus_from: "From",
+        fruit_chayote: "சவ் சவ்",
+  fruit_guava: "கொய்யா",
+  fruit_carrot: "காரட்",
+  fruit_cabbage: "முட்டைக்கோஸ்",
+  fruit_cauliflower: "பூக்கோஸ்",
+  fruit_beans: "பீன்ஸ்",
+  fruit_plums: "பிளம்ஸ்",
+  fruit_potato: "உருளைக்கிழங்கு",
+  fruit_broccoli: "ப்ரோகொலி",
       bus_to: "To",
       bus_time: "Time",
       note: "Note",
@@ -161,6 +170,17 @@ document.addEventListener("DOMContentLoaded", function() {
       bus_from: "எங்கிருந்து",
       bus_to: "எங்கே",
       bus_time: "நேரம்",
+      
+  fruit_chayote: "Chow chow",
+  fruit_guava: "Guava",
+  fruit_carrot: "Carrot",
+  fruit_cabbage: "Cabbage",
+  fruit_cauliflower: "Cauliflower",
+  fruit_beans: "Beans",
+  fruit_plums: "Plums",
+  fruit_potato: "Potato",
+  fruit_broccoli: "Broccoli",
+
       note: "குறிப்பு",
       footer:"© 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
       exception: "மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.",
@@ -363,18 +383,19 @@ async function fetchContactInfoFooter() {
     );
     const data = await response.json();
 
-    if (Array.isArray(data) && data.length > 0 && data[0].message) {
-      footerEl.innerHTML = `
-        <span class="text-yellow-400 text-lg sm:text-xl font-bold tracking-wide animate-pulse">
-          📞 ${data[0].message}
-        </span>
-        <span class="text-yellow-400 text-lg sm:text-xl font-bold tracking-wide animate-pulse">
-          📧 ${data[0].email || "மின்னஞ்சல் இல்லை"}
-        </span>
-      `;
-    } else {
-      footerEl.innerHTML = `<span class="text-yellow-400 text-lg font-semibold">தகவல் இல்லை</span>`;
-    }
+ if (Array.isArray(data) && data.length > 0 && data[0].message) {
+  footerEl.innerHTML = `
+    <div class="flex-1 min-w-[50%] text-center truncate">
+      📞 ${data[0].message}
+    </div>
+    <div class="flex-1 min-w-[50%] text-center truncate">
+      📧 ${data[0].email || "மின்னஞ்சல் இல்லை"}
+    </div>
+  `;
+} else {
+  footerEl.innerHTML = `<div class="w-full text-center">தகவல் இல்லை</div>`;
+}
+
   } catch (error) {
     console.error(error);
     footerEl.innerHTML = `<span class="text-yellow-400 text-lg font-semibold">பிழை ஏற்பட்டது</span>`;
@@ -487,3 +508,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // ✅ CALL IT HERE directly
   fetchMonthsFromBackendless();
 });
+
+
+  function scrollGallery(containerId, direction) {
+    const container = document.getElementById(containerId);
+    const scrollAmount = container.querySelector('.gallery-img-xl')?.offsetWidth + 24 || 320;
+    container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
+

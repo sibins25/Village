@@ -71,6 +71,15 @@
       opacity: 1;
       border: 2px solid #facc15;
     }
+    #gallery {
+  background: linear-gradient(to bottom, #fef9c3, #fff9db);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.scroll-snap-container {
+  padding: 1rem 0;
+}
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
@@ -257,6 +266,11 @@
           <td data-key="to_3l">குன்னூர்</td>
           <td data-key="time_3l">11:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
         </tr>
+         <tr>
+          <td data-key="from_3k">தூதூர்மட்டம்</td>
+          <td data-key="to_3k">குன்னூர்</td>
+          <td data-key="time_3k">2:00 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+        </tr>
           <tr>
           <td data-key="from_3l">கோட்டக்கல்</td>
           <td data-key="to_3l">குன்னூர்</td>
@@ -289,30 +303,51 @@
   </section>
 
   <!-- Gallery Section -->
-  <section id="gallery" class="py-10 scroll-animate">
-    <h3 class="text-2xl font-bold text-center mb-6" data-key="gallery_title">📸 கிராமத்துப் புகைப்படங்கள்</h3>
-    <div class="scroll-snap-wrapper">
-      <button class="scroll-snap-btn" aria-label="Left" onclick="scrollGallery('galleryImages', -1)" data-key="gallery_left_btn">&lt;</button>
-      <div class="scroll-snap-container" id="galleryImages">
-        <img src="images/village/village7.jpg" alt="Village 1" class="gallery-img" data-key="gallery_img1">
-        <img src="images/village/village8.jpg" alt="Village 2" class="gallery-img" data-key="gallery_img2">
-        <img src="images/village/village3.jpg" alt="Village 3" class="gallery-img" data-key="gallery_img3">
-        <img src="images/village/village4.jpg" alt="Village 4" class="gallery-img" data-key="gallery_img4">
-        <img src="images/village/village6.jpg" alt="Village 5" class="gallery-img" data-key="gallery_img5">
-        <img src="images/village/village9.jpg" alt="Village 6" class="gallery-img" data-key="gallery_img6">
-        <img src="images/village/village.jpg" alt="Village 7" class="gallery-img" data-key="gallery_img7">
-        <img src="images/village/village12.jpg" alt="Village 8" class="gallery-img" data-key="gallery_img8">
-        <img src="images/village/village10.jpg" alt="Village 9" class="gallery-img" data-key="gallery_img9">
-        <img src="images/village/village11.jpg" alt="Village 10" class="gallery-img" data-key="gallery_img10">
-        <img src="images/village/village13.jpg" alt="Village 11" class="gallery-img" data-key="gallery_img11">
-        <img src="images/village/village14.jpg" alt="Village 12" class="gallery-img" data-key="gallery_img12">
-        <img src="images/village/village15.jpg" alt="Village 13" class="gallery-img" data-key="gallery_img13">
-        <img src="images/village/village16.jpg" alt="Village 14" class="gallery-img" data-key="gallery_img14">
-        <img src="images/village/villlage17.jpg" alt="Village 15" class="gallery-img" data-key="gallery_img15">
-      </div>
-      <button class="scroll-snap-btn" aria-label="Right" onclick="scrollGallery('galleryImages', 1)" data-key="gallery_right_btn">&gt;</button>
+<!-- 📸 Gallery Section -->
+<section id="gallery" class="py-14 scroll-animate bg-gradient-to-br from-yellow-50 via-amber-100 to-yellow-200">
+  <h3 class="text-4xl font-extrabold text-center mb-10 text-yellow-800 drop-shadow-md" data-key="gallery_title">
+    📸 கிராம புகைப்படங்கள்
+  </h3>
+
+  <div class="relative max-w-6xl mx-auto px-4">
+    <!-- Scroll Left Button -->
+  <!-- Left Scroll Button -->
+<button class="scroll-arrow-pro left-0" aria-label="Left" onclick="scrollGallery('galleryImages', -1)">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+  </svg>
+</button>
+
+
+
+
+    <!-- Image Scroll Container -->
+    <div id="galleryImages"
+         class="scroll-snap-container flex overflow-x-auto snap-x scroll-smooth gap-6 px-4 py-6 backdrop-blur-sm bg-white/30 rounded-3xl shadow-2xl border border-yellow-200 mx-auto max-w-full sm:max-w-4xl">
+      <img src="images/village/village7.jpg" alt="Village 1" class="gallery-img-xl" data-key="gallery_img1">
+      <img src="images/village/village8.jpg" alt="Village 2" class="gallery-img-xl" data-key="gallery_img2">
+      <img src="images/village/village3.jpg" alt="Village 3" class="gallery-img-xl" data-key="gallery_img3">
+      <img src="images/village/village4.jpg" alt="Village 4" class="gallery-img-xl" data-key="gallery_img4">
+      <img src="images/village/village6.jpg" alt="Village 5" class="gallery-img-xl" data-key="gallery_img5">
+      <img src="images/village/village9.jpg" alt="Village 6" class="gallery-img-xl" data-key="gallery_img6">
+      <img src="images/village/village10.jpg" alt="Village 7" class="gallery-img-xl" data-key="gallery_img7">
+      <img src="images/village/village12.jpg" alt="Village 8" class="gallery-img-xl" data-key="gallery_img8">
+      <img src="images/village/village13.jpg" alt="Village 9" class="gallery-img-xl" data-key="gallery_img9">
+      <img src="images/village/village14.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
     </div>
-  </section>
+
+    <!-- Scroll Right Button -->
+  <!-- Right Scroll Button -->
+<button class="scroll-arrow-pro right-0" aria-label="Right" onclick="scrollGallery('galleryImages', 1)">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+  </svg>
+</button>
+  </div>
+</section>
+
+
+   
 
   <!-- Gallery Modal -->
   <div id="galleryModal">
@@ -322,31 +357,84 @@
   </div>
 
   <!-- Fruits Section -->
-  <section id="fruits" class="py-10 sm:py-12 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
-    <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="season">🌽 பருவ பயிர்கள்</h3>
-    <div class="scroll-snap-wrapper">
-      <button class="scroll-snap-btn" aria-label="Left" onclick="scrollGallery('fruitsGallery', -1)">&lt;</button>
-      <div class="scroll-snap-container" id="fruitsGallery">
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" /><p>Chow chow</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" /><p>Guava</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" /><p>Carrot</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" /><p>Cabbage</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" /><p>Cauliflower</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" /><p>Beans</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" /><p>Plums</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" /><p>Potato</p></div>
-        <div class="fruit-card"><img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" /><p>Broccoli</p></div>
+  <section id="fruits" class="py-12 scroll-animate bg-gradient-to-b from-yellow-50 to-yellow-100">
+  <h3 class="text-3xl font-extrabold text-center text-yellow-700 mb-8 drop-shadow" data-key="season">
+    🌽 பருவ பயிர்கள்
+  </h3>
+
+  <div class="relative max-w-6xl mx-auto px-4">
+    <!-- Left Button -->
+    <button class="scroll-arrow-pro left-0" aria-label="Left" onclick="scrollGallery('fruitsGallery', -1)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <!-- Fruit Cards Scroll -->
+    <div id="fruitsGallery"
+         class="scroll-snap-container flex overflow-x-auto gap-6 snap-x scroll-smooth px-2 py-4 sm:px-4">
+      
+      <div class="fruit-card-enhanced" data-key="fruit_chayote">
+        <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" />
+        <p>Chow chow</p>
       </div>
-      <button class="scroll-snap-btn" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">&gt;</button>
+      <div class="fruit-card-enhanced" data-key="fruit_guava">
+        <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" />
+        <p>Guava</p>
+      </div>
+      <div class="fruit-card-enhanced" data-key="fruit_carrot">
+        <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" />
+        <p>Carrot</p>
+      </div>
+      <div class="fruit-card-enhanced" data-key="fruit_cabbage">
+        <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" />
+        <p>Cabbage</p>
+      </div>
+      <div class="fruit-card-enhanced" data-key="fruit_cauliflower">
+        <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" />
+        <p>Cauliflower</p>
+      </div>
+      <div class="fruit-card-enhanced" data-key="fruit_beans">
+        <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" />
+        <p>Beans</p>
+      </div>
+      <div class="fruit-card-enhanced" data-key="fruit_plums">
+        <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" />
+        <p>Plums</p>
+      </div>
+      <div class="fruit-card-enhanced" data-key="fruit_potato">
+        <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" />
+        <p>Potato</p>
+      </div>
+      <div class="fruit-card-enhanced" data-key="fruit_broccoli">
+        <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" />
+        <p>Broccoli</p>
+      </div>
     </div>
-  </section>
+
+    <!-- Right Button -->
+    <button class="scroll-arrow-pro right-0" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</section>
+
+
 
   <!-- Announcement Ticker -->
-  <div class="bg-black text-yellow-400 py-4 px-4 mt-6 flex items-center justify-center min-h-[80px] rounded-xl shadow font-bold overflow-hidden scroll-animate">
-    <div class="ticker text-center text-xl w-full">
+ <!-- 🗞️ Announcements Section -->
+<section id="announcements" class="py-10 scroll-animate">
+  <h2 class="text-3xl font-extrabold text-center text-yellow-600 mb-6" data-key="announcements_heading">
+    🗞️ அறிவிப்புகள்
+  </h2>
+  <div class="bg-yellow-200 text-black py-4 px-6 rounded-xl shadow-lg max-w-4xl mx-auto overflow-hidden">
+    <div class="ticker text-center text-lg sm:text-xl font-semibold">
       <span id="latestAnnouncement">Loading latest announcement...</span>
     </div>
   </div>
+</section>
 
 
 
@@ -433,7 +521,8 @@
   </section>
 
   <!-- Feedback Section -->
-  <section id="feedback" class="py-12 scroll-mt-24 scroll-animate">
+  <section id="feedback" class="py-6 scroll-animate">
+
     
     <h3 class="text-2xl font-bold text-center mb-6" data-key="feedback">💬 கருத்துகள்</h3>
     <form id="feedbackForm" class="bg-neutral-800 rounded-xl p-6 flex flex-col gap-3 shadow-lg w-full max-w-md mx-auto">
@@ -445,15 +534,18 @@
   </section>
 
 <!-- Footer -->
-<footer class="bg-black text-yellow-400 py-6 px-4 shadow-inner scroll-animate " >
-  <div id="footerContactInfo" class="flex flex-col sm:flex-row justify-between items-center gap-4 text-xl font-semibold animate-fade-in-up">
-    <!-- Phone & Email will be injected here -->
+<footer class="bg-black text-yellow-400 px-4 py-3 sm:py-4 text-sm sm:text-base shadow-inner">
+  <div id="footerContactInfo"
+    class="flex flex-wrap items-center justify-between text-center w-full max-w-5xl mx-auto gap-y-1">
+    <!-- Contact info will be injected here -->
   </div>
-
-  <div class="mt-4 text-center text-lg tracking-wide animate-fade-in-up " data-key="footer">
+  <div class="mt-2 text-center text-xs sm:text-sm tracking-wide" data-key="footer">
     © 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
   </div>
 </footer>
+
+
+
 
 
   <!-- Gallery Modal Enhancement -->

@@ -1,15 +1,94 @@
 /* ===========================
-   1. Menu Link Hover with Shine
+   0. Global Resets & Smooth Transitions
+   =========================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+  color: #1f2937;
+  background-color: #fefce8;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ===========================
+   1. Welcome Section: Enhanced Background & Animation
+   =========================== */
+#welcome {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.45)),
+    url('images/village/village.jpg'),
+    url('images/village/village2.jpg');
+  background-position: center center, center center, center center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: cover, cover, cover;
+  background-blend-mode: overlay, normal;
+  background-attachment: fixed, scroll, scroll;
+  animation: bgFadeIn 1.8s cubic-bezier(.4,2,.6,1) both;
+}
+@keyframes bgFadeIn {
+  from { filter: blur(8px) brightness(0.7); }
+  to   { filter: blur(0) brightness(1); }
+}
+#welcome::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 100%);
+  z-index: 1;
+  pointer-events: none;
+  transition: background 0.7s;
+}
+#welcome > * {
+  position: relative;
+  z-index: 2;
+  animation: fadeUp 1.2s cubic-bezier(.4,2,.6,1) both;
+}
+
+/* ===========================
+   2. Menu Link Hover with Shine
    =========================== */
 .menu-link {
   position: relative;
   transition: transform 0.3s cubic-bezier(.4,2,.6,1), color 0.3s;
   overflow: hidden;
+  font-weight: 600;
+  padding: 0.5em 1.2em;
+  border-radius: 0.8em;
+  background: transparent;
 }
 .menu-link:hover, .menu-link:focus {
   transform: scale(1.08);
   color: #facc15;
   text-shadow: 0 2px 8px #facc1560;
+  background: rgba(250,204,21,0.08);
 }
 .menu-link::after {
   content: '';
@@ -28,7 +107,7 @@
 }
 
 /* ===========================
-   2. Ticker Styles
+   3. Ticker Styles
    =========================== */
 .ticker {
   white-space: nowrap;
@@ -36,8 +115,10 @@
   display: flex;
   align-items: center;
   width: 100%;
-  position: relative;
   height: 2.5em;
+  background: #fff8db;
+  border-top: 2px solid #facc15;
+  border-bottom: 2px solid #facc15;
 }
 .ticker span {
   display: inline-block;
@@ -45,6 +126,8 @@
   padding-left: 100%;
   animation: ticker 8s linear infinite;
   font-weight: bold;
+  color: #92400e;
+  font-size: 1.05rem;
   letter-spacing: 0.04em;
 }
 @keyframes ticker {
@@ -53,70 +136,60 @@
 }
 
 /* ===========================
-   3. Scroll Snap Gallery & Side Buttons (Enhanced)
+   4. Scroll Snap Gallery & Side Buttons
    =========================== */
 .scroll-snap-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 950px;
-  margin: 0 auto 2.5rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.7rem;
+  gap: 0.75rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 .scroll-snap-btn {
   background: #fff;
   border: 1.5px solid #d1d5db;
-  color: #374151;
-  font-size: 1.8rem;
-  width: 40px;
-  height: 40px;
   border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  width: 42px;
+  height: 42px;
+  font-size: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  user-select: none;
+  transition: all 0.25s cubic-bezier(.4,2,.6,1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  color: #374151;
   outline: none;
-  transition:
-    background-color 0.25s,
-    border-color 0.25s,
-    color 0.25s,
-    box-shadow 0.25s,
-    transform 0.18s;
-  z-index: 10;
 }
-.scroll-snap-btn:hover,
-.scroll-snap-btn:focus {
-  background-color: #f3f4f6;
-  border-color: #3b82f6;
+.scroll-snap-btn:hover, .scroll-snap-btn:focus {
+  background-color: #fef9c3;
+  border-color: #facc15;
   color: #2563eb;
-  box-shadow: 0 4px 12px rgba(59,130,246,0.13);
   transform: scale(1.07);
 }
 .scroll-snap-container {
-  border: 2px solid #e5e7eb;
-  border-radius: 1.2rem;
-  padding: 1.2rem 1rem;
-  background: #f9fafb;
-  overflow-x: auto;
   display: flex;
   gap: 1.5rem;
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
+  padding: 1.2rem 1rem;
+  border-radius: 1.2rem;
+  border: 2px solid #e5e7eb;
+  background: #fffef3;
 }
-.scroll-snap-container::-webkit-scrollbar { display: none; }
+.scroll-snap-container::-webkit-scrollbar {
+  display: none;
+}
 .gallery-img, .fruit-card {
   scroll-snap-align: center;
   flex-shrink: 0;
 }
 
 /* ===========================
-   4. Gallery Image: Professional Look (Enhanced)
+   5. Gallery Image: Professional Look
    =========================== */
 .gallery-img {
   width: 400px;
@@ -127,36 +200,39 @@
   box-shadow: 0 4px 12px rgba(31,41,55,0.10), 0 2px 8px rgba(0,0,0,0.08);
   border: 3px solid #e5e7eb;
   transition: 
-    transform 0.35s cubic-bezier(.4,2,.6,1),
-    box-shadow 0.35s,
-    border-color 0.3s;
+    transform 0.45s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.45s,
+    border-color 0.4s,
+    filter 0.4s;
   filter: brightness(0.99) saturate(1.08);
   position: relative;
   overflow: hidden;
+  will-change: transform, box-shadow, filter;
 }
 .gallery-img:hover, .gallery-img:focus {
-  transform: scale(1.03);
+  transform: scale(1.045);
   box-shadow: 0 8px 24px rgba(31,41,55,0.13);
   border-color: #3b82f6;
-  filter: brightness(1) saturate(1.08);
-  outline: none;
+  filter: brightness(1.04) saturate(1.1);
+  z-index: 2;
 }
 .gallery-img::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 1.1rem;
-  background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.0) 100%);
-  opacity: 0.7;
+  background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.10) 40%, rgba(255,255,255,0.0) 100%);
+  opacity: 0.6;
   transition: opacity 0.45s;
   z-index: 1;
+  pointer-events: none;
 }
 .gallery-img:hover::before, .gallery-img:focus::before {
   opacity: 1;
 }
 
 /* ===========================
-   5. Fruit Card: Professional Border & Look (Enhanced)
+   6. Fruit Card: Professional Look
    =========================== */
 .fruit-card {
   background: #fff;
@@ -208,7 +284,7 @@
 }
 
 /* ===========================
-   6. Location Button: Liquid Morph & Shine
+   7. Location Button: Liquid Morph & Shine
    =========================== */
 #location a,
 #location a:visited {
@@ -222,6 +298,9 @@
   position: relative;
   overflow: hidden;
   border-radius: 2em;
+  padding: 0.7em 2em;
+  font-size: 1.1rem;
+  display: inline-block;
 }
 #location a:hover, #location a:focus {
   background: conic-gradient(from 90deg at 50% 50%, #facc15, #f59e0b, #fde68a, #facc15 80%);
@@ -247,7 +326,7 @@
 }
 
 /* ===========================
-   7. Weather Card: Holographic Glow
+   8. Weather Card: Holographic Glow
    =========================== */
 #weather .bg-white\/80 {
   background: linear-gradient(120deg, #fffbe7 60%, #facc15 100%);
@@ -280,7 +359,7 @@
 }
 
 /* ===========================
-   8. Bus Table Section: Highlight on Hover
+   9. Bus Table Section: Highlight on Hover
    =========================== */
 .bus-table-section {
   max-width: 480px;
@@ -350,7 +429,7 @@
 }
 
 /* ===========================
-   9. Responsive Gallery and Fruit Card
+   10. Responsive Gallery and Fruit Card
    =========================== */
 @media (max-width: 1024px) {
   .fruit-card {
@@ -407,7 +486,7 @@
 }
 
 /* ===========================
-   10. Bus Table Responsive
+   11. Bus Table Responsive
    =========================== */
 @media (max-width: 600px) {
   .bus-table-section {
@@ -438,42 +517,11 @@
 }
 
 /* ===========================
-   11. Focus Outline for Accessibility
+   12. Focus Outline for Accessibility
    =========================== */
 button:focus, a:focus, input:focus, textarea:focus {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
-}
-
-/* ===========================
-   12. Welcome Section with Village BG
-   =========================== */
-#welcome {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-image:
-    url('images/village/village.jpg'),
-    url('images/village/village2.jpg');
-  background-position: center center, center center;
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, cover;
-  background-attachment: scroll, fixed;
-}
-#welcome::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 1;
-}
-#welcome > * {
-  position: relative;
-  z-index: 2;
 }
 
 /* ===========================
@@ -502,36 +550,32 @@ button:focus, a:focus, input:focus, textarea:focus {
 }
 
 /* ===========================
-   14. Footer
-   =========================== */
-
-/* ===========================
-   15. Fade-up Animation
+   14. Fade-up Animation
    =========================== */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(40px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 .scroll-animate {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(40px) scale(0.98);
   transition: opacity 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1);
   will-change: opacity, transform;
 }
 .scroll-animate.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   animation: fadeUp 0.8s cubic-bezier(.4,2,.6,1) both;
 }
 
 /* ===========================
-   16. About Section Animation
+   15. About Section Animation
    =========================== */
 #about {
   opacity: 0;
@@ -547,8 +591,6 @@ button:focus, a:focus, input:focus, textarea:focus {
   box-shadow: 0 8px 32px #facc15a0, 0 4px 18px #1f293744;
   background: linear-gradient(120deg, #fffbe7 60%, #facc15 100%);
 }
-
-/* Optional: animated gradient border for extra pop */
 #about .bg-white\/90 {
   border-radius: 1.5em;
   border: 3px solid;
@@ -561,8 +603,6 @@ button:focus, a:focus, input:focus, textarea:focus {
   box-shadow: 0 8px 32px #facc15a0, 0 4px 18px #1f293744;
   border-color: #f59e0b;
 }
-
-/* Responsive text for about */
 #aboutText {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -578,7 +618,7 @@ button:focus, a:focus, input:focus, textarea:focus {
 }
 
 /* ===========================
-   17. Bus Filter Buttons
+   16. Bus Filter Buttons
    =========================== */
 .bus-filter-wrapper {
   width: 100%;
@@ -638,116 +678,239 @@ button:focus, a:focus, input:focus, textarea:focus {
     min-width: 110px;
   }
 }
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s ease;
-}
-.scroll-animate.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
 
-.scroll-animate.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* =====================================
-   Footer Styles: Enhanced & Responsive
-   ===================================== */
+/* ===========================
+   17. Footer: Flex, Responsive & Animated
+   =========================== */
 footer {
-  background-color: #000; /* Black background */
-  color: #facc15; /* Tailwind's yellow-400 */
-  text-align: center;
-  padding: 2rem 1rem 1.5rem 1rem;
-  font-size: 1.1rem;
-  letter-spacing: 0.03em;
-  width: 100%;
-  margin-top: 3rem;
-  box-shadow: 0 -2px 12px rgba(250, 204, 21, 0.1);
-  position: relative;
-  z-index: 1;
-}
-
-footer .footer-contact {
+  background: linear-gradient(90deg, #111827 70%, #22223b 100%);
+  color: #facc15;
+  padding: 2rem 1rem 1.2rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  animation: fadeInUp 1s ease-out forwards;
+  justify-content: center;
+  gap: 1.5rem;
+  box-shadow: 0 -2px 12px rgba(250, 204, 21, 0.12);
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 1.2s cubic-bezier(.4,2,.6,1) both;
 }
-
-@media (min-width: 640px) {
-  footer .footer-contact {
-    flex-direction: row;
-    font-size: 1.3rem;
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1100px;
+}
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  align-items: flex-start;
+  min-width: 180px;
+}
+.footer-contact span,
+.footer-contact a {
+  color: #fde68a;
+  transition: color 0.25s, transform 0.25s;
+  cursor: pointer;
+  display: block;
+}
+.footer-contact span:hover,
+.footer-contact a:hover {
+  color: #facc15;
+  transform: scale(1.08);
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.05rem;
+  min-width: 140px;
+}
+.footer-links a {
+  color: #facc15;
+  opacity: 0.92;
+  transition: opacity 0.2s, color 0.2s;
+}
+.footer-links a:hover {
+  opacity: 1;
+  color: #fde68a;
+}
+.footer-copyright {
+  width: 100%;
+  text-align: center;
+  font-size: 0.98rem;
+  color: #facc15;
+  text-shadow: 0 1px 6px rgba(250, 204, 21, 0.2);
+  margin-top: 1rem;
+  border-top: 1px solid #facc1520;
+  padding-top: 0.7rem;
+  letter-spacing: 0.01em;
+}
+@media (max-width: 900px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .footer-contact, .footer-links {
+    align-items: center;
+    min-width: unset;
   }
 }
+@media (max-width: 600px) {
+  footer {
+    padding: 1.1rem 0.4rem 0.7rem 0.4rem;
+    font-size: 0.98rem;
+  }
+  .footer-content {
+    gap: 0.7rem;
+    max-width: 99vw;
+  }
+  .footer-contact, .footer-links {
+    font-size: 0.98rem;
+    gap: 0.25rem;
+  }
+  .footer-copyright {
+    font-size: 0.85rem;
+    padding-top: 0.5rem;
+  }
+}
+/* 🌟 Ticker Animation */
+.ticker span {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker 12s linear infinite;
+  padding-left: 100%;
+}
 
-footer .footer-contact span {
-  color: #facc15;
-  font-size: 1.2rem;
-  text-shadow: 0 1px 4px rgba(250, 204, 21, 0.25);
-  transition: transform 0.3s ease, color 0.3s;
+@keyframes ticker {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+.gallery-img-xl {
+  flex: 0 0 auto;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.gallery-img-xl:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.scroll-snap-container {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-snap-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #facc15;
+  color: #1f2937;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, background-color 0.3s;
+}
+.scroll-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  background-color: #fde047;
+}
+.scroll-arrow-pro {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  padding: 0.6rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
 }
 
-footer .footer-contact span:hover {
-  color: #fde68a;
-  transform: scale(1.05);
+.scroll-arrow-pro:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: translateY(-50%) scale(1.1);
+}
+.fruit-card-enhanced {
+  scroll-snap-align: center;
+  flex: 0 0 85%;
+  max-width: 320px;
+  background: linear-gradient(to bottom right, #fef9c3, #fde68a); /* soft yellow gradient */
+  border: 2px solid #fcd34d; /* golden border */
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 18px rgba(245, 158, 11, 0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-footer .footer-copyright {
-  margin-top: 1.2rem;
+.fruit-card-enhanced:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 22px rgba(234, 179, 8, 0.25);
+}
+
+.fruit-card-enhanced img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid #facc15;
+}
+
+.fruit-card-enhanced p {
+  padding: 0.75rem 1rem;
+  text-align: center;
   font-size: 1.1rem;
-  color: #facc15;
-  font-weight: 500;
-  animation: fadeInUp 1.2s ease-out forwards;
-  text-shadow: 0 1px 6px rgba(250, 204, 21, 0.2);
+  font-weight: 600;
+  color: #7c2d12;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid #fcd34d;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+/* Responsive tweaks */
+@media (min-width: 640px) {
+  .fruit-card-enhanced {
+    flex: 0 0 calc(33.333% - 1rem); /* 3 items visible */
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
 }
 
-/* Responsive Text Sizes */
-@media (max-width: 768px) {
-  footer {
-    font-size: 1rem;
-  }
-  footer .footer-contact span {
-    font-size: 1.05rem;
-  }
-  footer .footer-copyright {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  footer {
-    padding: 1.5rem 1rem;
-  }
-  footer .footer-contact span {
-    font-size: 0.95rem;
-  }
-  footer .footer-copyright {
-    font-size: 0.95rem;
-  }
-}
