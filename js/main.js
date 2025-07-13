@@ -75,15 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
       calendar:"📅 Calendar",
       bus_title: "🚌Bus Timings",
       bus_from: "From",
-        fruit_chayote: "சவ் சவ்",
-  fruit_guava: "கொய்யா",
-  fruit_carrot: "காரட்",
-  fruit_cabbage: "முட்டைக்கோஸ்",
-  fruit_cauliflower: "பூக்கோஸ்",
-  fruit_beans: "பீன்ஸ்",
-  fruit_plums: "பிளம்ஸ்",
-  fruit_potato: "உருளைக்கிழங்கு",
-  fruit_broccoli: "ப்ரோகொலி",
+    
       bus_to: "To",
       bus_time: "Time",
       note: "Note",
@@ -102,6 +94,17 @@ document.addEventListener("DOMContentLoaded", function() {
       about_title: "About Kilinjada Village",
           about_title: "About Kilinjada Village",
           feedback:"💬feedback",
+                
+  fruit_chayote: "Chow chow",
+  fruit_guava: "Guava",
+  fruit_carrot: "Carrot",
+  fruit_cabbage: "Cabbage",
+  fruit_cauliflower: "Cauliflower",
+  fruit_beans: "Beans",
+  fruit_plums: "Plums",
+  fruit_potato: "Potato",
+  fruit_broccoli: "Broccoli",
+  Announcement:"Announcemnet",
     about_text: "Kilinjada village is filled with peace and greenery. It is known for traditional farming, culture, kind people, natural beauty, and joyful festivals.",
 
     // Section titles
@@ -146,6 +149,15 @@ document.addEventListener("DOMContentLoaded", function() {
     about_text:`"Kilinjada Village is a peaceful, green place known for its traditional farming, vibrant culture, kind-hearted people, beautiful scenery, and joyful festivals celebrated together."`
     },
     ta: {
+          fruit_chayote: "சவ் சவ்",
+  fruit_guava: "கொய்யா",
+  fruit_carrot: "காரட்",
+  fruit_cabbage: "முட்டைக்கோஸ்",
+  fruit_cauliflower: "பூக்கோஸ்",
+  fruit_beans: "பீன்ஸ்",
+  fruit_plums: "பிளம்ஸ்",
+  fruit_potato: "உருளைக்கிழங்கு",
+  fruit_broccoli: "ப்ரோகொலி",
       site_title: "கிளிஞ்சடா கிராமம்",
       language_label: "தமிழ்",
       tamil_option: "தமிழ்",
@@ -170,16 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
       bus_from: "எங்கிருந்து",
       bus_to: "எங்கே",
       bus_time: "நேரம்",
-      
-  fruit_chayote: "Chow chow",
-  fruit_guava: "Guava",
-  fruit_carrot: "Carrot",
-  fruit_cabbage: "Cabbage",
-  fruit_cauliflower: "Cauliflower",
-  fruit_beans: "Beans",
-  fruit_plums: "Plums",
-  fruit_potato: "Potato",
-  fruit_broccoli: "Broccoli",
+
 
       note: "குறிப்பு",
       footer:"© 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
@@ -225,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
     from_6: "குன்னூர்",        to_6: "கோட்டக்கல்",
     kil:"🚌 கிளிஞ்சடா ➝ குன்னூர்",
     coon:"🚌 குன்னூர் ➝ கிளிஞ்சடா",
+    Announcement:"🗞️ அறிவிப்புகள்",
     show:"🔁 எல்லா பேருந்துகளும்",
     about_text:"கிளிஞ்சடா கிராமம் அமைதியும் பசுமையும் நிறைந்தது. பாரம்பரிய வேளாண்மை, பண்பாடு, நல்லவர்கள், இயற்கை அழகு, மகிழ்ச்சியான திருவிழாக்கள் புகழ்பெற்றது."
      }
