@@ -535,16 +535,18 @@ button:focus, a:focus, input:focus, textarea:focus {
 
 /* ===========================
    13. Feedback Centering
+/* ===========================
+   13. Feedback Centering
    =========================== */
 #feedback {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-
-  margin-top: 2rem;
-  padding-top: 2rem;
+  min-height: auto;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 #feedbackForm {
@@ -561,6 +563,15 @@ button:focus, a:focus, input:focus, textarea:focus {
   border: 2px solid #2563eb;
   box-shadow: 0 2px 8px #60a5fa30;
 }
+
+@media (max-width: 600px) {
+  #feedback {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
 
 /* ===========================
    14. Fade-up Animation
