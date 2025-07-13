@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
       about_title: "About Kilinjada Village",
           about_title: "About Kilinjada Village",
           feedback:"💬feedback",
+
                 
   fruit_chayote: "Chow chow",
   fruit_guava: "Guava",
@@ -115,6 +116,11 @@ document.addEventListener("DOMContentLoaded", function() {
     kil:"🚌Kilinjada ➝ Coonoor",
     coon:"🚌Coonoor ➝  Kilinjada",
     show:"🔁All busses",
+      label_schools: "Schools",
+  label_churches: "Churches",
+  label_temples: "Temples",
+  btn_show_more: "Show More",
+  btn_show_less: "Show Less",
     footer:"© 2025 Kilnjada Village. All rights are reserved ",
 
     // Notes
@@ -164,6 +170,11 @@ document.addEventListener("DOMContentLoaded", function() {
       english_option: "English",
       menu_home: "🏠முகப்பு",
       menu_location: "📍இடம்",
+       label_schools: "பள்ளிகள்",
+  label_churches: "தேவாலயங்கள்",
+  label_temples: "கோவில்கள்",
+  btn_show_more: "மேலும் காண்க",
+  btn_show_less: "குறைவு காண்க",
       menu_gallery: "📸புகைப்படங்கள்",
       menu_calendar:"📅 காலண்டர்",
       menu_crops: "🌾பயிர்கள்",
@@ -519,4 +530,40 @@ document.addEventListener("DOMContentLoaded", function () {
     const scrollAmount = container.querySelector('.gallery-img-xl')?.offsetWidth + 24 || 320;
     container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
   }
+const TABLE2_NAME = 'VillageStats';
 
+const fetchVillageStats = async () => {
+  try {
+    const response = await fetch(`https://api.backendless.com/${APP_ID}/${API_KEY}/data/${TABLE2_NAME}`);
+    const data = await response.json();
+    const stats = data[0];
+
+    if (stats) {
+      document.getElementById("statPeople").textContent = stats.people ?? '--';
+      document.getElementById("statHouses").textContent = stats.houses ?? '--';
+      document.getElementById("statShops").textContent = stats.shops ?? '--';
+      document.getElementById("statSchools").textContent = stats.schools ?? '--';
+      document.getElementById("statChurches").textContent = stats.churches ?? '--';
+      document.getElementById("statTemples").textContent = stats.temples ?? '--';
+    }
+  } catch (err) {
+    console.error("Error loading village stats:", err);
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchVillageStats();
+
+  const toggleBtn = document.getElementById("toggleStatsBtn");
+  const extraStats = document.querySelectorAll(".extra-stat");
+  let expanded = false;
+
+  toggleBtn.addEventListener("click", () => {
+    extraStats.forEach(card => {
+      card.classList.toggle("show");
+    });
+    expanded = !expanded;
+    toggleBtn.textContent = expanded ? "குறைவு காண்க" : "மேலும் காண்க";
+    toggleBtn.setAttribute("data-key", expanded ? "btn_show_less" : "btn_show_more");
+  });
+});

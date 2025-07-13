@@ -480,20 +480,51 @@
 
 
   <!-- Village Stats Section -->
-  <section id="title" class="py-6 sm:py-8 text-center bg-yellow-200 text-black scroll-animate">
-    <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto text-lg sm:text-xl">
-      <div data-key="people" class="bg-white p-4 sm:p-6 rounded-lg shadow font-bold hover:scale-105 transition-transform duration-300">
-        👨‍👩‍👧‍👦 மக்கள்: <span>400</span>
-      </div>
-      <div data-key="houses" class="bg-white p-4 sm:p-6 rounded-lg shadow font-bold hover:scale-105 transition-transform duration-300">
-        🏠 வீடுகள்: <span>100</span>
-      </div>
-      <div data-key="shops" class="bg-white p-4 sm:p-6 rounded-lg shadow font-bold hover:scale-105 transition-transform duration-300">
-        🏪 கடைகள்: <span>5</span>
-      </div>
+     <section id="villageStats" class="stats-section">
+  <h2 class="stats-heading" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
+
+  <div class="stats-grid">
+    <!-- Row 1 -->
+    <div class="stat-card" data-key="people">
+      <div class="stat-icon">👨‍👩‍👧‍👦</div>
+      <div class="stat-label" data-key="label_people">மக்கள்</div>
+      <div class="stat-value" id="statPeople">--</div>
     </div>
-  </section>
+    <div class="stat-card" data-key="houses">
+      <div class="stat-icon">🏠</div>
+      <div class="stat-label" data-key="label_houses">வீடுகள்</div>
+      <div class="stat-value" id="statHouses">--</div>
+    </div>
+    <div class="stat-card" data-key="shops">
+      <div class="stat-icon">🏪</div>
+      <div class="stat-label" data-key="label_shops">கடைகள்</div>
+      <div class="stat-value" id="statShops">--</div>
+    </div>
+
+    <!-- Row 2 (hidden initially) -->
+    <div class="stat-card extra-stat" data-key="schools">
+      <div class="stat-icon">🏫</div>
+      <div class="stat-label" data-key="label_schools">பள்ளிகள்</div>
+      <div class="stat-value" id="statSchools">--</div>
+    </div>
+    <div class="stat-card extra-stat" data-key="churches">
+      <div class="stat-icon">⛪</div>
+      <div class="stat-label" data-key="label_churches">தேவாலயங்கள்</div>
+      <div class="stat-value" id="statChurches">--</div>
+    </div>
+    <div class="stat-card extra-stat" data-key="temples">
+      <div class="stat-icon">🛕</div>
+      <div class="stat-label" data-key="label_temples">கோவில்கள்</div>
+      <div class="stat-value" id="statTemples">--</div>
+    </div>
+  </div>
+
+  <div id="toggleButtons">
+    <button id="toggleStatsBtn" class="show-more-btn" data-key="btn_show_more">மேலும் காண்க</button>
+  </div>
+</section>
+
+
   
   <!-- Location Section -->
   <section id="location" class="py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
