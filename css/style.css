@@ -325,6 +325,15 @@ img {
   left: 120%;
 }
 
+
+@media (max-width: 600px) {
+  #location {
+    padding: 1rem 0.5rem;
+    margin: 1.5rem auto;
+  }
+}
+
+
 /* ===========================
    8. Weather Card: Holographic Glow
    =========================== */
@@ -533,7 +542,11 @@ button:focus, a:focus, input:focus, textarea:focus {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+
+  margin-top: 2rem;
+  padding-top: 2rem;
 }
+
 #feedbackForm {
   max-width: 600px;
   width: 100%;

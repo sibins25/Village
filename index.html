@@ -356,63 +356,72 @@
     <div class="modal-thumbs" id="modalThumbs"></div>
   </div>
 
-  <!-- Fruits Section -->
-  <section id="fruits" class="py-12 scroll-animate bg-gradient-to-b from-yellow-50 to-yellow-100">
+  <!-- 🌽 Fruits Section -->
+<section id="fruits" class="py-12 scroll-animate bg-gradient-to-b from-yellow-50 to-yellow-100">
   <h3 class="text-3xl font-extrabold text-center text-yellow-700 mb-8 drop-shadow" data-key="season">
     🌽 பருவ பயிர்கள்
   </h3>
 
   <div class="relative max-w-6xl mx-auto px-4">
-    <!-- Left Button -->
+    <!-- Left Scroll Button -->
     <button class="scroll-arrow-pro left-0" aria-label="Left" onclick="scrollGallery('fruitsGallery', -1)">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
     </button>
 
-    <!-- Fruit Cards Scroll -->
+    <!-- Fruit Cards Scroll Container -->
     <div id="fruitsGallery"
          class="scroll-snap-container flex overflow-x-auto gap-6 snap-x scroll-smooth px-2 py-4 sm:px-4">
       
-      <div class="fruit-card-enhanced" >
-        <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" />
+      <!-- 🍍 Fruit Cards -->
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" loading="lazy" />
         <p data-key="fruit_chayote">Chow chow</p>
       </div>
-      <div class="fruit-card-enhanced" >
-        <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" />
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" loading="lazy" />
         <p data-key="fruit_guava">Guava</p>
       </div>
-      <div class="fruit-card-enhanced" >
-        <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" />
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" loading="lazy" />
         <p data-key="fruit_carrot">Carrot</p>
       </div>
-      <div class="fruit-card-enhanced">
-        <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" />
-        <p  data-key="fruit_cabbage">Cabbage</p>
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" loading="lazy" />
+        <p data-key="fruit_cabbage">Cabbage</p>
       </div>
-      <div class="fruit-card-enhanced" >
-        <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" />
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" loading="lazy" />
         <p data-key="fruit_cauliflower">Cauliflower</p>
       </div>
-      <div class="fruit-card-enhanced" >
-        <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" />
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" loading="lazy" />
         <p data-key="fruit_beans">Beans</p>
       </div>
-      <div class="fruit-card-enhanced" >
-        <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" />
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" loading="lazy" />
         <p data-key="fruit_plums">Plums</p>
       </div>
-      <div class="fruit-card-enhanced" >
-        <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" />
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" loading="lazy" />
         <p data-key="fruit_potato">Potato</p>
       </div>
-      <div class="fruit-card-enhanced">
-        <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" />
-        <p  data-key="fruit_broccoli">Broccoli</p>
+
+      <div class="fruit-card-enhanced animate-fade-in">
+        <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" loading="lazy" />
+        <p data-key="fruit_broccoli">Broccoli</p>
       </div>
     </div>
 
-    <!-- Right Button -->
+    <!-- Right Scroll Button -->
     <button class="scroll-arrow-pro right-0" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -420,6 +429,7 @@
     </button>
   </div>
 </section>
+
 
 
 
@@ -521,16 +531,19 @@
   </section>
 
   <!-- Feedback Section -->
-  <section id="feedback" class="py-6 scroll-animate">
+<section id="feedback" class="py-2 sm:py-6 scroll-animate">
+
 
     
     <h3 class="text-2xl font-bold text-center mb-6" data-key="feedback">💬 கருத்துகள்</h3>
-    <form id="feedbackForm" class="bg-neutral-800 rounded-xl p-6 flex flex-col gap-3 shadow-lg w-full max-w-md mx-auto">
+<form id="feedbackForm" class="bg-neutral-800 rounded-xl p-3 sm:p-6 flex flex-col gap-2 sm:gap-4 shadow-lg w-full max-w-md mx-auto">
+
       <input type="text" id="name" class="rounded px-3 py-2" placeholder="பெயர்" required data-key="feedback_name_placeholder" />
       <textarea id="message" class="rounded px-3 py-2" placeholder="உங்கள் கருத்து" rows="3" required data-key="feedback_message_placeholder"></textarea>
       <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300" data-key="feedback_submit">அனுப்பு</button>
     </form>
-    <p id="feedbackStatus" class="text-center mt-4" data-key="feedback_status"></p>
+    <p id="feedbackStatus" class="text-center mt-2 sm:mt-4" data-key="feedback_status"></p>
+
   </section>
 
 <!-- Footer -->
