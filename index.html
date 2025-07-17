@@ -135,7 +135,7 @@
 
   <!-- Welcome Section -->
   <section id="welcome"
-    class="scroll-animate px-4 text-center py-16 min-h-[60vh] flex flex-col items-center justify-center relative"
+    class=" scroll-animate px-4 text-center py-16 min-h-[60vh] flex flex-col items-center justify-center relative"
     style="background-image: url('images/village/village11.jpg'); background-size: cover; background-position: center;">
     <div class="absolute inset-0 bg-black/50 z-0"></div>
     <div class="relative z-10">
@@ -156,7 +156,7 @@
   </section>
 
   <!-- Bus Timings Section -->
-  <section id="busTimings" class="bus-table-section scroll-animate">
+  <section id="busTimings" class="bus-table-section scroll-animate my-16">
     <div class="bus-table-title text-center text-2xl font-semibold mt-8 mb-4" data-key="bus_title">🚌 பஸ் நேரங்கள்</div>
     <div class="bus-table-wrapper overflow-x-auto">
       <table class="bus-table w-full max-w-5xl mx-auto border text-center bg-white shadow rounded">
@@ -252,7 +252,7 @@
           <td data-key="time_3j">7:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
         </tr>
         <tr>
-          <tr>
+          
           <td data-key="from_4j">பால்மாரா</td>
           <td data-key="to_3j">குன்னூர்</td>
           <td data-key="time_3j">7:15 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
@@ -294,8 +294,9 @@
         </tbody>
       </table>
     </div>
+
     <!-- Filter Buttons -->
-<div class="bus-filter-wrapper mt-4 px-4">
+<div class="bus-filter-wrapper mt-4 px-4 my-16">
   <div class="filter-btn-row">
     <button id="btnKilinjada" class="bus-btn" data-key="kil">🚌 கிளிஞ்சடா ➝ குன்னூர்</button>
     <button id="btnCoonoor" class="bus-btn" data-key="coon">🚌 குன்னூர் ➝ கிளிஞ்சடா</button>
@@ -311,10 +312,21 @@
       <span data-key="exception">மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.</span>
     </p>
   </section>
+  <!-- Annoucement  -->
+  <section id="announcements" class="py-10 scroll-animate my-16"  >
+  <h2 class="text-3xl font-extrabold text-center text-yellow-600 mb-6" data-key="Announcement">
+    🗞️ அறிவிப்புகள்
+  </h2>
+  <div class="bg-yellow-200 text-black py-4 px-6 rounded-xl shadow-lg max-w-4xl mx-auto overflow-hidden">
+    <div class="ticker text-center text-lg sm:text-xl font-semibold">
+      <span id="latestAnnouncement">Loading latest announcement...</span>
+    </div>
+  </div>
+</section>
 
-  <!-- Gallery Section -->
+
 <!-- 📸 Gallery Section -->
-<section id="gallery" class="py-14 scroll-animate bg-gradient-to-br from-yellow-50 via-amber-100 to-yellow-200">
+<section id="gallery" class=" my-16 py-14 scroll-animate bg-gradient-to-br from-yellow-50 via-amber-100 to-yellow-200">
   <h3 class="text-4xl font-extrabold text-center mb-10 text-yellow-800 drop-shadow-md" data-key="gallery_title">
     📸 கிராம புகைப்படங்கள்
   </h3>
@@ -344,6 +356,10 @@
       <img src="images/village/village12.jpg" alt="Village 8" class="gallery-img-xl" data-key="gallery_img8">
       <img src="images/village/village13.jpg" alt="Village 9" class="gallery-img-xl" data-key="gallery_img9">
       <img src="images/village/village14.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
+       <img src="images/village/village15.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
+        <img src="images/village/village16.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
+         <img src="images/village/villlage17.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
+          <img src="images/village/village.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
     </div>
 
     <!-- Scroll Right Button -->
@@ -367,7 +383,7 @@
   </div>
 
   <!-- 🌽 Fruits Section -->
-<section id="fruits" class="py-12 scroll-animate bg-gradient-to-b from-yellow-50 to-yellow-100">
+<section id="fruits" class=" my-16 py-12 scroll-animate bg-gradient-to-b from-yellow-50 to-yellow-100">
   <h3 class="text-3xl font-extrabold text-center text-yellow-700 mb-8 drop-shadow" data-key="season">
     🌽 பருவ பயிர்கள்
   </h3>
@@ -443,22 +459,12 @@
 
 
 
-  <!-- Announcement Ticker -->
- <!-- 🗞️ Announcements Section -->
-<section id="announcements" class="py-10 scroll-animate"  >
-  <h2 class="text-3xl font-extrabold text-center text-yellow-600 mb-6" data-key="Announcement">
-    🗞️ அறிவிப்புகள்
-  </h2>
-  <div class="bg-yellow-200 text-black py-4 px-6 rounded-xl shadow-lg max-w-4xl mx-auto overflow-hidden">
-    <div class="ticker text-center text-lg sm:text-xl font-semibold">
-      <span id="latestAnnouncement">Loading latest announcement...</span>
-    </div>
-  </div>
-</section>
 
 
 
-<section id="calendar" class="bg-yellow-100 border-4 border-black py-8 px-6 rounded-3xl shadow-xl max-w-2xl mx-auto scroll-animate transition-opacity duration-1000 opacity-0">
+
+
+<section id="calendar" class=" my-16 bg-yellow-100 border-4 border-black py-8 px-6 rounded-3xl shadow-xl max-w-2xl mx-auto scroll-animate transition-opacity duration-1000 opacity-0">
 
   <!-- Heading -->
   <h2 class="text-3xl font-extrabold text-black text-center mb-6" data-key="calendar">
@@ -490,7 +496,7 @@
 
 
   <!-- Village Stats Section -->
-     <section id="villageStats" class="stats-section">
+     <section id="villageStats" class=" my-16 stats-section">
   <h2 class="stats-heading" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
 
   <div class="stats-grid">
@@ -510,6 +516,7 @@
       <div class="stat-label" data-key="label_shops">கடைகள்</div>
       <div class="stat-value" id="statShops">--</div>
     </div>
+    
 
     <!-- Row 2 (hidden initially) -->
     <div class="stat-card extra-stat" data-key="schools">
@@ -537,7 +544,7 @@
 
   
   <!-- Location Section -->
-  <section id="location" class="py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
+  <section id="location" class=" my-16 py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
     <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="location_title">📍 கிளிஞ்சடா இடம்</h3>
     <div class="rounded-2xl overflow-hidden shadow-xl mb-6 sm:mb-8 w-full flex justify-center">
       <iframe src="https://www.google.com/maps/embed?pb=!4v1749909160734!6m8!1m7!1stybikJdvtDm8s9d5PDDY2g!2m2!1d11.31443927743172!2d76.73724728914816!3f190.93584082365928!4f-9.765107696316363!5f0.7820865974627469"
@@ -553,7 +560,7 @@
 
 
   <!-- Weather Section -->
-  <section id="weather" class="py-2 px-4 max-w-xl mx-auto scroll-animate">
+  <section id="weather" class=" my-16 py-2 px-4 max-w-xl mx-auto scroll-animate">
     <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
       <h2 class="text-2xl sm:text-3xl font-bold text-yellow-500 mb-2 text-center" data-key="weather_title">
         <span class="block" data-key="weather_village">கிளிஞ்சடா கிராமம்</span>
@@ -572,23 +579,27 @@
   </section>
 
   <!-- Feedback Section -->
-<section id="feedback" class="py-2 sm:py-6 scroll-animate">
+<section id="feedback" class="my-16 py-2 sm:py-6 scroll-animate">
+  <h3 class="text-2xl font-bold text-center mb-6" data-key="feedback">💬 கருத்துகள்</h3>
+
+  <form id="feedbackForm" action="https://script.google.com/macros/s/AKfycbzHsCNES54iju4HH0vgB4JN5TIDb_5iCEk6bvYj3DwYnVof_wR57O5OnTCaYR0p-tvyrw/exec" method="POST" class="flex flex-col gap-4 max-w-md mx-auto bg-neutral-800 p-4 rounded-xl text-white shadow-lg">
+    <input type="text" name="honeypot" style="display:none">
+    <input type="hidden" name="secret" value="myTamilVillageSecret123">
+    <input type="text" name="name" data-key="name" placeholder="பெயர்" required class="p-2 rounded text-black">
+    <textarea name="message"  placeholder="உங்கள் கருத்து"  data-key="message" required class="p-2 rounded text-black" rows="4"></textarea>
+    <button type="submit" data-key="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300">அனுப்பு</button>
+  </form>
+
+  <!-- ✅ Thank you message -->
+  <p id="feedbackStatus" class="text-green-400 text-center mt-4 font-semibold hidden">
+    🙏 உங்கள் கருத்துக்கு நன்றி! அது வெற்றிகரமாக அனுப்பப்பட்டது.
+  </p>
+</section>
 
 
-    
-    <h3 class="text-2xl font-bold text-center mb-6" data-key="feedback">💬 கருத்துகள்</h3>
-<form id="feedbackForm" class="bg-neutral-800 rounded-xl p-3 sm:p-6 flex flex-col gap-2 sm:gap-4 shadow-lg w-full max-w-md mx-auto">
-
-      <input type="text" id="name" class="rounded px-3 py-2" placeholder="பெயர்" required data-key="feedback_name_placeholder" />
-      <textarea id="message" class="rounded px-3 py-2" placeholder="உங்கள் கருத்து" rows="3" required data-key="feedback_message_placeholder"></textarea>
-      <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300" data-key="feedback_submit">அனுப்பு</button>
-    </form>
-    <p id="feedbackStatus" class="text-center mt-2 sm:mt-4" data-key="feedback_status"></p>
-
-  </section>
 
 <!-- Footer -->
-<footer class="bg-black text-yellow-400 px-2 py-3 sm:py-4 text-sm sm:text-base shadow-inner">
+<footer class="  bg-black text-yellow-400 px-2 py-3 sm:py-4 text-sm sm:text-base shadow-inner">
   <div id="footerContactInfo"
     class="flex flex-wrap items-center justify-between text-center w-full max-w-5xl mx-auto gap-y-1">
     <!-- Contact info will be injected here -->
@@ -597,6 +608,7 @@
     © 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
   </div>
 </footer>
+
 
 
 

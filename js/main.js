@@ -64,6 +64,8 @@ document.addEventListener("DOMContentLoaded", function() {
       menu_bus: "🚌Bus Timings",
       menu_calendar:"📅 Calendar",
       title: "📊Village Stats",
+      name:"Name",
+      message:"Your Message",
       menu_weather: "🌦Weather",
       menu_feedback: "💬Feedback",
       welcome_title: "🌾Welcome to Kilinjada Village",
@@ -105,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function() {
   fruit_plums: "Plums",
   fruit_potato: "Potato",
   fruit_broccoli: "Broccoli",
-  Announcement:"Announcemnet",
+  Announcement:"🗞️ Announcement",
     about_text: "Kilinjada village is filled with peace and greenery. It is known for traditional farming, culture, kind people, natural beauty, and joyful festivals.",
 
     // Section titles
@@ -113,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
     bus_from: "From",
     bus_to: "To",
     bus_time: "Time",
+     submit:"submit",
     kil:"🚌Kilinjada ➝ Coonoor",
     coon:"🚌Coonoor ➝  Kilinjada",
     show:"🔁All busses",
@@ -172,6 +175,9 @@ document.addEventListener("DOMContentLoaded", function() {
       menu_home: "🏠முகப்பு",
       menu_location: "📍இடம்",
        label_schools: "பள்ளிகள்",
+        name:"பெயர்",
+      message:"உங்கள் கருத்து",
+      submit:"அனுப்பு",
   label_churches: "தேவாலயங்கள்",
   label_temples: "கோவில்கள்",
   btn_show_more: "மேலும் காண்க",
@@ -314,43 +320,8 @@ fetchWeather();
 // 6. Feedback Form (Backendless)
 const APP_ID = "F8719370-DAAD-4155-89F8-F6E789F540B4";
 const API_KEY = "99384368-B200-4E07-9314-51301C9EA974";
-const TABLE_NAME = "feedback";
-document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
 
-  const name = document.getElementById('name').value.trim();
-  const message = document.getElementById('message').value.trim();
-  const statusEl = document.getElementById('feedbackStatus');
 
-  if (!name || !message) {
-    statusEl.textContent = "Fill all fields.";
-    return;
-  }
-
-  const feedbackData = { name, message };
-
-  try {
-    const response = await fetch(
-      `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${TABLE_NAME}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(feedbackData)
-      }
-    );
-
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.message || "Failed to submit feedback");
-    }
-
-    statusEl.textContent = "Thank you! Feedback submitted.";
-    this.reset();
-  } catch (error) {
-    statusEl.textContent = "Sorry, could not submit feedback. Try again.";
-    console.error(error);
-  }
-});
 
 // 7. Announcement ticker fetch
 const ANNOUNCE_TABLE = "announcement";
@@ -399,25 +370,25 @@ async function fetchContactInfoFooter() {
     );
     const data = await response.json();
 
- if (Array.isArray(data) && data.length > 0 && data[0].message) {
-  footerEl.innerHTML = `
-    <div class="flex-1 min-w-[50%] text-center truncate">
-      📞 ${data[0].message}
-    </div>
-    <div class="flex-1 min-w-[50%] text-center truncate">
-      📧 ${data[0].email || "மின்னஞ்சல் இல்லை"}
-    </div>
-  `;
-} else {
-  footerEl.innerHTML = `<div class="w-full text-center">தகவல் இல்லை</div>`;
-}
+    if (Array.isArray(data) && data.length > 0) {
+      const email = data[0].email || "மின்னஞ்சல் இல்லை";
+      footerEl.innerHTML = `
+        <div class="flex-1 min-w-[50%] text-center truncate">
+          📧 ${email}
+        </div>
+      `;
+    } else {
+      footerEl.innerHTML = `<div class="w-full text-center">தகவல் இல்லை</div>`;
+    }
 
   } catch (error) {
     console.error(error);
     footerEl.innerHTML = `<span class="text-yellow-400 text-lg font-semibold">பிழை ஏற்பட்டது</span>`;
   }
 }
+
 fetchContactInfoFooter();
+
 // 1. Bus Filter Logic
 function filterBus(direction) {
   const rows = document.querySelectorAll("#busTimings tbody tr");
@@ -466,8 +437,7 @@ document.addEventListener("DOMContentLoaded", function () {
   bindBusFilterButtons();
 });
 
-// 4. Re-bind after language change
-// Add this line at the end of your `setLanguage(lang)` function:
+
 function setLanguage(lang) {
   // ... your existing translation logic ...
   bindBusFilterButtons(); // 🔁 rebind buttons after text changes
@@ -568,3 +538,41 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.setAttribute("data-key", expanded ? "btn_show_less" : "btn_show_more");
   });
 });
+
+  const form = document.getElementById("feedbackForm");
+  const status = document.getElementById("feedbackStatus");
+  const submitBtn = form.querySelector("button");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // 1. Immediately show sending message
+    status.textContent = "📤 அனுப்புகிறது...";
+    status.classList.remove("hidden");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "அனுப்புகிறது...";
+
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+    })
+    .then(response => response.text())
+    .then(data => {
+      if (data === "Success") {
+        // 2. Show success message
+        status.textContent = "🙏 உங்கள் கருத்துக்கு நன்றி! அது வெற்றிகரமாக அனுப்பப்பட்டது.";
+        form.reset();
+      } else {
+        status.textContent = "❌ அனுப்ப முடியவில்லை. பின்னர் முயற்சிக்கவும்.";
+      }
+    })
+    .catch(() => {
+      status.textContent = "⚠️ பிழை ஏற்பட்டது!";
+    })
+    .finally(() => {
+      // 3. Enable button again after 3s
+      submitBtn.disabled = false;
+      submitBtn.textContent = "அனுப்பு";
+    });
+  });
+
