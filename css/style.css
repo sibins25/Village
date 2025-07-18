@@ -962,6 +962,7 @@ footer {
   margin: 0 auto;
   padding: 0 1rem;
   transition: all 0.3s ease;
+  align-items: stretch; /* Ensures equal height */
 }
 
 .stat-card {
@@ -972,7 +973,9 @@ footer {
   font-weight: 700;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   gap: 0.4rem;
   transition: transform 0.3s ease, opacity 0.3s ease;
   min-height: 120px;
@@ -992,12 +995,21 @@ footer {
   color: #333;
   text-align: center;
   word-break: break-word;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.25rem;
 }
 
 .stat-value {
   font-size: 1.4rem;
   font-weight: bold;
   color: #111;
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Extra stats toggle logic */
