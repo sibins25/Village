@@ -939,6 +939,7 @@ footer {
 }
 
 /* Village Stats Section */
+/* Village Stats Section */
 .stats-section {
   padding: 2rem 1rem;
   background-color: #fde68a;
@@ -954,15 +955,16 @@ footer {
   line-height: 1.2;
 }
 
+/* First 3 stats in a row always */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Always 3 per row */
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem;
+  align-items: stretch;
   transition: all 0.3s ease;
-  align-items: stretch; /* Ensures equal height */
 }
 
 .stat-card {
@@ -1012,7 +1014,7 @@ footer {
   justify-content: center;
 }
 
-/* Extra stats toggle logic */
+/* Extra stats initially hidden */
 .extra-stat {
   display: none;
   opacity: 0;
@@ -1037,14 +1039,26 @@ footer {
   }
 }
 
-/* Show more button */
+/* Extra stats container – one below another */
+#extraStats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Show more button styles */
 #toggleButtons {
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
 }
 
-.show-more-btn {
+.show-more-btn,
+#toggleStatsBtn {
   background-color: #facc15;
   color: #000;
   font-weight: 700;
@@ -1056,15 +1070,16 @@ footer {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.show-more-btn:hover {
+.show-more-btn:hover,
+#toggleStatsBtn:hover {
   background-color: #fbbf24;
   transform: scale(1.05);
 }
 
-/* Ensure 3 columns on small screens too */
+/* Mobile styles */
 @media (max-width: 640px) {
   .stats-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Always 3 columns on mobile too */
     gap: 0.75rem;
   }
 
@@ -1083,5 +1098,9 @@ footer {
   .stat-card {
     min-height: 110px;
     padding: 0.75rem 0.5rem;
+  }
+
+  #extraStats {
+    max-width: 90%;
   }
 }
