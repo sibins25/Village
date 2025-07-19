@@ -494,50 +494,50 @@
 
 
 
-
-  <!-- Village Stats Section -->
-     <section id="villageStats" class=" my-16 stats-section">
+<!-- 🌾 Village Stats Section -->
+<section id="villageStats" class="my-16 stats-section scroll-animate">
   <h2 class="stats-heading" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
 
-  <div class="stats-grid">
+  <div class="stats-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto px-4">
     <!-- Row 1 -->
-    <div class="stat-card" data-key="people">
-      <div class="stat-icon">👨‍👩‍👧‍👦</div>
-      <div class="stat-label" data-key="label_people">மக்கள்</div>
+    <div class="stat-card">
+      <div class="stat-icon text-3xl">👨‍👩‍👧‍👦</div>
+      <div class="stat-label" data-key="people">மக்கள்</div>
       <div class="stat-value" id="statPeople">--</div>
     </div>
-    <div class="stat-card" data-key="houses">
-      <div class="stat-icon">🏠</div>
-      <div class="stat-label" data-key="label_houses">வீடுகள்</div>
+    <div class="stat-card">
+      <div class="stat-icon text-3xl">🏠</div>
+      <div class="stat-label" data-key="houses">வீடுகள்</div>
       <div class="stat-value" id="statHouses">--</div>
     </div>
-    <div class="stat-card" data-key="shops">
-      <div class="stat-icon">🏪</div>
-      <div class="stat-label" data-key="label_shops">கடைகள்</div>
+    <div class="stat-card">
+      <div class="stat-icon text-3xl">🏪</div>
+      <div class="stat-label" data-key="shops">கடைகள்</div>
       <div class="stat-value" id="statShops">--</div>
     </div>
-    
 
-    <!-- Row 2 (hidden initially) -->
-    <div class="stat-card extra-stat" data-key="schools">
-      <div class="stat-icon">🏫</div>
+    <!-- Row 2 - hidden initially -->
+    <div class="stat-card extra-stat hidden">
+      <div class="stat-icon text-3xl">🏫</div>
       <div class="stat-label" data-key="label_schools">பள்ளிகள்</div>
       <div class="stat-value" id="statSchools">--</div>
     </div>
-    <div class="stat-card extra-stat" data-key="churches">
-      <div class="stat-icon">⛪</div>
+    <div class="stat-card extra-stat hidden">
+      <div class="stat-icon text-3xl">⛪</div>
       <div class="stat-label" data-key="label_churches">தேவாலயங்கள்</div>
       <div class="stat-value" id="statChurches">--</div>
     </div>
-    <div class="stat-card extra-stat" data-key="temples">
-      <div class="stat-icon">🛕</div>
+    <div class="stat-card extra-stat hidden">
+      <div class="stat-icon text-3xl">🛕</div>
       <div class="stat-label" data-key="label_temples">கோவில்கள்</div>
       <div class="stat-value" id="statTemples">--</div>
     </div>
   </div>
 
-  <div id="toggleButtons">
-    <button id="toggleStatsBtn" class="show-more-btn" data-key="btn_show_more">மேலும் காண்க</button>
+  <div class="text-center mt-4">
+    <button id="toggleStatsBtn" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-xl transition" data-key="show">
+      மேலும் காண்க
+    </button>
   </div>
 </section>
 

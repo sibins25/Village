@@ -83,9 +83,9 @@ document.addEventListener("DOMContentLoaded", function() {
       note: "Note",
       menu_home2:"📊About",
       exception: "All the above buses will pass through Kilinjada",
-      people: " 👨‍👩People: <span>400</span>",
-      houses: " 🏠Houses: <span>100</span>",
-      shops: "🏪 Shops: <span>5</span>",
+      people: "  People:",
+      houses: " Houses: ",
+      shops: " Shops: ",
       weather_title: "🌦Kilinjada Village Weather",
       weather_village: "Kilinjada Village",
       weather_label: "Weather",
@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
       about_title: "About Kilinjada Village",
           about_title: "About Kilinjada Village",
           feedback:"💬feedback",
+          less:"Show less",
 
                 
   fruit_chayote: "Chow chow",
@@ -122,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
       label_schools: "Schools",
   label_churches: "Churches",
   label_temples: "Temples",
-  btn_show_more: "Show More",
+  show: "Show More",
   btn_show_less: "Show Less",
 
     footer:"© 2025 Kilnjada Village. All rights are reserved ",
@@ -200,14 +201,15 @@ document.addEventListener("DOMContentLoaded", function() {
       bus_from: "எங்கிருந்து",
       bus_to: "எங்கே",
       bus_time: "நேரம்",
+      show:"மேலும் காண்க",
 
 
       note: "குறிப்பு",
       footer:"© 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
       exception: "மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.",
-      people: "👨‍👩‍👧‍👦மக்கள்: <span>400</span>",
-      houses: "🏠வீடுகள்: <span>100</span>",
-      shops: "🏪 கடைகள்: <span>5</span>",
+      people: "மக்கள்: ",
+      houses: "வீடுகள்:",
+      shops: " கடைகள்: ",
       weather_title: "🌦கிளிஞ்சடா கிராமம் வானிலை",
       weather_village: "கிளிஞ்சடா கிராமம்",
       weather_label: "வானிலை",
@@ -220,6 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
       at_coonoor: "(குன்னூரில்)",
       feedback:"💬 கருத்துகள்",
       menu_home2:"📊பற்றி",
+      less:"குறைவு காண்க",
 
     // Bus stops (From/To)
     from_1: "கிளிஞ்சடா",      to_1: "குன்னூர்",
@@ -261,23 +264,31 @@ document.addEventListener("DOMContentLoaded", function() {
     };
   });
 
-  function setLanguage(lang) {
-    const dict = translations[lang];
-    if (!dict) return;
-    document.querySelectorAll('[data-key]').forEach(el => {
-      const key = el.getAttribute('data-key');
-      if (dict[key]) {
-        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-          el.placeholder = dict[key];
-        } else if (key === "people" || key === "houses" || key === "shops") {
-          el.innerHTML = dict[key];
-        } else {
-          el.textContent = dict[key];
-        }
+ function setLanguage(lang) {
+  window.lang = lang; // ✅ Update global language
+  const dict = translations[lang];
+  if (!dict) return;
+
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (dict[key]) {
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+        el.placeholder = dict[key];
+      } else {
+        el.textContent = dict[key];
       }
-    });
-    document.title = dict.site_title;
+    }
+  });
+
+  // ✅ Update toggle button label after language switch
+  const toggleBtn = document.getElementById("toggleStatsBtn");
+  if (toggleBtn) {
+    toggleBtn.textContent = getToggleLabel(expanded);
+    toggleBtn.setAttribute("data-key", expanded ? "less" : "show");
   }
+
+  document.title = dict.site_title || document.title;
+}
 });
 
 // 4. Gallery/Crops Scroll Buttons
@@ -501,43 +512,60 @@ document.addEventListener("DOMContentLoaded", function () {
     const scrollAmount = container.querySelector('.gallery-img-xl')?.offsetWidth + 24 || 320;
     container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
   }
-const TABLE2_NAME = 'VillageStats';
+const TABLE2_NAME = "VillageStats";
 
-const fetchVillageStats = async () => {
+// ✅ Show/Hide labels for each language
+const TOGGLE_LABELS = {
+  ta: { show: "மேலும் காண்க", less: "குறைவு காண்க" },
+  en: { show: "Show More", less: "Show Less" }
+};
+
+// ✅ Use global language variable for consistency
+window.lang = 'ta'; // Default language
+let expanded = false;
+
+// ✅ Returns correct label based on language and state
+function getToggleLabel(expanded) {
+  return TOGGLE_LABELS[window.lang][expanded ? "less" : "show"];
+}
+
+// ✅ Fetch stats from Backendless
+async function fetchVillageStats() {
   try {
     const response = await fetch(`https://api.backendless.com/${APP_ID}/${API_KEY}/data/${TABLE2_NAME}`);
     const data = await response.json();
     const stats = data[0];
-
     if (stats) {
-      document.getElementById("statPeople").textContent = stats.people ?? '--';
-      document.getElementById("statHouses").textContent = stats.houses ?? '--';
-      document.getElementById("statShops").textContent = stats.shops ?? '--';
-      document.getElementById("statSchools").textContent = stats.schools ?? '--';
-      document.getElementById("statChurches").textContent = stats.churches ?? '--';
-      document.getElementById("statTemples").textContent = stats.temples ?? '--';
+      document.getElementById("statPeople").textContent    = stats.people ?? '--';
+      document.getElementById("statHouses").textContent    = stats.houses ?? '--';
+      document.getElementById("statShops").textContent     = stats.shops ?? '--';
+      document.getElementById("statSchools").textContent   = stats.schools ?? '--';
+      document.getElementById("statChurches").textContent  = stats.churches ?? '--';
+      document.getElementById("statTemples").textContent   = stats.temples ?? '--';
     }
   } catch (err) {
     console.error("Error loading village stats:", err);
   }
-};
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchVillageStats();
 
   const toggleBtn = document.getElementById("toggleStatsBtn");
   const extraStats = document.querySelectorAll(".extra-stat");
-  let expanded = false;
 
+  // Initial button label
+  toggleBtn.textContent = getToggleLabel(expanded);
+
+  // On toggle click
   toggleBtn.addEventListener("click", () => {
-    extraStats.forEach(card => {
-      card.classList.toggle("show");
-    });
     expanded = !expanded;
-    toggleBtn.textContent = expanded ? "குறைவு காண்க" : "மேலும் காண்க";
-    toggleBtn.setAttribute("data-key", expanded ? "btn_show_less" : "btn_show_more");
+    extraStats.forEach(stat => stat.classList.toggle("show", expanded));
+    toggleBtn.textContent = getToggleLabel(expanded);
+    toggleBtn.setAttribute("data-key", expanded ? "less" : "show");
   });
 });
+
 
   const form = document.getElementById("feedbackForm");
   const status = document.getElementById("feedbackStatus");
