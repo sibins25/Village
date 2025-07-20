@@ -939,6 +939,60 @@ footer {
 }
 
 /* Village Stats Section */
+.stat-card {
+  background-color: #fff;
+  padding: 0.6rem 0.4rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.3rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  min-height: 100px;
+  font-size: 0.85rem;
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  min-height: 2rem;
+  padding: 0 0.25rem;
+}
+
+.stat-value {
+  font-size: 1rem;
+  min-height: 1.6rem;
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 in a row even on mobile */
+    gap: 0.5rem;
+    padding: 0;
+  }
+
+  .stat-card {
+    min-height: 90px;
+    padding: 0.5rem 0.3rem;
+    font-size: 0.75rem;
+  }
+
+  .stat-icon {
+    font-size: 1.3rem;
+  }
+
+  .stat-label,
+  .stat-value {
+    font-size: 0.7rem;
+  }
+}
 /* === Village Stats Section === */
 .stats-section {
   padding: 2rem 1rem;
@@ -955,80 +1009,79 @@ footer {
   line-height: 1.2;
 }
 
-/* Force 2 horizontal rows of 3 cards */
+/* Always show 3 cards per row */
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  max-width: 900px;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.75rem;
+  max-width: 880px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Stat Card Style */
+/* Stat card design - smaller and even */
 .stat-card {
   background-color: #fff;
-  padding: 1rem 0.75rem;
-  border-radius: 1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  font-weight: 700;
+  padding: 0.5rem 0.4rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  font-weight: 600;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 0.4rem;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  min-height: 120px;
+  gap: 0.35rem;
+  transition: transform 0.2s ease;
+  min-height: 90px;
 }
 .stat-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .stat-icon {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 .stat-label {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: #333;
   text-align: center;
-  min-height: 2.5rem;
+  min-height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0.25rem;
 }
 
 .stat-value {
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #111;
-  min-height: 2.2rem;
+  min-height: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Hidden extra row */
+/* Extra stat cards - initially hidden */
 .extra-stat {
   display: none;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(8px);
 }
 
 .extra-stat.show {
   display: flex;
   opacity: 1;
   transform: translateY(0);
-  animation: fadeIn 0.3s ease forwards;
+  animation: fadeIn 0.25s ease forwards;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -1041,12 +1094,13 @@ footer {
   background-color: #facc15;
   color: #000;
   font-weight: 700;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.25rem;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-top: 1.5rem;
 }
 
 #toggleStatsBtn:hover {
@@ -1054,27 +1108,27 @@ footer {
   transform: scale(1.05);
 }
 
-/* Make sure 3 boxes per row even on mobile */
+/* Responsive: Keep 3 per row on mobile */
 @media (max-width: 640px) {
   .stats-grid {
-    grid-template-columns: repeat(3, 1fr); /* still 3 columns */
-    gap: 0.75rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
   }
 
   .stat-card {
-    padding: 0.75rem 0.5rem;
-    min-height: 100px;
+    padding: 0.4rem 0.3rem;
+    min-height: 85px;
   }
 
   .stat-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   .stat-label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 
   .stat-value {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }
