@@ -137,32 +137,32 @@ document.addEventListener("DOMContentLoaded", function() {
     // Bus stops (From/To)
     from_1: "Kilinjada",      to_1: "Coonoor",
     from_2: "Coonoor",        to_2: "Kilinjada",
-    from_3a: "Coonoor",       to_3a: "Thudurmattam",
-    from_3b: "Coonoor",       to_3b: "Thudurmattam",
-    from_3c: "Coonoor",       to_3c: "Thudurmattam",
+    from_3a: "Coonoor",       to_3a: "Thuthurmattam",
+    from_3b: "Coonoor",       to_3b: "Thuthurmattam",
+    from_3c: "Coonoor",       to_3c: "Thuthurmattam",
     from_3d: "Coonoor",       to_3d: "Sattan",
-    from_3e: "Coonoor",       to_3e: "Thudurmattam",
-    from_3f: "Coonoor",       to_3f: "Thudurmattam",
-    from_3g: "Coonoor",       to_3g: "Sattan",
-    from_3h: "Thudurmattam",  to_3h: "Coonoor",
-    from_3i: "Sattan",        to_3i: "Coonoor",
-    from_3j: "Palamara",     to_3j: "Coonoor",
-    from_3k: "Thudurmattam",  to_3k: "Coonoor",
+    from_3e: "Coonoor",       to_3e: "Thuthurmattam",
+    from_3f: "Coonoor",       to_3f: "Thuthurmattam",
+    from_3g: "Coonoor",       to_3g: "Suttan",
+    from_3h: "Thuthurmattam",  to_3h: "Coonoor",
+    from_3i: "Suttan",        to_3i: "Coonoor",
+    from_3j: "Paalmara",     to_3j: "Coonoor",
+    from_3k: "Thuthurmattam",  to_3k: "Coonoor",
     from_3l: "Kottakkal",     to_3l: "Coonoor",
-    from_4: "Coonoor",        to_4: "Kolacambai",
-    from_4b: "Coonoor",       to_4b: "Kolacambai",
-    from_4c: "Coonoor",       to_4c: "Kolacambai",
-    from_5: "Coonoor",         to_5a: "Kolacambai",
-                               to_5b: "Thudurmattam",
+    from_4: "Coonoor",        to_4: "Kolacombai",
+    from_4b: "Coonoor",       to_4b: "Kolacombai",
+    from_4c: "Coonoor",       to_4c: "Kolacombai",
+    from_5: "Coonoor",         to_5a: "Kolacombai",
+                               to_5b: "Thuthurmattam",
      from_5b: "Coonoor",    
-     from_5a: "Coonoor",        to_5: "Kolacambai",
+     from_5a: "Coonoor",        to_5: "Kolacombai",
     from_6: "Coonoor",        to_6: "Kottakkal",
     about_text:`"Kilinjada Village is a peaceful, green place known for its traditional farming, vibrant culture, kind-hearted people, beautiful scenery, and joyful festivals celebrated together."`
     },
     ta: {
           fruit_chayote: "சவ் சவ்",
   fruit_guava: "கொய்யா",
-  fruit_carrot: "காரட்",
+  fruit_carrot: "கேரட்",
   fruit_cabbage: "முட்டைக்கோஸ்",
   fruit_cauliflower: "பூக்கோஸ்",
   fruit_beans: "பீன்ஸ்",
@@ -264,8 +264,8 @@ document.addEventListener("DOMContentLoaded", function() {
     };
   });
 
- function setLanguage(lang) {
-  window.lang = lang; // ✅ Update global language
+function setLanguage(lang) {
+  window.lang = lang;
   const dict = translations[lang];
   if (!dict) return;
 
@@ -280,15 +280,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // ✅ Update toggle button label after language switch
+  // Update toggle button label
   const toggleBtn = document.getElementById("toggleStatsBtn");
   if (toggleBtn) {
     toggleBtn.textContent = getToggleLabel(expanded);
     toggleBtn.setAttribute("data-key", expanded ? "less" : "show");
   }
 
+  // Update title
   document.title = dict.site_title || document.title;
+
+  // ✅ Trigger event for other sections to react
+  const event = new CustomEvent("languageChanged", { detail: { language: lang } });
+  document.dispatchEvent(event);
+
+  // ✅ Save preference
+  localStorage.setItem("lang", lang);
 }
+
 });
 
 // 4. Gallery/Crops Scroll Buttons
@@ -329,8 +338,8 @@ async function fetchWeather() {
 fetchWeather();
 
 // 6. Feedback Form (Backendless)
-const APP_ID = "F8719370-DAAD-4155-89F8-F6E789F540B4";
-const API_KEY = "99384368-B200-4E07-9314-51301C9EA974";
+const APP_ID = "883B7EAF-EA80-421D-81A1-E2ADBEC4036E";
+const API_KEY = "3C808FBA-E438-4A15-AEC0-9721AE59672E";
 
 
 
@@ -483,12 +492,22 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Calendar fetch error:", error);
     }
   }
+function renderCalendarMonth() {
+  const monthObj = monthsData[currentMonthIndex];
+  const lang = window.lang || localStorage.getItem("lang") || "en";
 
-  function renderCalendarMonth() {
-    const monthObj = monthsData[currentMonthIndex];
-    document.getElementById('calendarMonth').textContent = monthObj.month;
-    document.getElementById('calendarEvents').textContent = monthObj.events || "No events";
-  }
+  const monthName = lang === "ta"
+    ? (monthObj.month_ta || monthObj.month)
+    : (monthObj.month_en || monthObj.month);
+
+  const eventsText = lang === "ta"
+    ? (monthObj.events_ta || monthObj.events)
+    : (monthObj.events_en || monthObj.events);
+
+  document.getElementById('calendarMonth').textContent = monthName;
+  document.getElementById('calendarEvents').textContent = eventsText || "No events";
+}
+
 
   document.getElementById('prevMonth').onclick = function () {
     if (monthsData.length === 0) return;
@@ -501,9 +520,13 @@ document.addEventListener("DOMContentLoaded", function () {
     currentMonthIndex = (currentMonthIndex + 1) % monthsData.length;
     renderCalendarMonth();
   };
-
+  
   // ✅ CALL IT HERE directly
   fetchMonthsFromBackendless();
+document.addEventListener("languageChanged", () => {
+  renderCalendarMonth();
+});
+
 });
 
 
@@ -567,40 +590,108 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-  const form = document.getElementById("feedbackForm");
+  
+// ----------------------
+// 🌍 VISITORS COUNTER
+// ----------------------
+const VISITOR_TABLE = "visitors";
+
+async function fetchVisitorsCount() {
+  const displayEl = document.getElementById("visitorsCount");
+  const labelEl = document.getElementById("visitorsLabel");
+  const currentLang = window.lang || localStorage.getItem("lang") || "en";
+
+  try {
+    const response = await fetch(
+      `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${VISITOR_TABLE}?pageSize=1`
+    );
+    const data = await response.json();
+
+    if (Array.isArray(data) && data.length > 0) {
+      const row = data[0];
+      displayEl.textContent = row.total || 0;
+      labelEl.textContent = currentLang === "ta"
+        ? (row.message_ta || "மொத்த பார்வையாளர்கள்")
+        : (row.message_en || "Total Visitors");
+    } else {
+      displayEl.textContent = "0";
+      labelEl.textContent = currentLang === "ta" ? "தகவல் இல்லை" : "No data";
+    }
+  } catch (error) {
+    console.error("Visitor fetch error:", error);
+    displayEl.textContent = "—";
+    labelEl.textContent = currentLang === "ta"
+      ? "இணைப்பு தோல்வி"
+      : "Connection failed";
+  }
+}
+
+// 🔁 Increase count when a visitor loads the site
+async function incrementVisitorsCount() {
+  try {
+    const response = await fetch(
+      `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${VISITOR_TABLE}?pageSize=1`
+    );
+    const data = await response.json();
+
+    if (Array.isArray(data) && data.length > 0) {
+      const row = data[0];
+      const newTotal = (row.total || 0) + 1;
+
+      await fetch(
+        `https://api.backendless.com/${APP_ID}/${API_KEY}/data/${VISITOR_TABLE}/${row.objectId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ total: newTotal }),
+        }
+      );
+    }
+  } catch (error) {
+    console.error("Increment visitor error:", error);
+  }
+}
+
+// 🚀 When page loads, update and show count
+document.addEventListener("DOMContentLoaded", async () => {
+  await incrementVisitorsCount();
+  await fetchVisitorsCount();
+});
+
+// 🔄 When language changes, update label text
+document.addEventListener("languageChanged", () => {
+  fetchVisitorsCount();
+});
+document.getElementById("feedbackForm").addEventListener("submit", async function(e) {
+  e.preventDefault(); // ✅ stops redirect
+  const form = e.target;
   const status = document.getElementById("feedbackStatus");
-  const submitBtn = form.querySelector("button");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  status.classList.remove("hidden");
+  status.textContent = "⏳ அனுப்பப்படுகிறது / Sending...";
 
-    // 1. Immediately show sending message
-    status.textContent = "📤 அனுப்புகிறது...";
-    status.classList.remove("hidden");
-    submitBtn.disabled = true;
-    submitBtn.textContent = "அனுப்புகிறது...";
-
-    fetch(form.action, {
-      method: "POST",
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
       body: new FormData(form),
-    })
-    .then(response => response.text())
-    .then(data => {
-      if (data === "Success") {
-        // 2. Show success message
-        status.textContent = "🙏 உங்கள் கருத்துக்கு நன்றி! அது வெற்றிகரமாக அனுப்பப்பட்டது.";
-        form.reset();
-      } else {
-        status.textContent = "❌ அனுப்ப முடியவில்லை. பின்னர் முயற்சிக்கவும்.";
+      headers: {
+        'Accept': 'application/json' // ✅ prevents redirect
       }
-    })
-    .catch(() => {
-      status.textContent = "⚠️ பிழை ஏற்பட்டது!";
-    })
-    .finally(() => {
-      // 3. Enable button again after 3s
-      submitBtn.disabled = false;
-      submitBtn.textContent = "அனுப்பு";
     });
-  });
 
+    if (response.ok) {
+      status.textContent = "✅ உங்கள் கருத்து வெற்றிகரமாக அனுப்பப்பட்டது! / Your feedback has been sent successfully!";
+      form.reset();
+    } else {
+      const data = await response.json();
+      if (data.errors) {
+        status.textContent = data.errors.map(err => err.message).join(", ");
+      } else {
+        status.textContent = "⚠️ அனுப்ப முடியவில்லை / Failed to send feedback.";
+      }
+    }
+  } catch (error) {
+    status.textContent = "❌ பிழை ஏற்பட்டது / An error occurred.";
+    console.error("Formspree error:", error);
+  }
+});

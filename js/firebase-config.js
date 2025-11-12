@@ -1,3 +1,3 @@
 // js/firebase-config.js
-export const BackendlessAppId = 'F8719370-DAAD-4155-89F8-F6E789F540B4';
-export const BackendlessAPIKey = '627E9F71-8359-4D70-83B5-F09FCDA8574E';
+export const BackendlessAppId = '883B7EAF-EA80-421D-81A1-E2ADBEC4036E';
+export const BackendlessAPIKey = '3C808FBA-E438-4A15-AEC0-9721AE59672E';

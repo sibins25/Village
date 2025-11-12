@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-key="site_title">கிளிஞ்சடா கிராமம்</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -578,23 +579,35 @@
     </div>
   </section>
 
-  <!-- Feedback Section -->
 <section id="feedback" class="my-16 py-2 sm:py-6 scroll-animate">
   <h3 class="text-2xl font-bold text-center mb-6" data-key="feedback">💬 கருத்துகள்</h3>
 
-  <form id="feedbackForm" action="https://script.google.com/macros/s/AKfycbxVLvl_k5scya8IM5Pfq9iFP935TqWs2K_YaPBlJNl5tEiYc7yfHCxWZUZ0Z52v93McEQ/exec" method="POST" class="flex flex-col gap-4 max-w-md mx-auto bg-neutral-800 p-4 rounded-xl text-white shadow-lg">
-    <input type="text" name="honeypot" style="display:none">
-    <input type="hidden" name="secret" value="myTamilVillageSecret123">
-    <input type="text" name="name" data-key="name" placeholder="பெயர்" required class="p-2 rounded text-black">
-    <textarea name="message"  placeholder="உங்கள் கருத்து"  data-key="message" required class="p-2 rounded text-black" rows="4"></textarea>
-    <button type="submit" data-key="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300">அனுப்பு</button>
+  <form id="feedbackForm"
+        action="https://formspree.io/f/manaykko"  
+        method="POST"
+        class="flex flex-col gap-4 max-w-md mx-auto bg-neutral-800 p-4 rounded-xl text-white shadow-lg">
+
+    <input type="text" name="name" placeholder="பெயர் / Name" required class="p-2 rounded text-black">
+    <input type="email" name="email" placeholder="மின்னஞ்சல் / Email" required class="p-2 rounded text-black">
+    <textarea name="message" placeholder="உங்கள் கருத்து / Your feedback" required class="p-2 rounded text-black" rows="4"></textarea>
+
+    <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300">
+      அனுப்பு / Submit
+    </button>
   </form>
 
-  <!-- ✅ Thank you message -->
-  <p id="feedbackStatus" class="text-green-400 text-center mt-4 font-semibold hidden">
-    🙏 உங்கள் கருத்துக்கு நன்றி! அது வெற்றிகரமாக அனுப்பப்பட்டது.
-  </p>
+  <p id="feedbackStatus" class="text-center mt-4 text-yellow-400 hidden"></p>
 </section>
+
+
+<div class="mt-4 text-center">
+  <p id="visitorsLabel" class="text-lg font-semibold text-gray-700 dark:text-gray-200"> 👁️‍🗨️ பார்வையாளர்கள் எண்ணிக்கை:</p>
+  <p id="visitorsCount" class="text-2xl font-bold text-blue-600 dark:text-blue-400">0</p>
+</div>
+
+
+
+
 
 
 
@@ -740,8 +753,12 @@
   });
 });
 
+
+
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/backendless@7.0.8/dist/backendless.min.js"></script>
   <!-- Your existing JS -->
   <script src="js/main.js"></script>
+  <script src="js/feedback.js"></script>
 </body>
 </html>
