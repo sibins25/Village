@@ -1,15 +1,43 @@
-<!DOCTYPE html>
+       <!DOCTYPE html>
 <html lang="ta">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-key="site_title">கிளிஞ்சடா கிராமம்</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="கிளிஞ்சடா கிராமம் - Kilinjada Village: A traditional Tamil village website with bus timings, gallery, weather, announcements, and more." />
+  <meta name="keywords" content="Kilinjada Village, கிளிஞ்சடா கிராமம், Tamil village, village website" />
+  <meta name="author" content="Kilinjada Village" />
   
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="கிளிஞ்சடா கிராமம் - Kilinjada Village" />
+  <meta property="og:description" content="Welcome to Kilinjada Village - A traditional Tamil village with rich culture and natural beauty." />
+  <meta property="og:image" content="images/village/village11.jpg" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="கிளிஞ்சடா கிராமம் - Kilinjada Village" />
+  <meta name="twitter:description" content="Welcome to Kilinjada Village - A traditional Tamil village with rich culture and natural beauty." />
+  
+  <title data-key="site_title">கிளிஞ்சடா கிராமம்</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg" />
+  <link rel="manifest" href="site.webmanifest" />
+  
+  <!-- Tailwind + Fonts + CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Firebase SDKs (compat) - MUST be before the main JS below -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
   <style>
-    /* Modal Styles for Gallery */
+    /* Small inline modal/gallery / visual tweaks (kept minimal - your css file contains main styles) */
     #galleryModal {
       display: none;
       position: fixed;
@@ -21,70 +49,128 @@
       flex-direction: column;
       transition: opacity 0.3s;
     }
-    #galleryModal.open {
-      display: flex;
-      animation: fadeIn 0.3s;
-    }
-    #galleryModal img {
-      max-width: 90vw;
-      max-height: 80vh;
-      border-radius: 1.5rem;
-      box-shadow: 0 0 32px #facc15;
-      background: #fff;
-    }
-    #galleryModal .close-modal {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      background: #facc15;
-      color: #222;
-      border: none;
-      font-size: 2rem;
-      border-radius: 2rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1100;
-      box-shadow: 0 2px 10px #facc1530;
-    }
-    #galleryModal .modal-thumbs {
-      display: flex;
-      gap: 0.7rem;
-      margin-top: 1.5rem;
-      overflow-x: auto;
-      max-width: 95vw;
-      padding-bottom: 1rem;
-    }
-    #galleryModal .modal-thumbs img {
-      width: 70px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.2s, border 0.2s;
-      border: 2px solid transparent;
-    }
-    #galleryModal .modal-thumbs img.selected {
-      opacity: 1;
-      border: 2px solid #facc15;
-    }
-    #gallery {
-  background: linear-gradient(to bottom, #fef9c3, #fff9db);
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-.scroll-snap-container {
-  padding: 1rem 0;
+    #galleryModal.open { display:flex; animation: fadeIn 0.3s; }
+    #galleryModal img { max-width: 90vw; max-height: 80vh; border-radius: 1rem; box-shadow: 0 0 32px #facc15; background:#fff; }
+    #galleryModal .close-modal { position:absolute; top:1.5rem; right:1.5rem; background:#facc15; color:#222; border:none; font-size:1.6rem; border-radius:1rem; width:2.4rem; height:2.4rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:1100; }
+    #galleryModal .modal-thumbs { display:flex; gap:0.6rem; margin-top:1rem; overflow-x:auto; max-width:95vw; padding-bottom:0.5rem; }
+    #galleryModal .modal-thumbs img { width:64px; height:44px; object-fit:cover; border-radius:6px; cursor:pointer; opacity:0.6; transition:opacity .15s, border .15s; border:2px solid transparent; }
+    #galleryModal .modal-thumbs img.selected { opacity:1; border-color:#facc15; }
+
+    @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+    .scroll-animate { opacity:0; transform: translateY(12px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
+    .scroll-animate.visible { opacity:1; transform:none; }
+    /* Make table header fixed and responsive */
+/* ------------------------- */
+/* Bus Section Layout Styles */
+/* ------------------------- */
+
+.bus-filter-wrapper {
+  text-align: center;
 }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.filter-btn-grid,
+.filter-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.bus-btn {
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+  border: none;
+  background: #facc15;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.bus-btn:hover {
+  background: #fbbf24;
+  transform: scale(1.03);
+}
+
+.bus-btn:active {
+  transform: scale(0.97);
+}
+
+/* ------------------------- */
+/* Bus Timetable Box Styles  */
+/* ------------------------- */
+
+.bus-list-wrapper {
+  max-width: 760px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+.bus-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: 0.25s ease;
+}
+
+.bus-row:hover {
+  border-color: #facc15;
+  transform: translateY(-2px);
+}
+
+.bus-row .time {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.bus-row .route {
+  font-size: 15px;
+  color: #4b5563;
+}
+
+/* ------------------------- */
+/* Bus Row Colors            */
+/* ------------------------- */
+
+[data-route="kilinjada"] {
+  border-left: 6px solid #22c55e; /* Green */
+}
+
+[data-route="coonoor"] {
+  border-left: 6px solid #3b82f6; /* Blue */
+}
+
+/* ------------------------- */
+/* Responsive Design         */
+/* ------------------------- */
+
+@media (max-width: 600px) {
+  .bus-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 16px;
+  }
+
+  .bus-row .time {
+    font-size: 17px;
+  }
+
+  .bus-row .route {
+    font-size: 14px;
+  }
+}
+
+
   </style>
 </head>
-<body class="bg-yellow-100 text-black overflow-x-hidden">
+<body class="bg-yellow-100 text-black overflow-x-hidden font-sans">
 
   <!-- Menu Button -->
   <div class="fixed top-4 left-4 z-50">
@@ -94,6 +180,7 @@
       ☰
     </button>
   </div>
+
   <!-- Language Switcher -->
   <div class="fixed top-4 right-4 z-50 flex gap-2 sm:gap-4">
     <div class="relative group">
@@ -111,6 +198,7 @@
       </div>
     </div>
   </div>
+
   <!-- Side Menu -->
   <aside id="sideMenu"
     class="fixed top-0 left-0 h-full w-64 max-w-full bg-neutral-900 text-yellow-400 -translate-x-full z-40 shadow-xl transition-transform duration-500 sm:w-64 w-4/5">
@@ -127,7 +215,6 @@
        <a href="#calendar" class="menu-link" data-key="menu_calendar">📅 காலண்டர்</a>
       <a href="#villageStats" class="menu-link" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</a>
       <a href="#location" class="menu-link" data-key="menu_location">📍 இடம்</a>
-
       <a href="#weather" class="menu-link" data-key="menu_weather">🌦 வானிலை</a>
       <a href="#feedback" class="menu-link" data-key="menu_feedback">💬 கருத்துகள்</a>
     </nav>
@@ -135,8 +222,7 @@
   <div id="menuOverlay" class="fixed inset-0 bg-black/50 hidden z-30"></div>
 
   <!-- Welcome Section -->
-  <section id="welcome"
-    class=" scroll-animate px-4 text-center py-16 min-h-[60vh] flex flex-col items-center justify-center relative"
+  <section id="welcome" class="scroll-animate px-4 text-center py-16 min-h-[60vh] flex flex-col items-center justify-center relative"
     style="background-image: url('images/village/village11.jpg'); background-size: cover; background-position: center;">
     <div class="absolute inset-0 bg-black/50 z-0"></div>
     <div class="relative z-10">
@@ -144,10 +230,11 @@
         🌾 கிளிஞ்சடா கிராமத்திற்கு வரவேற்கிறோம்
       </h1>
       <p class="text-xl sm:text-2xl md:text-3xl text-white drop-shadow-md" data-key="welcome_description">
-        இது எங்கள் பாரம்பரியமும், இயற்கை அழகும் இணைந்த சிறிய கிராமம்.
+        இது எங்கள் பாரம்பரியம் மற்றும் இயற்கை அழகின் சிறிய கிராமம்.
       </p>
     </div>
   </section>
+
   <!-- About Section -->
   <section id="about" class="py-12 px-4 max-w-3xl mx-auto scroll-animate">
     <h2 class="text-3xl font-bold text-center mb-6" data-key="about_title">கிளிஞ்சடா கிராமம் பற்றி</h2>
@@ -157,7 +244,7 @@
   </section>
 
   <!-- Bus Timings Section -->
-  <section id="busTimings" class="bus-table-section scroll-animate my-16">
+  <section id="busTimings" class="bus-table-section scroll-animate my-16 mx-auto">
     <div class="bus-table-title text-center text-2xl font-semibold mt-8 mb-4" data-key="bus_title">🚌 பஸ் நேரங்கள்</div>
     <div class="bus-table-wrapper overflow-x-auto">
       <table class="bus-table w-full max-w-5xl mx-auto border text-center bg-white shadow rounded">
@@ -169,388 +256,334 @@
           </tr>
         </thead>
         <tbody>
-          <!-- At Coonoor -->
-            <tr>
-          <td data-key="from_4">குன்னூர்</td>
-          <td data-key="to_4">கொலைகாம்பை</td>
-          <td data-key="time_4">7:20 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_2">குன்னூர்</td>
-          <td data-key="to_2">கிளிஞ்சடா</td>
-          <td data-key="time_2">7:30 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3a">குன்னூர்</td>
-          <td data-key="to_3a">தூதூர்மட்டம்</td>
-          <td data-key="time_3a">7:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3b">குன்னூர்</td>
-          <td data-key="to_3b">தூதூர்மட்டம்</td>
-          <td data-key="time_3b">9:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_4b">குன்னூர்</td>
-          <td data-key="to_4b">கொலைகாம்பை</td>
-          <td data-key="time_4b">10:45 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_5a">குன்னூர்</td>
-          <td data-key="to_5a">கொலைகாம்பை</td>
-          <td data-key="time_5a">11:50 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_5b">குன்னூர்</td>
-          <td data-key="to_5b">தூதூர்மட்டம்</td>
-          <td data-key="time_5b">1:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_4c">குன்னூர்</td>
-          <td data-key="to_4c">கொலைகாம்பை</td>
-          <td data-key="time_4c">2:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_6">குன்னூர்</td>
-          <td data-key="to_6">கோட்டக்கல்</td>
-          <td data-key="time_6">12:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3d">குன்னூர்</td>
-          <td data-key="to_3d">சட்டன்</td>
-          <td data-key="time_3d">4:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3e">குன்னூர்</td>
-          <td data-key="to_3e">தூதூர்மட்டம்</td>
-          <td data-key="time_3e">5:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3f">குன்னூர்</td>
-          <td data-key="to_3f">தூதூர்மட்டம்</td>
-          <td data-key="time_3f">7:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3g">குன்னூர்</td>
-          <td data-key="to_3g">சட்டன்</td>
-          <td data-key="time_3g">8:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-        </tr>
+          <!-- (Your bus rows retained exactly as before) -->
+          <tr>
+            <td data-key="from_4">குன்னூர்</td>
+            <td data-key="to_4">கொலைகாம்பை</td>
+            <td data-key="time_4">7:20 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_2">குன்னூர்</td>
+            <td data-key="to_2">கிளிஞ்சடா</td>
+            <td data-key="time_2">7:30 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3a">குன்னூர்</td>
+            <td data-key="to_3a">தூதூர்மட்டம்</td>
+            <td data-key="time_3a">7:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3b">குன்னூர்</td>
+            <td data-key="to_3b">தூதூர்மட்டம்</td>
+            <td data-key="time_3b">9:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_4b">குன்னூர்</td>
+            <td data-key="to_4b">கொலைகாம்பை</td>
+            <td data-key="time_4b">10:45 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_5a">குன்னூர்</td>
+            <td data-key="to_5a">கொலைகாம்பை</td>
+            <td data-key="time_5a">11:50 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_5b">குன்னூர்</td>
+            <td data-key="to_5b">தூதூர்மட்டம்</td>
+            <td data-key="time_5b">1:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_4c">குன்னூர்</td>
+            <td data-key="to_4c">கொலைகாம்பை</td>
+            <td data-key="time_4c">2:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_6">குன்னூர்</td>
+            <td data-key="to_6">கோட்டக்கல்</td>
+            <td data-key="time_6">12:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3d">குன்னூர்</td>
+            <td data-key="to_3d">சட்டன்</td>
+            <td data-key="time_3d">4:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3e">குன்னூர்</td>
+            <td data-key="to_3e">தூதூர்மட்டம்</td>
+            <td data-key="time_3e">5:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3f">குன்னூர்</td>
+            <td data-key="to_3f">தூதூர்மட்டம்</td>
+            <td data-key="time_3f">7:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3g">குன்னூர்</td>
+            <td data-key="to_3g">சட்டன்</td>
+            <td data-key="time_3g">8:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
+          </tr>
 
-        <!-- At Kilinjada -->
-        <tr>
-          <td data-key="from_3h">தூதூர்மட்டம்</td>
-          <td data-key="to_3h">குன்னூர்</td>
-          <td data-key="time_3h">6:50 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3i">சட்டன்</td>
-          <td data-key="to_3i">குன்னூர்</td>
-          <td data-key="time_3i">7:00 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3j">கோட்டக்கல்</td>
-          <td data-key="to_3j">குன்னூர்</td>
-          <td data-key="time_3j">7:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-        <tr>
-          
-          <td data-key="from_4j">பால்மாரா</td>
-          <td data-key="to_3j">குன்னூர்</td>
-          <td data-key="time_3j">7:15 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-          <td data-key="from_1">கிளிஞ்சடா</td>
-          <td data-key="to_1">குன்னூர்</td>
-          <td data-key="time_1">8:05 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3k">தூதூர்மட்டம்</td>
-          <td data-key="to_3k">குன்னூர்</td>
-          <td data-key="time_3k">10:40 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3l">கோட்டக்கல்</td>
-          <td data-key="to_3l">குன்னூர்</td>
-          <td data-key="time_3l">11:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-         <tr>
-          <td data-key="from_3k">தூதூர்மட்டம்</td>
-          <td data-key="to_3k">குன்னூர்</td>
-          <td data-key="time_3k">2:00 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
+          <!-- At Kilinjada -->
           <tr>
-          <td data-key="from_3l">கோட்டக்கல்</td>
-          <td data-key="to_3l">குன்னூர்</td>
-          <td data-key="time_3l">2:20 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
-        <tr>
-          <td data-key="from_3k">தூதூர்மட்டம்</td>
-          <td data-key="to_3k">குன்னூர்</td>
-          <td data-key="time_3k">4:00 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
+            <td data-key="from_3h">தூதூர்மட்டம்</td>
+            <td data-key="to_3h">குன்னூர்</td>
+            <td data-key="time_3h">6:50 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
           <tr>
-          <td data-key="from_3l">கோட்டக்கல்</td>
-          <td data-key="to_3l">குன்னூர்</td>
-          <td data-key="time_3l">6:30 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-        </tr>
+            <td data-key="from_3i">சட்டன்</td>
+            <td data-key="to_3i">குன்னூர்</td>
+            <td data-key="time_3i">7:00 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3j">கோட்டக்கல்</td>
+            <td data-key="to_3j">குன்னூர்</td>
+            <td data-key="time_3j">7:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_4j">பால்மாரா</td>
+            <td data-key="to_3j">குன்னூர்</td>
+            <td data-key="time_3j">7:15 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_1">கிளிஞ்சடா</td>
+            <td data-key="to_1">குன்னூர்</td>
+            <td data-key="time_1">8:05 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3k">தூதூர்மட்டம்</td>
+            <td data-key="to_3k">குன்னூர்</td>
+            <td data-key="time_3k">10:40 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3l">கோட்டக்கல்</td>
+            <td data-key="to_3l">குன்னூர்</td>
+            <td data-key="time_3l">11:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3k">தூதூர்மட்டம்</td>
+            <td data-key="to_3k">குன்னூர்</td>
+            <td data-key="time_3k">2:00 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3l">கோட்டக்கல்</td>
+            <td data-key="to_3l">குன்னூர்</td>
+            <td data-key="time_3l">2:20 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3k">தூதூர்மட்டம்</td>
+            <td data-key="to_3k">குன்னூர்</td>
+            <td data-key="time_3k">4:00 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
+          <tr>
+            <td data-key="from_3l">கோட்டக்கல்</td>
+            <td data-key="to_3l">குன்னூர்</td>
+            <td data-key="time_3l">6:30 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Filter Buttons -->
-<div class="bus-filter-wrapper mt-4 px-4 my-16">
-  <div class="filter-btn-row">
-    <button id="btnKilinjada" class="bus-btn" data-key="kil">🚌 கிளிஞ்சடா ➝ குன்னூர்</button>
-    <button id="btnCoonoor" class="bus-btn" data-key="coon">🚌 குன்னூர் ➝ கிளிஞ்சடா</button>
-  </div>
-  <div class="filter-btn-row filter-btn-row--single">
-    <button id="btnAll" class="bus-btn" data-key="show">🔁 எல்லா பேருந்துகளும்</button>
-  </div>
-</div>
-
+    <div class="bus-filter-wrapper mt-4 px-4 my-16">
+      <div class="filter-btn-grid">
+        <button id="btnKilinjada" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300">🚌 கிளிஞ்சடா ➝ குன்னூர்</button>
+        <button id="btnCoonoor" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300">🚌 குன்னூர் ➝ கிளிஞ்சடா</button>
+      </div>
+      <div class="filter-btn-row filter-btn-row--single mt-3">
+        <button id="btnAll" class="bus-btn px-4 py-2 rounded bg-yellow-400">🔁 எல்லா பேருந்துகளும்</button>
+      </div>
+    </div>
 
     <p style="text-align:center; color:#1f2937; font-size:1em; margin-top:14px;">
       <b data-key="note">குறிப்பு:</b>
       <span data-key="exception">மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.</span>
     </p>
   </section>
-  <!-- Annoucement  -->
-  <section id="announcements" class="py-10 scroll-animate my-16"  >
-  <h2 class="text-3xl font-extrabold text-center text-yellow-600 mb-6" data-key="Announcement">
-    🗞️ அறிவிப்புகள்
-  </h2>
-  <div class="bg-yellow-200 text-black py-4 px-6 rounded-xl shadow-lg max-w-4xl mx-auto overflow-hidden">
-    <div class="ticker text-center text-lg sm:text-xl font-semibold">
-      <span id="latestAnnouncement">Loading latest announcement...</span>
+
+  <!-- Announcement Section -->
+  <section id="announcements" class="py-10 scroll-animate my-16">
+    <h2 class="text-3xl font-extrabold text-center text-yellow-600 mb-6" data-key="Announcement">
+      🗞️ அறிவிப்புகள்
+    </h2>
+    <div class="bg-yellow-200 text-black py-4 px-6 rounded-xl shadow-lg max-w-4xl mx-auto overflow-hidden">
+      <div class="ticker text-center text-lg sm:text-xl font-semibold">
+        <span id="latestAnnouncement">Loading latest announcement...</span>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- Gallery -->
+  <section id="gallery" class="my-16 py-14 scroll-animate bg-gradient-to-br from-yellow-50 via-amber-100 to-yellow-200">
+    <h3 class="text-4xl font-extrabold text-center mb-10 text-yellow-800 drop-shadow-md" data-key="gallery_title">
+      📸 கிராம புகைப்படங்கள்
+    </h3>
 
-<!-- 📸 Gallery Section -->
-<section id="gallery" class=" my-16 py-14 scroll-animate bg-gradient-to-br from-yellow-50 via-amber-100 to-yellow-200">
-  <h3 class="text-4xl font-extrabold text-center mb-10 text-yellow-800 drop-shadow-md" data-key="gallery_title">
-    📸 கிராம புகைப்படங்கள்
-  </h3>
+    <div class="relative max-w-6xl mx-auto px-4">
+      <button class="scroll-arrow-pro left-0 absolute left-2 top-1/2 -translate-y-1/2 z-20" aria-label="Left" onclick="scrollGallery('galleryImages', -1)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
 
-  <div class="relative max-w-6xl mx-auto px-4">
-    <!-- Scroll Left Button -->
-  <!-- Left Scroll Button -->
-<button class="scroll-arrow-pro left-0" aria-label="Left" onclick="scrollGallery('galleryImages', -1)">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-  </svg>
-</button>
+      <div id="galleryImages"
+           class="scroll-snap-container flex overflow-x-auto snap-x scroll-smooth gap-6 px-4 py-6 backdrop-blur-sm bg-white/30 rounded-3xl shadow-2xl border border-yellow-200 mx-auto max-w-full sm:max-w-4xl">
+        <img src="images/village/village7.jpg" alt="Village 1" class="gallery-img-xl" data-key="gallery_img1">
+        <img src="images/village/village8.jpg" alt="Village 2" class="gallery-img-xl" data-key="gallery_img2">
+        <img src="images/village/village3.jpg" alt="Village 3" class="gallery-img-xl" data-key="gallery_img3">
+        <img src="images/village/village4.jpg" alt="Village 4" class="gallery-img-xl" data-key="gallery_img4">
+        <img src="images/village/village6.jpg" alt="Village 5" class="gallery-img-xl" data-key="gallery_img5">
+        <img src="images/village/village9.jpg" alt="Village 6" class="gallery-img-xl" data-key="gallery_img6">
+        <img src="images/village/village10.jpg" alt="Village 7" class="gallery-img-xl" data-key="gallery_img7">
+        <img src="images/village/village12.jpg" alt="Village 8" class="gallery-img-xl" data-key="gallery_img8">
+        <img src="images/village/village13.jpg" alt="Village 9" class="gallery-img-xl" data-key="gallery_img9">
+        <img src="images/village/village14.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
+        <img src="images/village/village15.jpg" alt="Village 11" class="gallery-img-xl" data-key="gallery_img11">
+        <img src="images/village/village16.jpg" alt="Village 12" class="gallery-img-xl" data-key="gallery_img12">
+        <img src="images/village/villlage17.jpg" alt="Village 13" class="gallery-img-xl" data-key="gallery_img13">
+        <img src="images/village/village.jpg" alt="Village 14" class="gallery-img-xl" data-key="gallery_img14">
+      </div>
 
-
-
-
-    <!-- Image Scroll Container -->
-    <div id="galleryImages"
-         class="scroll-snap-container flex overflow-x-auto snap-x scroll-smooth gap-6 px-4 py-6 backdrop-blur-sm bg-white/30 rounded-3xl shadow-2xl border border-yellow-200 mx-auto max-w-full sm:max-w-4xl">
-      <img src="images/village/village7.jpg" alt="Village 1" class="gallery-img-xl" data-key="gallery_img1">
-      <img src="images/village/village8.jpg" alt="Village 2" class="gallery-img-xl" data-key="gallery_img2">
-      <img src="images/village/village3.jpg" alt="Village 3" class="gallery-img-xl" data-key="gallery_img3">
-      <img src="images/village/village4.jpg" alt="Village 4" class="gallery-img-xl" data-key="gallery_img4">
-      <img src="images/village/village6.jpg" alt="Village 5" class="gallery-img-xl" data-key="gallery_img5">
-      <img src="images/village/village9.jpg" alt="Village 6" class="gallery-img-xl" data-key="gallery_img6">
-      <img src="images/village/village10.jpg" alt="Village 7" class="gallery-img-xl" data-key="gallery_img7">
-      <img src="images/village/village12.jpg" alt="Village 8" class="gallery-img-xl" data-key="gallery_img8">
-      <img src="images/village/village13.jpg" alt="Village 9" class="gallery-img-xl" data-key="gallery_img9">
-      <img src="images/village/village14.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
-       <img src="images/village/village15.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
-        <img src="images/village/village16.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
-         <img src="images/village/villlage17.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
-          <img src="images/village/village.jpg" alt="Village 10" class="gallery-img-xl" data-key="gallery_img10">
+      <button class="scroll-arrow-pro right-0 absolute right-2 top-1/2 -translate-y-1/2 z-20" aria-label="Right" onclick="scrollGallery('galleryImages', 1)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
     </div>
-
-    <!-- Scroll Right Button -->
-  <!-- Right Scroll Button -->
-<button class="scroll-arrow-pro right-0" aria-label="Right" onclick="scrollGallery('galleryImages', 1)">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-  </svg>
-</button>
-  </div>
-</section>
-
-
-   
+  </section>
 
   <!-- Gallery Modal -->
-  <div id="galleryModal">
+  <div id="galleryModal" aria-hidden="true">
     <button class="close-modal" aria-label="Close gallery" onclick="closeGalleryModal()">&times;</button>
     <img id="modalMainImg" src="" alt="Enlarged" />
     <div class="modal-thumbs" id="modalThumbs"></div>
   </div>
 
-  <!-- 🌽 Fruits Section -->
-<section id="fruits" class=" my-16 py-12 scroll-animate bg-gradient-to-b from-yellow-50 to-yellow-100">
-  <h3 class="text-3xl font-extrabold text-center text-yellow-700 mb-8 drop-shadow" data-key="season">
-    🌽 பருவ பயிர்கள்
-  </h3>
+  <!-- Fruits Section -->
+  <section id="fruits" class="my-16 py-12 scroll-animate bg-gradient-to-b from-yellow-50 to-yellow-100">
+    <h3 class="text-3xl font-extrabold text-center text-yellow-700 mb-8 drop-shadow" data-key="season">
+      🌽 பருவ பயிர்கள்
+    </h3>
 
-  <div class="relative max-w-6xl mx-auto px-4">
-    <!-- Left Scroll Button -->
-    <button class="scroll-arrow-pro left-0" aria-label="Left" onclick="scrollGallery('fruitsGallery', -1)">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
+    <div class="relative max-w-6xl mx-auto px-4">
+      <button class="scroll-arrow-pro left-0 absolute left-2 top-1/2 -translate-y-1/2 z-20" aria-label="Left" onclick="scrollGallery('fruitsGallery', -1)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
 
-    <!-- Fruit Cards Scroll Container -->
-    <div id="fruitsGallery"
-         class="scroll-snap-container flex overflow-x-auto gap-6 snap-x scroll-smooth px-2 py-4 sm:px-4">
-      
-      <!-- 🍍 Fruit Cards -->
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" loading="lazy" />
-        <p data-key="fruit_chayote">Chow chow</p>
+      <div id="fruitsGallery" class="scroll-snap-container flex overflow-x-auto gap-6 snap-x scroll-smooth px-2 py-4 sm:px-4">
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" loading="lazy" />
+          <p data-key="fruit_chayote">Chow chow</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" loading="lazy" />
+          <p data-key="fruit_guava">Guava</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" loading="lazy" />
+          <p data-key="fruit_carrot">Carrot</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" loading="lazy" />
+          <p data-key="fruit_cabbage">Cabbage</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" loading="lazy" />
+          <p data-key="fruit_cauliflower">Cauliflower</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" loading="lazy" />
+          <p data-key="fruit_beans">Beans</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" loading="lazy" />
+          <p data-key="fruit_plums">Plums</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" loading="lazy" />
+          <p data-key="fruit_potato">Potato</p>
+        </div>
+        <div class="fruit-card-enhanced animate-fade-in">
+          <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" loading="lazy" />
+          <p data-key="fruit_broccoli">Broccoli</p>
+        </div>
       </div>
 
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" loading="lazy" />
-        <p data-key="fruit_guava">Guava</p>
+      <button class="scroll-arrow-pro right-0 absolute right-2 top-1/2 -translate-y-1/2 z-20" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Calendar -->
+  <section id="calendar" class="my-16 bg-yellow-100 border-4 border-black py-8 px-6 rounded-3xl shadow-xl max-w-2xl mx-auto scroll-animate transition-opacity duration-1000 opacity-0">
+    <h2 class="text-3xl font-extrabold text-black text-center mb-6" data-key="calendar">
+      📅 காலண்டர்
+    </h2>
+
+    <div class="flex items-center justify-between mb-6">
+      <button id="prevMonth" class="w-10 h-10 bg-black text-yellow-100 rounded-full text-xl hover:scale-105 transition-transform duration-300 shadow-lg">&lt;</button>
+      <div id="calendarMonth" class="text-2xl font-bold text-black text-center flex-1"></div>
+      <button id="nextMonth" class="w-10 h-10 bg-black text-yellow-100 rounded-full text-xl hover:scale-105 transition-transform duration-300 shadow-lg">&gt;</button>
+    </div>
+
+    <div id="calendarEvents" class="bg-white border-2 border-yellow-300 rounded-xl shadow-inner p-6 text-black text-center font-semibold min-h-[120px] text-xl leading-relaxed space-y-4">
+      🎉 நிகழ்வுகள் இங்கே காணப்படும்...
+    </div>
+  </section>
+
+  <!-- Village Stats -->
+  <section id="villageStats" class="my-16 stats-section scroll-animate">
+    <h2 class="stats-heading" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
+
+    <div class="stats-grid max-w-4xl mx-auto px-4 grid grid-cols-3 gap-4">
+      <div class="stat-card bg-white p-4 rounded-lg shadow text-center">
+        <div class="stat-icon text-3xl">👨‍👩‍👧‍👦</div>
+        <div class="stat-label" data-key="people">மக்கள்</div>
+        <div class="stat-value text-2xl font-bold" id="statPeople">--</div>
+      </div>
+      <div class="stat-card bg-white p-4 rounded-lg shadow text-center">
+        <div class="stat-icon text-3xl">🏠</div>
+        <div class="stat-label" data-key="houses">வீடுகள்</div>
+        <div class="stat-value text-2xl font-bold" id="statHouses">--</div>
+      </div>
+      <div class="stat-card bg-white p-4 rounded-lg shadow text-center">
+        <div class="stat-icon text-3xl">🏪</div>
+        <div class="stat-label" data-key="shops">கடைகள்</div>
+        <div class="stat-value text-2xl font-bold" id="statShops">--</div>
       </div>
 
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" loading="lazy" />
-        <p data-key="fruit_carrot">Carrot</p>
+      <div class="stat-card extra-stat hidden bg-white p-4 rounded-lg shadow text-center">
+        <div class="stat-icon text-3xl">🏫</div>
+        <div class="stat-label" data-key="label_schools">பள்ளிகள்</div>
+        <div class="stat-value text-2xl font-bold" id="statSchools">--</div>
       </div>
-
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" loading="lazy" />
-        <p data-key="fruit_cabbage">Cabbage</p>
+      <div class="stat-card extra-stat hidden bg-white p-4 rounded-lg shadow text-center">
+        <div class="stat-icon text-3xl">⛪</div>
+        <div class="stat-label" data-key="label_churches">தேவாலயங்கள்</div>
+        <div class="stat-value text-2xl font-bold" id="statChurches">--</div>
       </div>
-
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" loading="lazy" />
-        <p data-key="fruit_cauliflower">Cauliflower</p>
-      </div>
-
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" loading="lazy" />
-        <p data-key="fruit_beans">Beans</p>
-      </div>
-
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" loading="lazy" />
-        <p data-key="fruit_plums">Plums</p>
-      </div>
-
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" loading="lazy" />
-        <p data-key="fruit_potato">Potato</p>
-      </div>
-
-      <div class="fruit-card-enhanced animate-fade-in">
-        <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" loading="lazy" />
-        <p data-key="fruit_broccoli">Broccoli</p>
+      <div class="stat-card extra-stat hidden bg-white p-4 rounded-lg shadow text-center">
+        <div class="stat-icon text-3xl">🛕</div>
+        <div class="stat-label" data-key="label_temples">கோவில்கள்</div>
+        <div class="stat-value text-2xl font-bold" id="statTemples">--</div>
       </div>
     </div>
 
-    <!-- Right Scroll Button -->
-    <button class="scroll-arrow-pro right-0" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-  </div>
-</section>
-
-
-
-
-
-
-
-
-
-<section id="calendar" class=" my-16 bg-yellow-100 border-4 border-black py-8 px-6 rounded-3xl shadow-xl max-w-2xl mx-auto scroll-animate transition-opacity duration-1000 opacity-0">
-
-  <!-- Heading -->
-  <h2 class="text-3xl font-extrabold text-black text-center mb-6" data-key="calendar">
-    📅 காலண்டர்
-  </h2>
-
-  <!-- Month Controls -->
-  <div class="flex items-center justify-between mb-6">
-    <button id="prevMonth" class="w-10 h-10 bg-black text-yellow-100 rounded-full text-xl hover:scale-105 transition-transform duration-300 shadow-lg">
-      &lt;
-    </button>
-    <div id="calendarMonth" class="text-2xl font-bold text-black text-center flex-1">
-      மே
+    <div class="text-center mt-4">
+      <button id="toggleStatsBtn" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-xl transition" data-key="show">மேலும் காண்க</button>
     </div>
-    <button id="nextMonth" class="w-10 h-10 bg-black text-yellow-100 rounded-full text-xl hover:scale-105 transition-transform duration-300 shadow-lg">
-      &gt;
-    </button>
-  </div>
+  </section>
 
-  <!-- 📄 Display Box -->
-  <div id="calendarEvents" class="bg-white border-2 border-yellow-300 rounded-xl shadow-inner p-6 text-black text-center font-semibold min-h-[120px] text-xl leading-relaxed space-y-4">
-    🎉 நிகழ்வுகள் இங்கே காணப்படும்...
-  </div>
-
-</section>
-
-
-
-
-<!-- 🌾 Village Stats Section -->
-<section id="villageStats" class="my-16 stats-section scroll-animate">
-  <h2 class="stats-heading" data-key="title">📊 கிராம புள்ளிவிவரங்கள்</h2>
-
-  <div class="stats-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto px-4">
-    <!-- Row 1 -->
-    <div class="stat-card">
-      <div class="stat-icon text-3xl">👨‍👩‍👧‍👦</div>
-      <div class="stat-label" data-key="people">மக்கள்</div>
-      <div class="stat-value" id="statPeople">--</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon text-3xl">🏠</div>
-      <div class="stat-label" data-key="houses">வீடுகள்</div>
-      <div class="stat-value" id="statHouses">--</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon text-3xl">🏪</div>
-      <div class="stat-label" data-key="shops">கடைகள்</div>
-      <div class="stat-value" id="statShops">--</div>
-    </div>
-
-    <!-- Row 2 - hidden initially -->
-    <div class="stat-card extra-stat hidden">
-      <div class="stat-icon text-3xl">🏫</div>
-      <div class="stat-label" data-key="label_schools">பள்ளிகள்</div>
-      <div class="stat-value" id="statSchools">--</div>
-    </div>
-    <div class="stat-card extra-stat hidden">
-      <div class="stat-icon text-3xl">⛪</div>
-      <div class="stat-label" data-key="label_churches">தேவாலயங்கள்</div>
-      <div class="stat-value" id="statChurches">--</div>
-    </div>
-    <div class="stat-card extra-stat hidden">
-      <div class="stat-icon text-3xl">🛕</div>
-      <div class="stat-label" data-key="label_temples">கோவில்கள்</div>
-      <div class="stat-value" id="statTemples">--</div>
-    </div>
-  </div>
-
-  <div class="text-center mt-4">
-    <button id="toggleStatsBtn" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-xl transition" data-key="show">
-      மேலும் காண்க
-    </button>
-  </div>
-</section>
-
-
-  
-  <!-- Location Section -->
-  <section id="location" class=" my-16 py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
+  <!-- Location -->
+  <section id="location" class="my-16 py-10 sm:py-14 px-2 sm:px-4 max-w-5xl mx-auto scroll-animate">
     <h3 class="text-2xl sm:text-3xl font-bold text-center text-black-500 mb-6 sm:mb-8" data-key="location_title">📍 கிளிஞ்சடா இடம்</h3>
     <div class="rounded-2xl overflow-hidden shadow-xl mb-6 sm:mb-8 w-full flex justify-center">
       <iframe src="https://www.google.com/maps/embed?pb=!4v1749909160734!6m8!1m7!1stybikJdvtDm8s9d5PDDY2g!2m2!1d11.31443927743172!2d76.73724728914816!3f190.93584082365928!4f-9.765107696316363!5f0.7820865974627469"
-        width="100%" height="250" class="sm:h-[400px]" style="border:0;" allowfullscreen
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        width="100%" height="250" class="sm:h-[400px]" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="flex justify-center">
       <a href="https://maps.app.goo.gl/tyzBPvPUJSt4t1Aa7" target="_blank"
@@ -559,9 +592,8 @@
     </div>
   </section>
 
-
-  <!-- Weather Section -->
-  <section id="weather" class=" my-16 py-2 px-4 max-w-xl mx-auto scroll-animate">
+  <!-- Weather -->
+  <section id="weather" class="my-16 py-2 px-4 max-w-xl mx-auto scroll-animate">
     <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
       <h2 class="text-2xl sm:text-3xl font-bold text-yellow-500 mb-2 text-center" data-key="weather_title">
         <span class="block" data-key="weather_village">கிளிஞ்சடா கிராமம்</span>
@@ -579,186 +611,522 @@
     </div>
   </section>
 
-<section id="feedback" class="my-16 py-2 sm:py-6 scroll-animate">
-  <h3 class="text-2xl font-bold text-center mb-6" data-key="feedback">💬 கருத்துகள்</h3>
+  <!-- Feedback -->
+  <section id="feedback" class="my-16 py-2 sm:py-6 scroll-animate">
+    <h3 class="text-2xl font-bold text-center mb-6" data-key="feedback">💬 கருத்துகள்</h3>
+  
+    <form
+      id="feedbackForm"
+      action="https://script.google.com/macros/s/AKfycbwSsERcc4gtURrze8-ZqQ0GPttRREqM27Ri4hWF0SqaurrFAf2u6MMweIQgVfT0XNDY2g/exec"
+      method="POST"
+      class="flex flex-col gap-4 max-w-md mx-auto bg-neutral-800 p-4 rounded-xl text-white shadow-lg"
+    >
+      <!-- Anti-bot & hidden data -->
+      <input type="text" name="honeypot" style="display:none">
+      <input type="hidden" name="secret" value="myTamilVillageSecret123">
+  
+      <!-- User input -->
+      <input
+        type="text"
+        name="name"
+        data-key="name"
+        placeholder="பெயர்"
+        required
+        class="p-2 rounded text-black"
+      >
+      <textarea
+        name="message"
+        placeholder="உங்கள் கருத்து"
+        data-key="message"
+        required
+        class="p-2 rounded text-black"
+        rows="4"
+      ></textarea>
+  
+      <!-- Submit -->
+      <button
+        type="submit"
+        data-key="submit"
+        class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300"
+      >
+        அனுப்பு
+      </button>
+    </form>
+  
+    <!-- Status message -->
+    <p
+      id="feedbackStatus"
+      class="text-center mt-4 font-semibold text-yellow-400 hidden"
+    >
+      📤 அனுப்புகிறது...
+    </p>
+  </section>
+  
 
-  <form id="feedbackForm"
-        action="https://formspree.io/f/manaykko"  
-        method="POST"
-        class="flex flex-col gap-4 max-w-md mx-auto bg-neutral-800 p-4 rounded-xl text-white shadow-lg">
-
-    <input type="text" name="name" placeholder="பெயர் / Name" required class="p-2 rounded text-black">
-    <input type="email" name="email" placeholder="மின்னஞ்சல் / Email" required class="p-2 rounded text-black">
-    <textarea name="message" placeholder="உங்கள் கருத்து / Your feedback" required class="p-2 rounded text-black" rows="4"></textarea>
-
-    <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded transition-all duration-300">
-      அனுப்பு / Submit
-    </button>
-  </form>
-
-  <p id="feedbackStatus" class="text-center mt-4 text-yellow-400 hidden"></p>
-</section>
-
-
-<div class="mt-4 text-center">
-  <p id="visitorsLabel" class="text-lg font-semibold text-gray-700 dark:text-gray-200"> 👁️‍🗨️ பார்வையாளர்கள் எண்ணிக்கை:</p>
-  <p id="visitorsCount" class="text-2xl font-bold text-blue-600 dark:text-blue-400">0</p>
-</div>
-
-
-
-
-
-
-
-<!-- Footer -->
-<footer class="  bg-black text-yellow-400 px-2 py-3 sm:py-4 text-sm sm:text-base shadow-inner">
-  <div id="footerContactInfo"
-    class="flex flex-wrap items-center justify-between text-center w-full max-w-5xl mx-auto gap-y-1">
-    <!-- Contact info will be injected here -->
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="footer">
+  <div id="contactInfo" class="footer-contact">
+    <!-- Email will load from Firebase -->
   </div>
-  <div class="mt-2 text-center text-xs sm:text-sm tracking-wide" data-key="footer">
+  <div class="footer-bottom" data-key="footer">
     © 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
   </div>
 </footer>
 
 
-
-
-
-
-  <!-- Gallery Modal Enhancement -->
-  <div id="galleryModal">
-    <button class="close-modal" aria-label="Close gallery" onclick="closeGalleryModal()">&times;</button>
-    <img id="modalMainImg" src="" alt="Enlarged" />
-    <div class="modal-thumbs" id="modalThumbs"></div>
-  </div>
-
-  <!-- Enhancement Script -->
+ 
   <script>
 
-  document.querySelectorAll('#galleryImages img').forEach(img => {
-    if(!img.dataset.full) img.dataset.full = img.src;
+
+/* Utilities */
+function safeText(el, text) { if (!el) return; el.textContent = text; }
+function safeHTML(el, html) { if (!el) return; el.innerHTML = html; }
+
+/* 1) scroll fade-in */
+document.addEventListener("DOMContentLoaded", function () {
+  const animatedEls = document.querySelectorAll('.scroll-animate');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  animatedEls.forEach(el => observer.observe(el));
+});
+
+/* 2) Side menu */
+document.addEventListener("DOMContentLoaded", function() {
+  const menuBtn = document.getElementById('menuBtn');
+  const sideMenu = document.getElementById('sideMenu');
+  const closeMenu = document.getElementById('closeMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function openMenu() {
+    if (!sideMenu) return;
+    sideMenu.classList.remove('-translate-x-full');
+    sideMenu.classList.add('translate-x-0');
+    if (menuOverlay) menuOverlay.classList.remove('hidden');
+  }
+  function closeMenuAndOverlay() {
+    if (!sideMenu) return;
+    sideMenu.classList.add('-translate-x-full');
+    sideMenu.classList.remove('translate-x-0');
+    if (menuOverlay) menuOverlay.classList.add('hidden');
+  }
+
+  if (menuBtn) menuBtn.onclick = openMenu;
+  if (closeMenu) closeMenu.onclick = closeMenuAndOverlay;
+  if (menuOverlay) menuOverlay.onclick = closeMenuAndOverlay;
+  document.querySelectorAll('.menu-link').forEach(link => link.onclick = closeMenuAndOverlay);
+
+  document.addEventListener('mousedown', (e) => {
+    if (!sideMenu) return;
+    if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target) && !sideMenu.classList.contains('-translate-x-full')) {
+      closeMenuAndOverlay();
+    }
   });
-  const images = Array.from(document.querySelectorAll('#galleryImages img'));
+});
+
+/* 3) Language switcher */
+document.addEventListener("DOMContentLoaded", function() {
+  const langBtn = document.getElementById('langBtn');
+  const langDropdown = document.getElementById('langDropdown');
+  const langLabel = document.getElementById('langLabel');
+
+  const translations = {
+    en: {
+        site_title: "Kilinjada Village", language_label: "English", tamil_option: "Tamil", english_option: "English",
+        menu_home: "🏠Home", menu_location: "📍Location", menu_gallery: "📸Gallery", menu_crops: "🌾Crops", menu_bus: "🚌Bus Timings",
+        menu_calendar:"📅 Calendar", title: "📊Village Stats", name:"Name", message:"Your Message", menu_weather: "🌦Weather", menu_feedback: "💬Feedback",
+        welcome_title: "🌾Welcome to Kilinjada Village", welcome_description: "A small village blending tradition and natural beauty.",
+        location_title: "📍Kilinjada Location", location_button: "Go to Kilinjada", gallery_title: "📸Village Photos",
+        season: "🌾Seasonal Crops", calendar:"📅 Calendar", bus_title: "🚌Bus Timings", bus_from: "From", bus_to: "To", bus_time: "Time",
+        note: "Note", menu_home2:"📊About", exception: "All the above buses will pass through Kilinjada",
+        people: "People:", houses: "Houses:", shops: "Shops:", weather_title: "🌦Kilinjada Village Weather",
+        weather_village: "Kilinjada Village", weather_label: "Weather", weather_placeholder: "Weather details can be added here.",
+        feedback_name_placeholder: "Name", feedback_message_placeholder: "Your message", feedback_submit: "Submit",
+        about_title: "About Kilinjada Village", feedback:"💬feedback", less:"Show less", footercopy:"© 2025 Kilinjada Village. All rights reserved",
+        show: "Show More"
+      },
+      ta: {
+        site_title: "கிளிஞ்சடா கிராமம்", language_label: "தமிழ்", tamil_option: "தமிழ்", english_option: "English",
+        menu_home: "🏠முகப்பு", menu_location: "📍இடம்", menu_gallery: "📸புகைப்படங்கள்", menu_crops: "🌾பயிர்கள்", menu_bus: "🚌பஸ் நேரங்கள்",
+        menu_calendar:"📅 காலண்டர்", title: "📊கிராம புள்ளிவிவரங்கள்", name:"பெயர்", message:"உங்கள் கருத்து", menu_weather: "🌦வானிலை",
+        menu_feedback: "💬கருத்துகள்", welcome_title: "🌾கிளிஞ்சடா கிராமத்திற்கு வரவேற்கிறோம்",
+        welcome_description: "இது எங்கள் பாரம்பரியம் மற்றும் இயற்கை அழகின் சிறிய கிராமம்.",
+        location_title: "📍கிளிஞ்சடா இடம்", location_button: "கிளிஞ்சடா செல்லுங்கள்", gallery_title: "📸கிராம புகைப்படங்கள்",
+        season: "🌾பருவ பயிர்கள்", calendar:"📅 காலண்டர்", bus_title: "🚌பஸ் நேரங்கள்", bus_from: "எங்கிருந்து", bus_to: "எங்கே", bus_time: "நேரம்",
+        note: "குறிப்பு", menu_home2:"📊பற்றி", exception: "மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்",
+        people: "மக்கள்:", houses: "வீடுகள்:", shops: "கடைகள்:", weather_title: "🌦கிளிஞ்சடா கிராமம் வானிலை",
+        weather_village: "கிளிஞ்சடா கிராமம்", weather_label: "வானிலை", weather_placeholder: "இங்கு வானிலை விவரங்கள் சேர்க்கலாம்.",
+        feedback_name_placeholder: "பெயர்", feedback_message_placeholder: "உங்கள் கருத்து", feedback_submit: "அனுப்பு",
+        about_title: "கிளிஞ்சடா கிராமம் பற்றி", feedback:"💬 கருத்துகள்", less:"குறைவு காண்க", footercopy:"© 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        show: "மேலும் காண்க"
+      }
+  };
+
+  window.lang = window.lang || 'ta';
+
+  // Function to apply translations
+  function applyTranslations(lang) {
+    window.lang = lang;
+    const dict = translations[lang];
+    if (!dict) return;
+
+    document.querySelectorAll('[data-key]').forEach(el => {
+      const key = el.getAttribute('data-key');
+      if (!key) return;
+      const val = dict[key];
+      if (val === undefined) return;
+
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = val;
+      } else {
+        el.textContent = val;
+      }
+    });
+
+    if (langLabel) langLabel.textContent = dict.language_label || langLabel.textContent;
+    document.title = dict.site_title || document.title;
+
+    // Rebind any dynamic buttons that need translation (like bus filter)
+    if (typeof bindBusFilterButtons === "function") bindBusFilterButtons();
+  }
+
+  // Toggle dropdown visibility when clicking main button
+  if (langBtn) {
+    langBtn.addEventListener('click', () => {
+      if (langDropdown) langDropdown.classList.toggle('hidden');
+    });
+  }
+
+  // Handle clicks on language options
+  if (langDropdown) {
+    langDropdown.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const lang = this.getAttribute('data-lang') || 'ta';
+        applyTranslations(lang);
+        langDropdown.classList.add('hidden'); // hide dropdown after selection
+      });
+    });
+  }
+
+  // Apply default language on load
+  applyTranslations(window.lang);
+
+  // Optional: Close dropdown if clicking outside
+  document.addEventListener('click', (e) => {
+    if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+      langDropdown.classList.add('hidden');
+    }
+  });
+});
+
+/* 4) Gallery modal + scroll */
+(function() {
+  const galleryContainer = document.getElementById('galleryImages');
+  if (!galleryContainer) return;
+  const images = Array.from(galleryContainer.querySelectorAll('img'));
   const modal = document.getElementById('galleryModal');
   const modalImg = document.getElementById('modalMainImg');
   const modalThumbs = document.getElementById('modalThumbs');
   let currentIdx = 0;
-
-  // Open modal on image click
   images.forEach((img, idx) => {
+    if (!img.dataset.full) img.dataset.full = img.src;
     img.style.cursor = 'pointer';
     img.onclick = () => openGalleryModal(idx);
   });
   function openGalleryModal(idx) {
     currentIdx = idx;
-    modal.classList.add('open');
+    if (modal) modal.classList.add('open');
     renderModalImage(idx);
     renderModalThumbs();
     document.body.style.overflow = 'hidden';
   }
   function closeGalleryModal() {
-    modal.classList.remove('open');
+    if (modal) modal.classList.remove('open');
     document.body.style.overflow = '';
   }
   function renderModalImage(idx) {
+    if (!modalImg) return;
     modalImg.src = images[idx].dataset.full;
-    Array.from(modalThumbs.children).forEach((thumb, i) => {
-      thumb.classList.toggle('selected', i === idx);
-    });
+    Array.from(modalThumbs?.children || []).forEach((thumb, i) => thumb.classList.toggle('selected', i === idx));
   }
   function renderModalThumbs() {
+    if (!modalThumbs) return;
     modalThumbs.innerHTML = '';
     images.forEach((img, idx) => {
       const thumb = document.createElement('img');
       thumb.src = img.dataset.full;
-      thumb.onclick = () => {
-        currentIdx = idx;
-        renderModalImage(idx);
-      };
-      if(idx === currentIdx) thumb.classList.add('selected');
+      thumb.onclick = () => { currentIdx = idx; renderModalImage(idx); };
+      if (idx === currentIdx) thumb.classList.add('selected');
       modalThumbs.appendChild(thumb);
     });
   }
-  // Keyboard navigation for modal
-  document.addEventListener('keydown', function(e) {
-    if(!modal.classList.contains('open')) return;
-    if(e.key === 'ArrowLeft') {
-      currentIdx = (currentIdx - 1 + images.length) % images.length;
-      renderModalImage(currentIdx);
-    } else if(e.key === 'ArrowRight') {
-      currentIdx = (currentIdx + 1) % images.length;
-      renderModalImage(currentIdx);
-    } else if(e.key === 'Escape') {
-      closeGalleryModal();
-    }
+  document.addEventListener('keydown', (e) => {
+    if (!modal?.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') { currentIdx = (currentIdx - 1 + images.length) % images.length; renderModalImage(currentIdx); }
+    else if (e.key === 'ArrowRight') { currentIdx = (currentIdx + 1) % images.length; renderModalImage(currentIdx); }
+    else if (e.key === 'Escape') { closeGalleryModal(); }
   });
-  // Click outside image closes modal
-  modal.onclick = function(e) { if(e.target === modal) closeGalleryModal(); };
+  if (modal) modal.onclick = (e) => { if (e.target === modal) closeGalleryModal(); };
+  window.scrollGallery = function(containerId, direction) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const firstChild = container.querySelector(':scope > *');
+    const scrollAmount = (firstChild ? firstChild.offsetWidth : 300) + 24;
+    container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  };
+  window.closeGalleryModal = function() { if (modal) modal.classList.remove('open'); document.body.style.overflow = ''; };
+})();
 
-  // Gallery scroll buttons
-  function scrollGallery(id, dir) {
-    const el = document.getElementById(id);
-    el.scrollBy({ left: dir * 220, behavior: 'smooth' });
+/* 5) Weather */
+const weatherApiKey = 'b10632c504034b9ab9a171528250506';
+const locationName = "Coimbatore";
+async function fetchWeather() {
+  try {
+    const response = await fetch(
+      `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${encodeURIComponent(locationName)}&lang=ta`
+    );
+    if (!response.ok) throw new Error("Weather data not available");
+    const data = await response.json();
+    safeText(document.getElementById("weather_temp"), `${data.current.temp_c} °C`);
+    safeText(document.getElementById("weather_humidity"), `ஈரப்பதம்: ${data.current.humidity}%`);
+    safeText(document.getElementById("weather_condition"), data.current.condition.text);
+    const iconEl = document.getElementById("weather_icon");
+    if (iconEl) { iconEl.src = "https:" + data.current.condition.icon; iconEl.alt = data.current.condition.text; }
+  } catch (err) {
+    safeText(document.getElementById("weather_placeholder"), "வானிலை பெற முடியவில்லை.");
+    console.error("Weather error:", err);
   }
-  
+}
+fetchWeather();
 
-  document.addEventListener('DOMContentLoaded', function() {
-  const menuBtn = document.getElementById('menuBtn');
-  const sideMenu = document.getElementById('sideMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
-  const closeMenuBtn = document.getElementById('closeMenu');
-  const menuLinks = document.querySelectorAll('#sideMenu a.menu-link');
+/* 6) Firebase init (compat) */
+let db = null;
+(function initFirebase() {
+  const firebaseConfig = {
+    apiKey: "AIzaSyAMTU5SxQ6H6umBSvCtNyIHKRCjFdvP1yc",
+    authDomain: "kilinjadavillage-38714.firebaseapp.com",
+    projectId: "kilinjadavillage-38714",
+    storageBucket: "kilinjadavillage-38714.firebasestorage.app",
+    messagingSenderId: "877550852163",
+    appId: "1:877550852163:web:87fb5a9081f346f92d5cf6",
+    measurementId: "G-DR8RPBLV5Z"
+  };
+  if (typeof firebase !== 'undefined') {
+    try {
+      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+      console.log("Firebase initialized");
+    } catch (err) { console.error("Firebase init error:", err); }
+  } else {
+    console.error("Firebase SDK not loaded - ensure firebase-app-compat & firestore-compat are included");
+  }
+})();
+async function waitForDb(timeoutMs = 5000) {
+  const start = Date.now();
+  while (!db && Date.now() - start < timeoutMs) await new Promise(r => setTimeout(r, 150));
+  return !!db;
+}
 
-  function openMenu() {
-    sideMenu.classList.remove('-translate-x-full');
-    sideMenu.classList.add('translate-x-0');
-    menuOverlay.classList.remove('hidden');
+/* 7) Firestore listeners */
+/* Announcements - latest message (collection: announcements -> field: message) */
+async function attachAnnouncementsListener() {
+  const el = document.getElementById('latestAnnouncement');
+  if (!el) return;
+  if (!await waitForDb()) { el.textContent = "அறிவிப்பை பெற முடியவில்லை."; return; }
+  try {
+    db.collection('announcements')
+    .limit(1).onSnapshot(snapshot => {
+      if (snapshot.empty) { el.textContent = window.lang === 'en' ? "No announcements." : "இப்போது அறிவிப்பு இல்லை."; return; }
+      const data = snapshot.docs[0].data();
+      el.textContent = data?.message || (window.lang==='en' ? "No announcements." : "இப்போது அறிவிப்பு இல்லை.");
+    }, err => { console.error("Announcements listener error:", err); el.textContent = "அறிவிப்பை பெற முடியவில்லை."; });
+  } catch (err) { console.error("Announcements setup error:", err); }
+}
+
+/* Contact info - only email required (collection: contactInfo -> field: email) */
+async function attachContactInfoListener() {
+  const footerEl = document.getElementById('contactInfo');
+  if (!footerEl) return;
+  if (!await waitForDb()) { footerEl.innerHTML = `<div class="w-full text-center">தகவல் இல்லை</div>`; return; }
+  try {
+    db.collection('contactInfo')
+    .limit(1)
+    .onSnapshot(snapshot => {
+      if (snapshot.empty) { footerEl.innerHTML = `<div class="w-full text-center">தகவல் இல்லை</div>`; return; }
+      const data = snapshot.docs[0].data();
+      const email = data.email || "மின்னஞ்சல் இல்லை";
+      footerEl.innerHTML = `<div class="flex-1 min-w-[50%] text-center truncate">📧 ${email}</div>`;
+    }, err => { console.error("ContactInfo listener error:", err); footerEl.innerHTML = `<div class="w-full text-center">தகவல் இல்லை</div>`; });
+  } catch (err) { console.error("ContactInfo setup error:", err); }
+}
+
+/* Calendar (collection: calendar -> fields: month, events) */
+let calendarMonths = [], calendarIndex = 0;
+function renderCalendarMonth() {
+  if (!calendarMonths.length) {
+    safeText(document.getElementById('calendarMonth'), window.lang === 'en' ? "No data" : "No data");
+    safeText(document.getElementById('calendarEvents'), window.lang === 'en' ? "No events" : "🎉 நிகழ்வுகள் இங்கே காணப்படும்...");
+    return;
+  }
+  const m = calendarMonths[calendarIndex];
+  safeText(document.getElementById('calendarMonth'), m.month || m.name || "—");
+  safeText(document.getElementById('calendarEvents'), m.events || m.event || m.description || "No events");
+}
+async function attachCalendarListener() {
+  if (!await waitForDb()) { safeText(document.getElementById('calendarMonth'), "No data"); safeText(document.getElementById('calendarEvents'), ""); return; }
+  try {
+    db.collection('calendar').onSnapshot(snapshot => {
+      calendarMonths = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      calendarMonths = calendarMonths.reverse();
+      calendarIndex = 0;
+      renderCalendarMonth();
+    }, err => console.error("Calendar listener error:", err));
+  } catch (err) { console.error("Calendar setup error:", err); }
+  const prev = document.getElementById('prevMonth'), next = document.getElementById('nextMonth');
+  if (prev) prev.onclick = () => { if(!calendarMonths.length) return; calendarIndex = (calendarIndex - 1 + calendarMonths.length) % calendarMonths.length; renderCalendarMonth(); };
+  if (next) next.onclick = () => { if(!calendarMonths.length) return; calendarIndex = (calendarIndex + 1) % calendarMonths.length; renderCalendarMonth(); };
+}
+
+/* Village Stats (collection: villageStats -> fields: people, houses, shops, schools, churches, temples) */
+async function attachVillageStatsListener() {
+  if (!await waitForDb()) { console.error("Firebase not ready for villageStats"); return; }
+  try {
+    db.collection('villageStats').limit(1).onSnapshot(snapshot => {
+      if (snapshot.empty) return;
+      const stats = snapshot.docs[0].data();
+      safeText(document.getElementById("statPeople"), stats.people ?? '--');
+      safeText(document.getElementById("statHouses"), stats.houses ?? '--');
+      safeText(document.getElementById("statShops"), stats.shops ?? '--');
+      safeText(document.getElementById("statSchools"), stats.schools ?? '--');
+      safeText(document.getElementById("statChurches"), stats.churches ?? '--');
+      safeText(document.getElementById("statTemples"), stats.temples ?? '--');
+    }, err => console.error("villageStats listener error:", err));
+  } catch (err) { console.error("villageStats setup error:", err); }
+}
+
+/* 8) Bus filter handlers */
+function filterBus(direction) {
+  const rows = document.querySelectorAll("#busTimings tbody tr");
+  rows.forEach(row => {
+    const note = row.querySelector(".bus-note");
+    const noteText = note ? note.textContent.trim() : "";
+    let showRow = false;
+    if (direction === 'all') showRow = true;
+    else if (direction === 'coonoorToKilinjada') showRow = noteText.includes("குன்னூரில்") || noteText.includes("(at Coonoor)");
+    else if (direction === 'kilinjadaToCoonoor') showRow = noteText.includes("கிளிஞ்சடாவில்") || noteText.includes("(at Kilinjada)");
+    row.style.display = showRow ? "" : "none";
+  });
+  document.querySelectorAll('.bus-btn').forEach(btn => btn.classList.remove('active'));
+  if (direction === 'all') document.getElementById("btnAll")?.classList.add("active");
+  if (direction === 'coonoorToKilinjada') document.getElementById("btnCoonoor")?.classList.add("active");
+  if (direction === 'kilinjadaToCoonoor') document.getElementById("btnKilinjada")?.classList.add("active");
+}
+function bindBusFilterButtons() {
+  const btnKil = document.getElementById("btnKilinjada");
+  const btnCoon = document.getElementById("btnCoonoor");
+  const btnAll = document.getElementById("btnAll");
+  if (btnKil) btnKil.onclick = () => filterBus("kilinjadaToCoonoor");
+  if (btnCoon) btnCoon.onclick = () => filterBus("coonoorToKilinjada");
+  if (btnAll) btnAll.onclick = () => filterBus("all");
+}
+
+/* 9) Toggle extra stats */
+const TOGGLE_LABELS = { ta: { show: "மேலும் காண்க", less: "குறைவு காண்க" }, en: { show: "Show More", less: "Show Less" } };
+window.lang = window.lang || 'ta'; let expanded = false;
+function getToggleLabel(expandedState) { return TOGGLE_LABELS[window.lang]?.[expandedState ? "less" : "show"] || (expandedState ? "Less" : "Show"); }
+
+/* 10) Feedback form */
+document.addEventListener("DOMContentLoaded", function () {
+  bindBusFilterButtons();
+
+  // ✅ Village stats toggle
+  const toggleBtn = document.getElementById("toggleStatsBtn");
+  const extraStats = document.querySelectorAll(".extra-stat");
+  if (toggleBtn) {
+    toggleBtn.textContent = getToggleLabel(expanded);
+    toggleBtn.addEventListener("click", () => {
+      expanded = !expanded;
+      extraStats.forEach(s => s.classList.toggle("show", expanded));
+      toggleBtn.textContent = getToggleLabel(expanded);
+      toggleBtn.setAttribute("data-key", expanded ? "less" : "show");
+    });
   }
 
-  function closeMenu() {
-    sideMenu.classList.add('-translate-x-full');
-    sideMenu.classList.remove('translate-x-0');
-    menuOverlay.classList.add('hidden');
+  // ✅ Feedback form handler
+  const form = document.getElementById("feedbackForm");
+  if (form) {
+    const status = document.getElementById("feedbackStatus");
+    const submitBtn = form.querySelector("button[type='submit']") || form.querySelector("button");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      if (!status || !submitBtn) return;
+
+      // 🟡 Show "sending" message
+      status.classList.remove("hidden");
+      status.classList.remove("text-red-400", "text-green-400");
+      status.classList.add("text-yellow-400");
+      status.textContent = window.lang === 'en'
+        ? "📤 Sending..."
+        : "📤 அனுப்புகிறது...";
+      submitBtn.disabled = true;
+      submitBtn.textContent = window.lang === 'en' ? "Sending..." : "அனுப்புகிறது...";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+        });
+
+        const data = await response.text();
+        if (data && data.toLowerCase().includes("success")) {
+          // ✅ Success
+          status.classList.remove("text-yellow-400");
+          status.classList.add("text-green-400");
+          status.textContent = window.lang === 'en'
+            ? "✅ Thank you for your feedback! Sent successfully."
+            : "🙏 உங்கள் கருத்துக்கு நன்றி! அது வெற்றிகரமாக அனுப்பப்பட்டது.";
+          form.reset();
+        } else {
+          // ❌ Failure
+          status.classList.remove("text-yellow-400");
+          status.classList.add("text-red-400");
+          status.textContent = window.lang === 'en'
+            ? "⚠️ Couldn't send. Please try again later."
+            : "⚠️ அனுப்ப முடியவில்லை. பின்னர் முயற்சிக்கவும்.";
+        }
+      } catch (err) {
+        console.error("Feedback submit error:", err);
+        // 🔴 Error
+        status.classList.remove("text-yellow-400");
+        status.classList.add("text-red-400");
+        status.textContent = window.lang === 'en'
+          ? "❌ Error occurred! Try again later."
+          : "❌ பிழை ஏற்பட்டது! மீண்டும் முயற்சிக்கவும்.";
+      } finally {
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.textContent = window.lang === 'en' ? "Submit" : "அனுப்பு";
+      }
+    });
   }
-
-  menuBtn.addEventListener('click', openMenu);
-  closeMenuBtn.addEventListener('click', closeMenu);
-  menuOverlay.addEventListener('click', closeMenu);
-
-  // Close when any menu link is clicked
-  menuLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  // Close when clicking/touching outside the menu
-  document.addEventListener('mousedown', function(event) {
-    if (
-      !sideMenu.contains(event.target) &&
-      !menuBtn.contains(event.target) &&
-      !sideMenu.classList.contains('-translate-x-full')
-    ) {
-      closeMenu();
-    }
-  });
-  document.addEventListener('touchstart', function(event) {
-    if (
-      !sideMenu.contains(event.target) &&
-      !menuBtn.contains(event.target) &&
-      !sideMenu.classList.contains('-translate-x-full')
-    ) {
-      closeMenu();
-    }
-  });
 });
 
 
-
+/* 11) Attach Firestore listeners after DOM loaded */
+document.addEventListener("DOMContentLoaded", async () => {
+  await new Promise(r => setTimeout(r, 400));
+  attachAnnouncementsListener();
+  attachContactInfoListener();
+  attachCalendarListener();
+  attachVillageStatsListener();
+});
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/backendless@7.0.8/dist/backendless.min.js"></script>
-  <!-- Your existing JS -->
-  <script src="js/main.js"></script>
-  <script src="js/feedback.js"></script>
 </body>
 </html>

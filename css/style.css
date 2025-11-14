@@ -1132,3 +1132,155 @@ footer {
     font-size: 1rem;
   }
 }
+/* 🌾==================== EXTRA RESPONSIVENESS & POLISH ====================🌾 */
+
+/* Medium devices (tablets: 641px–768px) */
+@media (min-width: 641px) and (max-width: 768px) {
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .about-content {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .bus-table th, .bus-table td {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .fruit-card img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .feedback-form {
+    width: 90%;
+  }
+}
+
+/* Large devices (small laptops/desktops: 769px–1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .menu a {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .about-section {
+    padding: 3rem 2rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .fruit-scroll {
+    padding: 1rem 3rem;
+  }
+
+  .weather-card {
+    max-width: 380px;
+  }
+
+  .feedback-section form {
+    max-width: 600px;
+  }
+
+  footer {
+    padding: 1.5rem;
+  }
+}
+
+/* Extra Large (desktops: 1025px–1366px) */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .welcome-section h1 {
+    font-size: 2.6rem;
+  }
+
+  .menu {
+    gap: 1.2rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .fruit-card img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .feedback-section {
+    max-width: 900px;
+    margin: auto;
+  }
+}
+
+/* Ultra-wide monitors (1367px and up) */
+@media (min-width: 1367px) {
+  body {
+    max-width: 1600px;
+    margin: auto;
+  }
+
+  .welcome-section h1 {
+    font-size: 3rem;
+    letter-spacing: 1px;
+  }
+
+  .about-section {
+    padding: 4rem 8rem;
+    line-height: 1.8;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+
+  .fruit-scroll {
+    padding: 1.5rem 5rem;
+  }
+
+  .weather-card {
+    max-width: 420px;
+    padding: 2rem;
+  }
+
+  footer {
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+  }
+}
+
+/* Fix spacing between sections for all larger screens */
+@media (min-width: 769px) {
+  section {
+    margin-bottom: 3rem;
+  }
+
+  .section-heading {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Enhanced smooth hover & transition for desktop only */
+@media (hover: hover) {
+  .menu a:hover,
+  .stat-card:hover,
+  .fruit-card:hover,
+  .gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+/* ==================== End of Responsive Enhancements ==================== */

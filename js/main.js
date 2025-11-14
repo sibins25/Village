@@ -695,3 +695,87 @@ document.getElementById("feedbackForm").addEventListener("submit", async functio
     console.error("Formspree error:", error);
   }
 });
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAMTU5SxQ6H6umBSvCtNyIHKRCjFdvP1yc",
+  authDomain: "kilinjadavillage-38714.firebaseapp.com",
+  projectId: "kilinjadavillage-38714",
+  storageBucket: "kilinjadavillage-38714.firebasestorage.app",
+  messagingSenderId: "877550852163",
+  appId: "1:877550852163:web:87fb5a9081f346f92d5cf6",
+  measurementId: "G-DR8RPBLV5Z"
+};
+
+// Initialize Firebase
+
+const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // 🔹 Fetch and display Announcements
+      async function loadAnnouncements() {
+        const querySnapshot = await getDocs(collection(db, "announcements"));
+        const list = document.getElementById("announcements");
+        list.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const li = document.createElement("li");
+          li.textContent = `${data.title} — ${data.description} (${data.date})`;
+          list.appendChild(li);
+        });
+      }
+
+      // 🔹 Fetch and display Calendar
+      async function loadCalendar() {
+        const querySnapshot = await getDocs(collection(db, "calendar"));
+        const list = document.getElementById("calendar");
+        list.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const li = document.createElement("li");
+          li.textContent = `${data.eventName} — ${data.eventDate} (${data.location})`;
+          list.appendChild(li);
+        });
+      }
+
+      // 🔹 Fetch and display Contact Info
+      async function loadContactInfo() {
+        const querySnapshot = await getDocs(collection(db, "contactInfo"));
+        const list = document.getElementById("contactInfo");
+        list.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const li = document.createElement("li");
+          li.textContent = `${data.name} (${data.role}) — ${data.phone}`;
+          list.appendChild(li);
+        });
+      }
+
+      // 🔹 Fetch and display Village Statistics
+      async function loadVillageStats() {
+        const querySnapshot = await getDocs(collection(db, "villageStatistics"));
+        const statsDiv = document.getElementById("stats");
+        statsDiv.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          statsDiv.innerHTML += `
+            <p>Year: ${data.year}</p>
+            <p>Population: ${data.population}</p>
+            <p>Households: ${data.households}</p>
+            <p>Literacy Rate: ${data.literacyRate}%</p>
+            <p>Employment Rate: ${data.employmentRate}%</p>
+          `;
+        });
+      }
+
+      // Load all data when the page opens
+      loadAnnouncements();
+      loadCalendar();
+      loadContactInfo();
+      loadVillageStats();
