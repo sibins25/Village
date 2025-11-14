@@ -1,4 +1,4 @@
-       <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ta">
 <head>
   <meta charset="UTF-8" />
@@ -21,11 +21,8 @@
   <title data-key="site_title">கிளிஞ்சடா கிராமம்</title>
   
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.svg" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon.svg" />
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg" />
-  <link rel="manifest" href="site.webmanifest" />
+ 
+ 
   
   <!-- Tailwind + Fonts + CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -36,139 +33,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-  <style>
-    /* Small inline modal/gallery / visual tweaks (kept minimal - your css file contains main styles) */
-    #galleryModal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: opacity 0.3s;
-    }
-    #galleryModal.open { display:flex; animation: fadeIn 0.3s; }
-    #galleryModal img { max-width: 90vw; max-height: 80vh; border-radius: 1rem; box-shadow: 0 0 32px #facc15; background:#fff; }
-    #galleryModal .close-modal { position:absolute; top:1.5rem; right:1.5rem; background:#facc15; color:#222; border:none; font-size:1.6rem; border-radius:1rem; width:2.4rem; height:2.4rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:1100; }
-    #galleryModal .modal-thumbs { display:flex; gap:0.6rem; margin-top:1rem; overflow-x:auto; max-width:95vw; padding-bottom:0.5rem; }
-    #galleryModal .modal-thumbs img { width:64px; height:44px; object-fit:cover; border-radius:6px; cursor:pointer; opacity:0.6; transition:opacity .15s, border .15s; border:2px solid transparent; }
-    #galleryModal .modal-thumbs img.selected { opacity:1; border-color:#facc15; }
-
-    @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
-    .scroll-animate { opacity:0; transform: translateY(12px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
-    .scroll-animate.visible { opacity:1; transform:none; }
-    /* Make table header fixed and responsive */
-/* ------------------------- */
-/* Bus Section Layout Styles */
-/* ------------------------- */
-
-.bus-filter-wrapper {
-  text-align: center;
-}
-
-.filter-btn-grid,
-.filter-btn-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.bus-btn {
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.25s ease;
-  border: none;
-  background: #facc15;
-  padding: 10px 16px;
-  border-radius: 8px;
-}
-
-.bus-btn:hover {
-  background: #fbbf24;
-  transform: scale(1.03);
-}
-
-.bus-btn:active {
-  transform: scale(0.97);
-}
-
-/* ------------------------- */
-/* Bus Timetable Box Styles  */
-/* ------------------------- */
-
-.bus-list-wrapper {
-  max-width: 760px;
-  margin: 30px auto;
-  padding: 0 16px;
-}
-
-.bus-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
-  padding: 14px 18px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  border: 2px solid #e5e7eb;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  transition: 0.25s ease;
-}
-
-.bus-row:hover {
-  border-color: #facc15;
-  transform: translateY(-2px);
-}
-
-.bus-row .time {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1f2937;
-}
-
-.bus-row .route {
-  font-size: 15px;
-  color: #4b5563;
-}
-
-/* ------------------------- */
-/* Bus Row Colors            */
-/* ------------------------- */
-
-[data-route="kilinjada"] {
-  border-left: 6px solid #22c55e; /* Green */
-}
-
-[data-route="coonoor"] {
-  border-left: 6px solid #3b82f6; /* Blue */
-}
-
-/* ------------------------- */
-/* Responsive Design         */
-/* ------------------------- */
-
-@media (max-width: 600px) {
-  .bus-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 16px;
-  }
-
-  .bus-row .time {
-    font-size: 17px;
-  }
-
-  .bus-row .route {
-    font-size: 14px;
-  }
-}
-
-
-  </style>
+  
 </head>
 <body class="bg-yellow-100 text-black overflow-x-hidden font-sans">
 
@@ -242,163 +107,280 @@
       "கிளிஞ்சடா கிராமம் அமைதியும் பசுமையும் நிறைந்தது. பாரம்பரிய வேளாண்மை, பண்பாடு, நல்லவர்கள், இயற்கை அழகு, மகிழ்ச்சியான திருவிழாக்கள் புகழ்பெற்றது."
     </div>
   </section>
+<!-- Bus Timings Section -->
+<section id="busTimings" class="bus-table-section scroll-animate my-16 mx-auto">
 
-  <!-- Bus Timings Section -->
-  <section id="busTimings" class="bus-table-section scroll-animate my-16 mx-auto">
-    <div class="bus-table-title text-center text-2xl font-semibold mt-8 mb-4" data-key="bus_title">🚌 பஸ் நேரங்கள்</div>
-    <div class="bus-table-wrapper overflow-x-auto">
-      <table class="bus-table w-full max-w-5xl mx-auto border text-center bg-white shadow rounded">
-        <thead class="bg-gray-100">
-          <tr>
-            <th class="p-2" data-key="bus_from">எங்கிருந்து</th>
-            <th class="p-2" data-key="bus_to">எங்கே</th>
-            <th class="p-2" data-key="bus_time">நேரம்</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- (Your bus rows retained exactly as before) -->
-          <tr>
-            <td data-key="from_4">குன்னூர்</td>
-            <td data-key="to_4">கொலைகாம்பை</td>
-            <td data-key="time_4">7:20 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_2">குன்னூர்</td>
-            <td data-key="to_2">கிளிஞ்சடா</td>
-            <td data-key="time_2">7:30 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3a">குன்னூர்</td>
-            <td data-key="to_3a">தூதூர்மட்டம்</td>
-            <td data-key="time_3a">7:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3b">குன்னூர்</td>
-            <td data-key="to_3b">தூதூர்மட்டம்</td>
-            <td data-key="time_3b">9:40 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_4b">குன்னூர்</td>
-            <td data-key="to_4b">கொலைகாம்பை</td>
-            <td data-key="time_4b">10:45 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_5a">குன்னூர்</td>
-            <td data-key="to_5a">கொலைகாம்பை</td>
-            <td data-key="time_5a">11:50 AM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_5b">குன்னூர்</td>
-            <td data-key="to_5b">தூதூர்மட்டம்</td>
-            <td data-key="time_5b">1:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_4c">குன்னூர்</td>
-            <td data-key="to_4c">கொலைகாம்பை</td>
-            <td data-key="time_4c">2:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_6">குன்னூர்</td>
-            <td data-key="to_6">கோட்டக்கல்</td>
-            <td data-key="time_6">12:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3d">குன்னூர்</td>
-            <td data-key="to_3d">சட்டன்</td>
-            <td data-key="time_3d">4:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3e">குன்னூர்</td>
-            <td data-key="to_3e">தூதூர்மட்டம்</td>
-            <td data-key="time_3e">5:00 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3f">குன்னூர்</td>
-            <td data-key="to_3f">தூதூர்மட்டம்</td>
-            <td data-key="time_3f">7:20 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3g">குன்னூர்</td>
-            <td data-key="to_3g">சட்டன்</td>
-            <td data-key="time_3g">8:15 PM <div class="bus-note" data-key="at_coonoor">(குன்னூரில்)</div></td>
-          </tr>
+  <div class="bus-table-title text-center text-2xl font-semibold mt-8 mb-4" data-key="bus_title">
+    🚌 பஸ் நேரங்கள்
+  </div>
 
-          <!-- At Kilinjada -->
-          <tr>
-            <td data-key="from_3h">தூதூர்மட்டம்</td>
-            <td data-key="to_3h">குன்னூர்</td>
-            <td data-key="time_3h">6:50 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3i">சட்டன்</td>
-            <td data-key="to_3i">குன்னூர்</td>
-            <td data-key="time_3i">7:00 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3j">கோட்டக்கல்</td>
-            <td data-key="to_3j">குன்னூர்</td>
-            <td data-key="time_3j">7:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_4j">பால்மாரா</td>
-            <td data-key="to_3j">குன்னூர்</td>
-            <td data-key="time_3j">7:15 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_1">கிளிஞ்சடா</td>
-            <td data-key="to_1">குன்னூர்</td>
-            <td data-key="time_1">8:05 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3k">தூதூர்மட்டம்</td>
-            <td data-key="to_3k">குன்னூர்</td>
-            <td data-key="time_3k">10:40 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3l">கோட்டக்கல்</td>
-            <td data-key="to_3l">குன்னூர்</td>
-            <td data-key="time_3l">11:10 AM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3k">தூதூர்மட்டம்</td>
-            <td data-key="to_3k">குன்னூர்</td>
-            <td data-key="time_3k">2:00 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3l">கோட்டக்கல்</td>
-            <td data-key="to_3l">குன்னூர்</td>
-            <td data-key="time_3l">2:20 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3k">தூதூர்மட்டம்</td>
-            <td data-key="to_3k">குன்னூர்</td>
-            <td data-key="time_3k">4:00 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-          <tr>
-            <td data-key="from_3l">கோட்டக்கல்</td>
-            <td data-key="to_3l">குன்னூர்</td>
-            <td data-key="time_3l">6:30 PM <div class="bus-note" data-key="at_kilinjada">(கிளிஞ்சடாவில்)</div></td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="bus-table-wrapper overflow-x-auto">
+    <table class="bus-table w-full max-w-5xl mx-auto border text-center bg-white shadow rounded">
+
+      <thead class="bg-gray-100 sticky-header">
+        <tr>
+          <th class="p-2" data-key="bus_from">எங்கிருந்து</th>
+          <th class="p-2" data-key="bus_to">எங்கே</th>
+          <th class="p-2" data-key="bus_time">நேரம்</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <!-- ========== COONOOR → OTHERS ========== -->
+
+        <tr>
+          <td data-key="from_4">குன்னூர்</td>
+          <td data-key="to_4">கொலைகாம்பை</td>
+          <td>
+            <span data-key="time_4">7:20 AM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_2">குன்னூர்</td>
+          <td data-key="to_2">கிளிஞ்சடா</td>
+          <td>
+            <span data-key="time_2">7:30 AM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3a">குன்னூர்</td>
+          <td data-key="to_3a">தூதூர்மட்டம்</td>
+          <td>
+            <span data-key="time_3a">7:40 AM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3b">குன்னூர்</td>
+          <td data-key="to_3b">தூதூர்மட்டம்</td>
+          <td>
+            <span data-key="time_3b">9:40 AM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_4b">குன்னூர்</td>
+          <td data-key="to_4b">கொலைகாம்பை</td>
+          <td>
+            <span data-key="time_4b">10:45 AM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_5a">குன்னூர்</td>
+          <td data-key="to_5a">கொலைகாம்பை</td>
+          <td>
+            <span data-key="time_5a">11:50 AM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_5b">குன்னூர்</td>
+          <td data-key="to_5b">தூதூர்மட்டம்</td>
+          <td>
+            <span data-key="time_5b">1:00 PM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_4c">குன்னூர்</td>
+          <td data-key="to_4c">கொலைகாம்பை</td>
+          <td>
+            <span data-key="time_4c">2:15 PM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_6">குன்னூர்</td>
+          <td data-key="to_6">கோட்டக்கல்</td>
+          <td>
+            <span data-key="time_6">12:20 PM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3d">குன்னூர்</td>
+          <td data-key="to_3d">சட்டன்</td>
+          <td>
+            <span data-key="time_3d">4:15 PM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3e">குன்னூர்</td>
+          <td data-key="to_3e">தூதூர்மட்டம்</td>
+          <td>
+            <span data-key="time_3e">5:00 PM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3f">குன்னூர்</td>
+          <td data-key="to_3f">தூதூர்மட்டம்</td>
+          <td>
+            <span data-key="time_3f">7:20 PM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3g">குன்னூர்</td>
+          <td data-key="to_3g">சட்டன்</td>
+          <td>
+            <span data-key="time_3g">8:15 PM</span>
+            <div class="bus-note" data-key="note_coonoor">(குன்னூரில்)</div>
+          </td>
+        </tr>
+
+        <!-- ========== KILINJADA → COONOOR ========== -->
+
+        <tr>
+          <td data-key="from_3h">தூதூர்மட்டம்</td>
+          <td data-key="to_3h">குன்னூர்</td>
+          <td>
+            <span data-key="time_3h">6:50 AM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3i">சட்டன்</td>
+          <td data-key="to_3i">குன்னூர்</td>
+          <td>
+            <span data-key="time_3i">7:00 AM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3j_1">கோட்டக்கல்</td>
+          <td data-key="to_3j_1">குன்னூர்</td>
+          <td>
+            <span data-key="time_3j_1">7:10 AM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_4j">பால்மாரா</td>
+          <td data-key="to_3j_2">குன்னூர்</td>
+          <td>
+            <span data-key="time_3j_2">7:15 AM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_1">கிளிஞ்சடா</td>
+          <td data-key="to_1">குன்னூர்</td>
+          <td>
+            <span data-key="time_1">8:05 AM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3k_1">தூதூர்மட்டம்</td>
+          <td data-key="to_3k_1">குன்னூர்</td>
+          <td>
+            <span data-key="time_3k_1">10:40 AM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3l_1">கோட்டக்கல்</td>
+          <td data-key="to_3l_1">குன்னூர்</td>
+          <td>
+            <span data-key="time_3l_1">11:10 AM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3k_2">தூதூர்மட்டம்</td>
+          <td data-key="to_3k_2">குன்னூர்</td>
+          <td>
+            <span data-key="time_3k_2">2:00 PM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3l_2">கோட்டக்கல்</td>
+          <td data-key="to_3l_2">குன்னூர்</td>
+          <td>
+            <span data-key="time_3l_2">2:20 PM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3k_3">தூதூர்மட்டம்</td>
+          <td data-key="to_3k_3">குன்னூர்</td>
+          <td>
+            <span data-key="time_3k_3">4:00 PM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-key="from_3l_3">கோட்டக்கல்</td>
+          <td data-key="to_3l_3">குன்னூர்</td>
+          <td>
+            <span data-key="time_3l_3">6:30 PM</span>
+            <div class="bus-note" data-key="note_kilinjada">(கிளிஞ்சடாவில்)</div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FILTER BUTTONS -->
+  <div class="bus-filter-wrapper mt-4 px-4 my-16">
+    <div class="filter-btn-grid">
+      <button id="btnKilinjada" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300" data-key="filter_kilinjiada">
+        🚌 கிளிஞ்சடா ➝ குன்னூர்
+      </button>
+
+      <button id="btnCoonoor" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300" data-key="filter_coonoor">
+        🚌 குன்னூர் ➝ கிளிஞ்சடா
+      </button>
     </div>
 
-    <!-- Filter Buttons -->
-    <div class="bus-filter-wrapper mt-4 px-4 my-16">
-      <div class="filter-btn-grid">
-        <button id="btnKilinjada" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300">🚌 கிளிஞ்சடா ➝ குன்னூர்</button>
-        <button id="btnCoonoor" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300">🚌 குன்னூர் ➝ கிளிஞ்சடா</button>
-      </div>
-      <div class="filter-btn-row filter-btn-row--single mt-3">
-        <button id="btnAll" class="bus-btn px-4 py-2 rounded bg-yellow-400">🔁 எல்லா பேருந்துகளும்</button>
-      </div>
+    <div class="filter-btn-row filter-btn-row--single mt-3">
+      <button id="btnAll" class="bus-btn px-4 py-2 rounded bg-yellow-400" data-key="filter3">
+        🔁 எல்லா பேருந்துகளும்
+      </button>
     </div>
+  </div>
 
-    <p style="text-align:center; color:#1f2937; font-size:1em; margin-top:14px;">
-      <b data-key="note">குறிப்பு:</b>
-      <span data-key="exception">மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.</span>
-    </p>
-  </section>
+  <!-- NOTE -->
+  <p style="text-align:center; color:#1f2937; font-size:1em; margin-top:14px;">
+    <b data-key="note">குறிப்பு:</b>
+    <span data-key="exception">மேலுள்ள அனைத்து பேருந்துகளும் கிளிஞ்சடா வழியாக செல்லும்.</span>
+  </p>
+
+</section>
+
+
+
+
 
   <!-- Announcement Section -->
   <section id="announcements" class="py-10 scroll-animate my-16">
@@ -470,45 +452,55 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
+<div id="fruitsGallery" class="scroll-snap-container flex overflow-x-auto gap-6 snap-x scroll-smooth px-2 py-4 sm:px-4">
 
-      <div id="fruitsGallery" class="scroll-snap-container flex overflow-x-auto gap-6 snap-x scroll-smooth px-2 py-4 sm:px-4">
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" loading="lazy" />
-          <p data-key="fruit_chayote">Chow chow</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" loading="lazy" />
-          <p data-key="fruit_guava">Guava</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" loading="lazy" />
-          <p data-key="fruit_carrot">Carrot</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" loading="lazy" />
-          <p data-key="fruit_cabbage">Cabbage</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" loading="lazy" />
-          <p data-key="fruit_cauliflower">Cauliflower</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" loading="lazy" />
-          <p data-key="fruit_beans">Beans</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" loading="lazy" />
-          <p data-key="fruit_plums">Plums</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" loading="lazy" />
-          <p data-key="fruit_potato">Potato</p>
-        </div>
-        <div class="fruit-card-enhanced animate-fade-in">
-          <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" loading="lazy" />
-          <p data-key="fruit_broccoli">Broccoli</p>
-        </div>
-      </div>
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/chayote.jpg" alt="Chow chow" loading="lazy" />
+    <p data-key="fruit_chayote">சௌ சௌ</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/guava.jpg" alt="Guava" loading="lazy" />
+    <p data-key="fruit_guava">கொய்யா</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/carrot.jpg" alt="Carrot" loading="lazy" />
+    <p data-key="fruit_carrot">கேரட்</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/cabbage.jpg" alt="Cabbage" loading="lazy" />
+    <p data-key="fruit_cabbage">முட்டைகோஸ்</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/cauliflower.jpg" alt="Cauliflower" loading="lazy" />
+    <p data-key="fruit_cauliflower">காலிபிளவர்</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/beans.jpg" alt="Beans" loading="lazy" />
+    <p data-key="fruit_beans">பீன்ஸ்</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/plums.jpg" alt="Plums" loading="lazy" />
+    <p data-key="fruit_plums">ப்ளம்ஸ்</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/potato.jpg" alt="Potato" loading="lazy" />
+    <p data-key="fruit_potato">உருளைக்கிழங்கு</p>
+  </div>
+
+  <div class="fruit-card-enhanced animate-fade-in">
+    <img src="images/fruits-vegetables-images/broccoli.jpg" alt="Broccoli" loading="lazy" />
+    <p data-key="fruit_broccoli">ப்ரோகொலி</p>
+  </div>
+
+</div>
+
 
       <button class="scroll-arrow-pro right-0 absolute right-2 top-1/2 -translate-y-1/2 z-20" aria-label="Right" onclick="scrollGallery('fruitsGallery', 1)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -731,13 +723,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* 3) Language switcher */
+
+
 document.addEventListener("DOMContentLoaded", function() {
   const langBtn = document.getElementById('langBtn');
   const langDropdown = document.getElementById('langDropdown');
   const langLabel = document.getElementById('langLabel');
-
-  const translations = {
-    en: {
+const translations = {
+      en: {
         site_title: "Kilinjada Village", language_label: "English", tamil_option: "Tamil", english_option: "English",
         menu_home: "🏠Home", menu_location: "📍Location", menu_gallery: "📸Gallery", menu_crops: "🌾Crops", menu_bus: "🚌Bus Timings",
         menu_calendar:"📅 Calendar", title: "📊Village Stats", name:"Name", message:"Your Message", menu_weather: "🌦Weather", menu_feedback: "💬Feedback",
@@ -748,10 +741,56 @@ document.addEventListener("DOMContentLoaded", function() {
         people: "People:", houses: "Houses:", shops: "Shops:", weather_title: "🌦Kilinjada Village Weather",
         weather_village: "Kilinjada Village", weather_label: "Weather", weather_placeholder: "Weather details can be added here.",
         feedback_name_placeholder: "Name", feedback_message_placeholder: "Your message", feedback_submit: "Submit",
-        about_title: "About Kilinjada Village", feedback:"💬feedback", less:"Show less", footercopy:"© 2025 Kilinjada Village. All rights reserved",
-        show: "Show More"
+        about_title: "About Kilinjada Village", feedback:"💬Feedback", less:"Show Less", footercopy:"© 2025 Kilinjada Village. All rights reserved",
+        show: "Show More",
+        note_kilinjada:"(at kilinjada)",
+      note_coonoor: "(at Coonoor)",
+      
+    
+
+
+        /* Bus rows (times as plain time; notes are separate keys so nested .bus-note divs are preserved) */
+        from_4: "Coonoor", to_4: "Kolaikambai", time_4: "7:20 AM", at_coonoor_1: "(at Coonoor)",
+        from_2: "Coonoor", to_2: "Kilinjada", time_2: "7:30 AM", at_coonoor_2: "(at Coonoor)",
+        from_3a: "Coonoor", to_3a: "Thoodhurmattam", time_3a: "7:40 AM", at_coonoor_3: "(at Coonoor)",
+        from_3b: "Coonoor", to_3b: "Thoodhurmattam", time_3b: "9:40 AM", at_coonoor_4: "(at Coonoor)",
+        from_4b: "Coonoor", to_4b: "Kolaikambai", time_4b: "10:45 AM", at_coonoor_5: "(at Coonoor)",
+        from_5a: "Coonoor", to_5a: "Kolaikambai", time_5a: "11:50 AM", at_coonoor_6: "(at Coonoor)",
+        from_5b: "Coonoor", to_5b: "Thoodhurmattam", time_5b: "1:00 PM", at_coonoor_7: "(at Coonoor)",
+        from_4c: "Coonoor", to_4c: "Kolaikambai", time_4c: "2:15 PM", at_coonoor_8: "(at Coonoor)",
+        from_6: "Coonoor", to_6: "Kottakkal", time_6: "12:20 PM", at_coonoor_9: "(at Coonoor)",
+        from_3d: "Coonoor", to_3d: "Sattan", time_3d: "4:15 PM", at_coonoor_10: "(at Coonoor)",
+        from_3e: "Coonoor", to_3e: "Thoodhurmattam", time_3e: "5:00 PM", at_coonoor_11: "(at Coonoor)",
+        from_3f: "Coonoor", to_3f: "Thoodhurmattam", time_3f: "7:20 PM", at_coonoor_12: "(at Coonoor)",
+        from_3g: "Coonoor", to_3g: "Sattan", time_3g: "8:15 PM", at_coonoor_13: "(at Coonoor)",
+
+        from_3h: "Thoodhurmattam", to_3h: "Coonoor", time_3h: "6:50 AM", at_kilinjada_1: "(at Kilinjada)",
+        from_3i: "Sattan", to_3i: "Coonoor", time_3i: "7:00 AM", at_kilinjada_2: "(at Kilinjada)",
+        from_3j: "Kottakkal", to_3j_1: "Coonoor", time_3j_1: "7:10 AM", at_kilinjada_3: "(at Kilinjada)",
+        from_4j: "Palmara", to_3j_2: "Coonoor", time_3j_2: "7:15 AM", at_kilinjada_4: "(at Kilinjada)",
+        from_1: "Kilinjada", to_1: "Coonoor", time_1: "8:05 AM", at_kilinjada_5: "(at Kilinjada)",
+        from_3k_1: "Thoodhurmattam", to_3k_1: "Coonoor", time_3k_1: "10:40 AM", at_kilinjada_6: "(at Kilinjada)",
+        from_3l_1: "Kottakkal", to_3l_1: "Coonoor", time_3l_1: "11:10 AM", at_kilinjada_7: "(at Kilinjada)",
+        from_3k_2: "Thoodhurmattam", to_3k_2: "Coonoor", time_3k_2: "2:00 PM", at_kilinjada_8: "(at Kilinjada)",
+        from_3l_2: "Kottakkal", to_3l_2: "Coonoor", time_3l_2: "2:20 PM", at_kilinjada_9: "(at Kilinjada)",
+        from_3k_3: "Thoodhurmattam", to_3k_3: "Coonoor", time_3k_3: "4:00 PM", at_kilinjada_10: "(at Kilinjada)",
+        from_3l_3: "Kottakkal", to_3l_3: "Coonoor", time_3l_3: "6:30 PM", at_kilinjada_11: "(at Kilinjada)",
+        about_text:"Kilinjada village is peaceful and greenfull. It is famous for its traditional agriculture, culture, good people, natural beauty, and joyful festivals.",        filter_kilinjiada: "Kilinjada ➝ Coonoor", filter_coonoor: "Coonoor ➝ Kilinjada", filter3: "All buses",
+        Announcement: "🗞️ Announcements",
+         fruit_chayote: "Chayote",
+  fruit_guava: "Guava",
+  fruit_carrot: "Carrot",
+  fruit_cabbage: "Cabbage",
+  fruit_cauliflower: "Cauliflower",
+  fruit_beans: "Beans",
+  fruit_plums: "Plums",
+  fruit_potato: "Potato",
+  fruit_broccoli: "Broccoli",
+  submit:"submit",
+        footer: "© 2025 Kilinjada Village. All rights reserved"
       },
       ta: {
+        submit:"அனுப்பு",
         site_title: "கிளிஞ்சடா கிராமம்", language_label: "தமிழ்", tamil_option: "தமிழ்", english_option: "English",
         menu_home: "🏠முகப்பு", menu_location: "📍இடம்", menu_gallery: "📸புகைப்படங்கள்", menu_crops: "🌾பயிர்கள்", menu_bus: "🚌பஸ் நேரங்கள்",
         menu_calendar:"📅 காலண்டர்", title: "📊கிராம புள்ளிவிவரங்கள்", name:"பெயர்", message:"உங்கள் கருத்து", menu_weather: "🌦வானிலை",
@@ -764,9 +803,56 @@ document.addEventListener("DOMContentLoaded", function() {
         weather_village: "கிளிஞ்சடா கிராமம்", weather_label: "வானிலை", weather_placeholder: "இங்கு வானிலை விவரங்கள் சேர்க்கலாம்.",
         feedback_name_placeholder: "பெயர்", feedback_message_placeholder: "உங்கள் கருத்து", feedback_submit: "அனுப்பு",
         about_title: "கிளிஞ்சடா கிராமம் பற்றி", feedback:"💬 கருத்துகள்", less:"குறைவு காண்க", footercopy:"© 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
-        show: "மேலும் காண்க"
+        show: "மேலும் காண்க",
+
+        /* Bus rows (Tamil strings) */
+        
+        from_4: "குன்னூர்", to_4: "கொலைகாம்பை", time_4: "7:20 AM", at_coonoor_1: "(குன்னூரில்)",
+        from_2: "குன்னூர்", to_2: "கிளிஞ்சடா", time_2: "7:30 AM", at_coonoor_2: "(குன்னூரில்)",
+        from_3a: "குன்னூர்", to_3a: "தூதூர்மட்டம்", time_3a: "7:40 AM", at_coonoor_3: "(குன்னூரில்)",
+        from_3b: "குன்னூர்", to_3b: "தூதூர்மட்டம்", time_3b: "9:40 AM", at_coonoor_4: "(குன்னூரில்)",
+        from_4b: "குன்னூர்", to_4b: "கொலைகாம்பை", time_4b: "10:45 AM", at_coonoor_5: "(குன்னூரில்)",
+        from_5a: "குன்னூர்", to_5a: "கொலைகாம்பை", time_5a: "11:50 AM", at_coonoor_6: "(குன்னூரில்)",
+        from_5b: "குன்னூர்", to_5b: "தூதூர்மட்டம்", time_5b: "1:00 PM", at_coonoor_7: "(குன்னூரில்)",
+        from_4c: "குன்னூர்", to_4c: "கொலைகாம்பை", time_4c: "2:15 PM", at_coonoor_8: "(குன்னூரில்)",
+        from_6: "குன்னூர்", to_6: "கோட்டக்கல்", time_6: "12:20 PM", at_coonoor_9: "(குன்னூரில்)",
+        from_3d: "குன்னூர்", to_3d: "சட்டன்", time_3d: "4:15 PM", at_coonoor_10: "(குன்னூரில்)",
+        from_3e: "குன்னூர்", to_3e: "தூதூர்மட்டம்", time_3e: "5:00 PM", at_coonoor_11: "(குன்னூரில்)",
+        from_3f: "குன்னூர்", to_3f: "தூதூர்மட்டம்", time_3f: "7:20 PM", at_coonoor_12: "(குன்னூரில்)",
+        from_3g: "குன்னூர்", to_3g: "சட்டன்", time_3g: "8:15 PM", at_coonoor_13: "(குன்னூரில்)",
+
+        from_3h: "தூதூர்மட்டம்", to_3h: "குன்னூர்", time_3h: "6:50 AM", at_kilinjada_1: "(கிளிஞ்சடாவில்)",
+        from_3i: "சட்டன்", to_3i: "குன்னூர்", time_3i: "7:00 AM", at_kilinjada_2: "(கிளிஞ்சடாவில்)",
+        from_3j: "கோட்டக்கல்", to_3j_1: "குன்னூர்", time_3j_1: "7:10 AM", at_kilinjada_3: "(கிளிஞ்சடாவில்)",
+        from_4j: "பால்மாரா", to_3j_2: "குன்னூர்", time_3j_2: "7:15 AM", at_kilinjada_4: "(கிளிஞ்சடாவில்)",
+        from_1: "கிளிஞ்சடா", to_1: "குன்னூர்", time_1: "8:05 AM", at_kilinjada_5: "(கிளிஞ்சடாவில்)",
+        from_3k_1: "தூதூர்மட்டம்", to_3k_1: "குன்னூர்", time_3k_1: "10:40 AM", at_kilinjada_6: "(கிளிஞ்சடாவில்)",
+        from_3l_1: "கோட்டக்கல்", to_3l_1: "குன்னூர்", time_3l_1: "11:10 AM", at_kilinjada_7: "(கிளிஞ்சடாவில்)",
+        from_3k_2: "தூதூர்மட்டம்", to_3k_2: "குன்னூர்", time_3k_2: "2:00 PM", at_kilinjada_8: "(கிளிஞ்சடாவில்)",
+        from_3l_2: "கோட்டக்கல்", to_3l_2: "குன்னூர்", time_3l_2: "2:20 PM", at_kilinjada_9: "(கிளிஞ்சடாவில்)",
+        from_3k_3: "தூதூர்மட்டம்", to_3k_3: "குன்னூர்", time_3k_3: "4:00 PM", at_kilinjada_10: "(கிளிஞ்சடாவில்)",
+        from_3l_3: "கோட்டக்கல்", to_3l_3: "குன்னூர்", time_3l_3: "6:30 PM", at_kilinjada_11: "(கிளிஞ்சடாவில்)",
+
+        filter_kilinjiada: "🚌 கிளிஞ்சடா ➝ குன்னூர்", filter_coonoor: "🚌 குன்னூர் ➝ கிளிஞ்சடா",
+        about_text:"கிளிஞ்சடா கிராமம் அமைதியும் பசுமையும் நிறைந்தது. பாரம்பரிய வேளாண்மை, பண்பாடு, நல்லவர்கள், இயற்கை அழகு, மகிழ்ச்சியான திருவிழாக்கள் புகழ்பெற்றது.",
+         filter3: "🔁 எல்லா பேருந்துகளும்",
+         fruit_chayote: "சௌ சௌ",
+  fruit_guava: "கொய்யா",
+  fruit_carrot: "கேரட்",
+  fruit_cabbage: "முட்டைகோஸ்",
+  fruit_cauliflower: "காலிபிளவர்",
+  fruit_beans: "பீன்ஸ்",
+  fruit_plums: "ப்ளம்ஸ்",
+  fruit_potato: "உருளைக்கிழங்கு",
+  fruit_broccoli: "ப்ரோகொலி",
+        Announcement: "🗞️ அறிவிப்புகள்",
+        note_kilinjada:"(கிளிஞ்சடாவில்)",
+        note_coonoor:"(குன்னூரில்)",
+                footer: "© 2025 கிளிஞ்சடா கிராமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
       }
-  };
+    };
+
+ 
 
   window.lang = window.lang || 'ta';
 
