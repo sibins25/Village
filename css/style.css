@@ -172,10 +172,13 @@ button {
   gap: 1.5rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
   scrollbar-width: none;
   padding: 1.5rem 1rem;
   border-radius: 1.5rem;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  will-change: scroll-position;
 }
 
 .scroll-snap-container::-webkit-scrollbar {
@@ -195,6 +198,8 @@ button {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   border: 3px solid rgba(250, 204, 21, 0.2);
   cursor: pointer;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .gallery-img-xl:hover {
@@ -249,6 +254,31 @@ button {
 /* ===========================
    5. Fruit Card: Enhanced & Responsive
    =========================== */
+/* ==========================
+   FRUITS SECTION – FULL CSS
+   Ultra Smooth + Responsive
+========================== */
+
+/* Smooth Horizontal Scroll Container */
+#fruitsGallery {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
+  will-change: scroll-position;
+  scrollbar-width: none;
+  border-radius: 1.5rem;
+}
+
+#fruitsGallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fruit Card */
 .fruit-card-enhanced {
   scroll-snap-align: center;
   flex: 0 0 auto;
@@ -266,44 +296,65 @@ button {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+
+  /* Smooth GPU Animation */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
+/* Card Hover Effect */
 .fruit-card-enhanced:hover {
   transform: scale(1.06) translateY(-6px);
   box-shadow: 0 16px 32px rgba(234, 179, 8, 0.3);
   border-color: #facc15;
 }
 
+/* Fruit Image */
 .fruit-card-enhanced img {
   width: 100%;
   height: clamp(180px, 25vw, 220px);
   object-fit: cover;
   border-bottom: 2px solid #facc15;
   transition: transform 0.4s ease;
+
+  /* GPU boost for smooth scrolling + zoom */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
+/* Image Hover Zoom */
 .fruit-card-enhanced:hover img {
   transform: scale(1.05);
 }
 
+/* Fruit Name Text */
 .fruit-card-enhanced p {
   padding: 1rem;
   text-align: center;
   font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: 700;
   color: #7c2d12;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4));
+  background: linear-gradient(to bottom,
+              rgba(255, 255, 255, 0.6),
+              rgba(255, 255, 255, 0.4));
   backdrop-filter: blur(8px);
   border-top: 2px solid #fcd34d;
   margin: 0;
   transition: color 0.3s ease;
 }
 
+/* Text Hover Color */
 .fruit-card-enhanced:hover p {
   color: #92400e;
 }
 
+/* Responsive: Mobile */
 @media (max-width: 640px) {
+  #fruitsGallery {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
   .fruit-card-enhanced {
     width: clamp(140px, 35vw, 200px);
   }
@@ -317,6 +368,7 @@ button {
     font-size: 0.9rem;
   }
 }
+
 
 /* ===========================
    6. Location Button: Enhanced
@@ -501,6 +553,11 @@ button {
 .bus-btn:active {
   transform: scale(0.97);
 }
+.bus-table td,
+.bus-table th {
+  white-space: normal; /* allows wrapping */
+  word-break: break-word;
+}
 
 /* ------------------------- */
 /* Bus Timetable Box Styles  */
@@ -592,6 +649,30 @@ button {
 /* ------------------------- */
 /* Responsive Design         */
 /* ------------------------- */
+@media (max-width: 480px) {
+
+  .bus-table-section {
+    padding: 0.5rem;
+  }
+
+  .bus-table-wrapper {
+    max-height: 22rem;
+    overflow-y: auto;
+    overflow-x: hidden !important; /* force-disable horizontal scroll */
+  }
+
+  .bus-table th,
+  .bus-table td {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.75rem !important; /* smaller text for mobile */
+    white-space: normal; /* text can wrap */
+  }
+
+  .bus-note {
+    font-size: 0.65rem !important;
+  }
+}
+
 
 @media (max-width: 600px) {
   .bus-row {
@@ -708,7 +789,7 @@ button {
 
 .bus-table {
   width: 100%;
-  min-width: 600px;
+
   border-collapse: collapse;
   background: #1f2937;
   margin: 0;
