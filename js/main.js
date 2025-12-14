@@ -225,6 +225,7 @@
       document.title = dict.site_title || document.title;
   
       // update toggle button label if present
+      let expanded = false;
       const toggleBtn = document.getElementById("toggleStatsBtn");
       if (toggleBtn) {
         toggleBtn.textContent = getToggleLabel(expanded);
@@ -553,39 +554,6 @@
   /* ---------------------------
      8) Bus filter buttons
      --------------------------- */
-  function filterBus(direction) {
-    const rows = document.querySelectorAll("#busTimings tbody tr");
-    rows.forEach(row => {
-      const note = row.querySelector(".bus-note");
-      const noteText = note ? note.textContent.trim() : "";
-      let showRow = false;
-      if (direction === 'all') {
-        showRow = true;
-      } else if (direction === 'coonoorToKilinjada') {
-        showRow = noteText.includes("குன்னூரில்") || noteText.includes("(at Coonoor)");
-      } else if (direction === 'kilinjadaToCoonoor') {
-        showRow = noteText.includes("கிளிஞ்சடாவில்") || noteText.includes("(at Kilinjada)");
-      }
-      row.style.display = showRow ? "" : "none";
-    });
-    document.querySelectorAll('.bus-btn').forEach(btn => btn.classList.remove('active'));
-    if (direction === 'all') {
-      document.getElementById("btnAll")?.classList.add("active");
-    } else if (direction === 'coonoorToKilinjada') {
-      document.getElementById("btnCoonoor")?.classList.add("active");
-    } else if (direction === 'kilinjadaToCoonoor') {
-      document.getElementById("btnKilinjada")?.classList.add("active");
-    }
-  }
-  
-  function bindBusFilterButtons() {
-    const btnKil = document.getElementById("btnKilinjada");
-    const btnCoon = document.getElementById("btnCoonoor");
-    const btnAll = document.getElementById("btnAll");
-    if (btnKil) btnKil.onclick = () => filterBus("kilinjadaToCoonoor");
-    if (btnCoon) btnCoon.onclick = () => filterBus("coonoorToKilinjada");
-    if (btnAll) btnAll.onclick = () => filterBus("all");
-  }
   
   /* ---------------------------
      9) Toggle extra stats

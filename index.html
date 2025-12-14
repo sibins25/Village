@@ -355,7 +355,7 @@
   <!-- FILTER BUTTONS -->
   <div class="bus-filter-wrapper mt-4 px-4 my-16">
     <div class="filter-btn-grid">
-      <button id="btnKilinjada" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300" data-key="filter_kilinjiada">
+      <button id="btnKilinjada" class="bus-btn mr-2 px-4 py-2 rounded bg-yellow-300" data-key="filter_kilinjada">
         🚌 கிளிஞ்சடா ➝ குன்னூர்
       </button>
 
@@ -746,6 +746,7 @@ const translations = {
         show: "Show More",
         note_kilinjada:"(at kilinjada)",
       note_coonoor: "(at Coonoor)",
+          filter_kilinjada: "🚌 Kilinjada ➝ Coonoor",
       
     
 
@@ -834,7 +835,7 @@ const translations = {
         from_3k_3: "தூதூர்மட்டம்", to_3k_3: "குன்னூர்", time_3k_3: "4:00 PM", at_kilinjada_10: "(கிளிஞ்சடாவில்)",
         from_3l_3: "கோட்டக்கல்", to_3l_3: "குன்னூர்", time_3l_3: "6:30 PM", at_kilinjada_11: "(கிளிஞ்சடாவில்)",
 
-        filter_kilinjiada: "🚌 கிளிஞ்சடா ➝ குன்னூர்", filter_coonoor: "🚌 குன்னூர் ➝ கிளிஞ்சடா",
+        filter_kilinjada: "🚌 கிளிஞ்சடா ➝ குன்னூர்", filter_coonoor: "🚌 குன்னூர் ➝ கிளிஞ்சடா",
         about_text:"கிளிஞ்சடா கிராமம் அமைதியும் பசுமையும் நிறைந்தது. பாரம்பரிய வேளாண்மை, பண்பாடு, நல்லவர்கள், இயற்கை அழகு, மகிழ்ச்சியான திருவிழாக்கள் புகழ்பெற்றது.",
          filter3: "🔁 எல்லா பேருந்துகளும்",
          fruit_chayote: "சௌ சௌ",
@@ -1097,31 +1098,64 @@ async function attachVillageStatsListener() {
   } catch (err) { console.error("villageStats setup error:", err); }
 }
 
-/* 8) Bus filter handlers */
+/* 8) Bus filter handlers – ENHANCED & LANGUAGE SAFE */
 function filterBus(direction) {
   const rows = document.querySelectorAll("#busTimings tbody tr");
+
   rows.forEach(row => {
     const note = row.querySelector(".bus-note");
-    const noteText = note ? note.textContent.trim() : "";
+    const noteText = note
+      ? note.textContent.toLowerCase().replace(/\s+/g, " ").trim()
+      : "";
+
     let showRow = false;
-    if (direction === 'all') showRow = true;
-    else if (direction === 'coonoorToKilinjada') showRow = noteText.includes("குன்னூரில்") || noteText.includes("(at Coonoor)");
-    else if (direction === 'kilinjadaToCoonoor') showRow = noteText.includes("கிளிஞ்சடாவில்") || noteText.includes("(at Kilinjada)");
+
+    if (direction === "all") {
+      showRow = true;
+    } else if (direction === "coonoorToKilinjada") {
+      showRow =
+        noteText.includes("குன்னூர்") ||
+        noteText.includes("coonoor");
+    } else if (direction === "kilinjadaToCoonoor") {
+      showRow =
+        noteText.includes("கிளிஞ்சடா") ||
+        noteText.includes("kilinjada");
+    }
+
     row.style.display = showRow ? "" : "none";
   });
-  document.querySelectorAll('.bus-btn').forEach(btn => btn.classList.remove('active'));
-  if (direction === 'all') document.getElementById("btnAll")?.classList.add("active");
-  if (direction === 'coonoorToKilinjada') document.getElementById("btnCoonoor")?.classList.add("active");
-  if (direction === 'kilinjadaToCoonoor') document.getElementById("btnKilinjada")?.classList.add("active");
+
+  // Active button handling
+  document.querySelectorAll(".bus-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  document.getElementById(
+    direction === "all"
+      ? "btnAll"
+      : direction === "coonoorToKilinjada"
+      ? "btnCoonoor"
+      : "btnKilinjada"
+  )?.classList.add("active");
 }
+
+/* Bind filter buttons */
 function bindBusFilterButtons() {
-  const btnKil = document.getElementById("btnKilinjada");
-  const btnCoon = document.getElementById("btnCoonoor");
-  const btnAll = document.getElementById("btnAll");
-  if (btnKil) btnKil.onclick = () => filterBus("kilinjadaToCoonoor");
-  if (btnCoon) btnCoon.onclick = () => filterBus("coonoorToKilinjada");
-  if (btnAll) btnAll.onclick = () => filterBus("all");
+  document.getElementById("btnKilinjada")
+    ?.addEventListener("click", () =>
+      filterBus("kilinjadaToCoonoor")
+    );
+
+  document.getElementById("btnCoonoor")
+    ?.addEventListener("click", () =>
+      filterBus("coonoorToKilinjada")
+    );
+
+  document.getElementById("btnAll")
+    ?.addEventListener("click", () =>
+      filterBus("all")
+    );
 }
+
 
 /* 9) Toggle extra stats */
 const TOGGLE_LABELS = { ta: { show: "மேலும் காண்க", less: "குறைவு காண்க" }, en: { show: "Show More", less: "Show Less" } };
